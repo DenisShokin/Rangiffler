@@ -20,7 +20,7 @@ public class UserJson {
   private String firstName;
 
   @JsonProperty("lastName")
-  private String lastLame;
+  private String lastName;
 
   @JsonProperty("avatar")
   private String avatar;
