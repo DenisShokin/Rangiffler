@@ -32,7 +32,7 @@ public class UserEntity {
     private String firstname;
 
     @Column(nullable = true)
-    private String lastName;
+    private String lastname;
 
     @Column(name = "avatar", columnDefinition = "bytea")
     private byte[] avatar;
@@ -67,12 +67,12 @@ public class UserEntity {
         this.firstname = firstname;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastLame) {
-        this.lastName = lastLame;
+    public void setLastname(String lastLame) {
+        this.lastname = lastLame;
     }
 
     public byte[] getAvatar() {
@@ -129,12 +129,12 @@ public class UserEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserEntity that = (UserEntity) o;
-        return Objects.equals(id, that.id) && Objects.equals(username, that.username) && Objects.equals(firstname, that.firstname) && Objects.equals(lastName, that.lastName) && Arrays.equals(avatar, that.avatar) && Objects.equals(friends, that.friends) && Objects.equals(invites, that.invites);
+        return Objects.equals(id, that.id) && Objects.equals(username, that.username) && Objects.equals(firstname, that.firstname) && Objects.equals(lastname, that.lastname) && Arrays.equals(avatar, that.avatar) && Objects.equals(friends, that.friends) && Objects.equals(invites, that.invites);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(id, username, firstname, lastName, friends, invites);
+        int result = Objects.hash(id, username, firstname, lastname, friends, invites);
         result = 31 * result + Arrays.hashCode(avatar);
         return result;
     }

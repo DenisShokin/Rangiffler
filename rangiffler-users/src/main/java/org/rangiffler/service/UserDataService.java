@@ -37,7 +37,7 @@ public class UserDataService {
     UserJson update(@Nonnull UserJson user) {
         UserEntity userEntity = userRepository.findByUsername(user.getUsername());
         userEntity.setFirstname(user.getFirstName());
-        userEntity.setLastName(user.getLastName());
+        userEntity.setLastname(user.getLastName());
         userEntity.setAvatar(user.getAvatar() != null ? user.getAvatar().getBytes(StandardCharsets.UTF_8) : null);
         UserEntity saved = userRepository.save(userEntity);
 

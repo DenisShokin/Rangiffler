@@ -83,7 +83,7 @@ public class UserJson {
         usr.setId(entity.getId());
         usr.setUsername(entity.getUsername());
         usr.setFirstName(entity.getFirstname());
-        usr.setLastName(entity.getLastName());
+        usr.setLastName(entity.getLastname());
         usr.setAvatar(avatar != null && avatar.length > 0 ? new String(entity.getAvatar(), StandardCharsets.UTF_8) : null);
         return usr;
     }

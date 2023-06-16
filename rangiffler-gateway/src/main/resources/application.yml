@@ -15,5 +15,38 @@ logging:
     org.springframework.security: DEBUG
     org.springframework.security.oauth2: DEBUG
 
+---
+spring:
+  config:
+    activate:
+      on-profile: 'local'
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: 'http://127.0.0.1:9000'
+  graphql:
+    graphiql:
+      enabled: true
+
 rangiffler-front:
   base-uri: 'http://127.0.0.1:3001'
+rangiffler-users:
+  base-uri: 'http://127.0.0.1:8089'
+
+---
+spring:
+  config:
+    activate:
+      on-profile: 'docker'
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: 'http://rangiffler-auth:9000'
+
+rangiffler-front:
+  base-uri: 'http:/rangiffler-frontend:3001'
+rangiffler-users:
+  base-uri: 'http://rangiffler-users:8089'
+---
