@@ -16,7 +16,7 @@ public class CorsCustomizer {
     private final String nifflerFrontUri;
 
     @Autowired
-    public CorsCustomizer(@Value("${niffler-front.base-uri}") String nifflerFrontUri) {
+    public CorsCustomizer(@Value("${rangiffler-front.base-uri}") String nifflerFrontUri) {
         this.nifflerFrontUri = nifflerFrontUri;
     }
 

@@ -9,7 +9,7 @@ server:
 
 spring:
   application:
-    name: niffler-auth
+    name: rangiffler-auth
   mvc:
     log-request-details: true
   datasource:
@@ -49,13 +49,13 @@ spring:
     activate:
       on-profile: 'local'
   datasource:
-    url: 'jdbc:postgresql://localhost:5432/niffler-auth'
+    url: 'jdbc:postgresql://localhost:5432/rangiffler-auth'
   jpa:
     hibernate:
       ddl-auto: validate
-niffler-front:
+rangiffler-front:
   base-uri: 'http://127.0.0.1:3001'
-niffler-auth:
+rangiffler-auth:
   base-uri: 'http://127.0.0.1:9000'
 ---
 spring:
@@ -63,12 +63,12 @@ spring:
     activate:
       on-profile: 'docker'
   datasource:
-    url: 'jdbc:postgresql://niffler-all-db:5432/niffler-auth'
+    url: 'jdbc:postgresql://rangiffler-all-db:5432/rangiffler-auth'
   jpa:
     hibernate:
       ddl-auto: validate
-niffler-front:
-  base-uri: 'http://niffler-frontend'
-niffler-auth:
-  base-uri: 'http://niffler-auth:9000'
+rangiffler-front:
+  base-uri: 'http://rangiffler-frontend'
+rangiffler-auth:
+  base-uri: 'http://rangiffler-auth:9000'
 ---
