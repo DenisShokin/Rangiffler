@@ -1,4 +1,4 @@
-package guru.qa.nifflerauth.data;
+package org.rangiffler.data;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

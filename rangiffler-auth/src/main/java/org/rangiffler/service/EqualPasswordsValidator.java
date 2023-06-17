@@ -1,7 +1,7 @@
-package guru.qa.nifflerauth.service;
+package org.rangiffler.service;
 
-import guru.qa.nifflerauth.model.EqualPasswords;
-import guru.qa.nifflerauth.model.RegistrationModel;
+import org.rangiffler.model.EqualPasswords;
+import org.rangiffler.model.RegistrationModel;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 

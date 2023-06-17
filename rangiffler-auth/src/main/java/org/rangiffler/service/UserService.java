@@ -1,9 +1,9 @@
-package guru.qa.nifflerauth.service;
+package org.rangiffler.service;
 
-import guru.qa.nifflerauth.data.Authority;
-import guru.qa.nifflerauth.data.AuthorityEntity;
-import guru.qa.nifflerauth.data.UserEntity;
-import guru.qa.nifflerauth.data.repository.UserRepository;
+import org.rangiffler.data.Authority;
+import org.rangiffler.data.AuthorityEntity;
+import org.rangiffler.data.UserEntity;
+import org.rangiffler.data.repository.UserRepository;
 import jakarta.annotation.Nonnull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

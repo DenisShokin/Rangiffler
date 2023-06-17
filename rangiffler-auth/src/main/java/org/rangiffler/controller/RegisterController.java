@@ -1,7 +1,7 @@
-package guru.qa.nifflerauth.controller;
+package org.rangiffler.controller;
 
-import guru.qa.nifflerauth.model.RegistrationModel;
-import guru.qa.nifflerauth.service.UserService;
+import org.rangiffler.model.RegistrationModel;
+import org.rangiffler.service.UserService;
 import jakarta.annotation.Nonnull;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -31,19 +31,19 @@ public class RegisterController {
     private static final String REG_MODEL_ERROR_BEAN_NAME = "org.springframework.validation.BindingResult.registrationModel";
 
     private final UserService userService;
-    private final String nifflerFrontUri;
+    private final String rangifflerFrontUri;
 
     @Autowired
     public RegisterController(UserService userService,
-                              @Value("${rangiffler-front.base-uri}") String nifflerFrontUri) {
+                              @Value("${rangiffler-front.base-uri}") String rangifflerFrontUri) {
         this.userService = userService;
-        this.nifflerFrontUri = nifflerFrontUri;
+        this.rangifflerFrontUri = rangifflerFrontUri;
     }
 
     @GetMapping("/register")
     public String getRegisterPage(Model model) {
         model.addAttribute(MODEL_REG_FORM_ATTR, new RegistrationModel());
-        model.addAttribute(MODEL_FRONT_URI_ATTR, nifflerFrontUri + "/redirect");
+        model.addAttribute(MODEL_FRONT_URI_ATTR, rangifflerFrontUri + "/redirect");
         return REGISTRATION_VIEW_NAME;
     }
 
@@ -73,7 +73,7 @@ public class RegisterController {
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
-        model.addAttribute(MODEL_FRONT_URI_ATTR, nifflerFrontUri + "/redirect");
+        model.addAttribute(MODEL_FRONT_URI_ATTR, rangifflerFrontUri + "/redirect");
         return REGISTRATION_VIEW_NAME;
     }
 

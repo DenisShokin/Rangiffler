@@ -1,4 +1,4 @@
-package guru.qa.nifflerauth.model;
+package org.rangiffler.model;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;

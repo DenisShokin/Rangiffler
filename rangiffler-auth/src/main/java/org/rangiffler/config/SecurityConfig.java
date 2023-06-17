@@ -1,7 +1,7 @@
-package guru.qa.nifflerauth.config;
+package org.rangiffler.config;
 
-import guru.qa.nifflerauth.service.cors.CookieCsrfFilter;
-import guru.qa.nifflerauth.service.cors.CorsCustomizer;
+import org.rangiffler.service.cors.CookieCsrfFilter;
+import org.rangiffler.service.cors.CorsCustomizer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,6 +1,6 @@
-package guru.qa.nifflerauth.data.repository;
+package org.rangiffler.data.repository;
 
-import guru.qa.nifflerauth.data.UserEntity;
+import org.rangiffler.data.UserEntity;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import org.springframework.data.jpa.repository.JpaRepository;

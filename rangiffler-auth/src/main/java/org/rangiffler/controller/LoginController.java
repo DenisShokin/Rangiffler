@@ -1,4 +1,4 @@
-package guru.qa.nifflerauth.controller;
+package org.rangiffler.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

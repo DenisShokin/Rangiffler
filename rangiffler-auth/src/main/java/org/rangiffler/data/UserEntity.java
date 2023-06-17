@@ -1,4 +1,4 @@
-package guru.qa.nifflerauth.data;
+package org.rangiffler.data;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

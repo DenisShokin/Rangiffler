@@ -1,10 +1,10 @@
-package guru.qa.nifflerauth.config;
+package org.rangiffler.config;
 
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
-import guru.qa.nifflerauth.config.keys.KeyManager;
-import guru.qa.nifflerauth.service.cors.CorsCustomizer;
+import org.rangiffler.config.keys.KeyManager;
+import org.rangiffler.service.cors.CorsCustomizer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -36,20 +36,20 @@ import java.time.Duration;
 import java.util.UUID;
 
 @Configuration
-public class NifflerAuthServiceConfig {
+public class RangifflerAuthServiceConfig {
 
     private final KeyManager keyManager;
-    private final String nifflerFrontUri;
-    private final String nifflerAuthUri;
+    private final String rangifflerFrontUri;
+    private final String rangifflerAuthUri;
     private final CorsCustomizer corsCustomizer;
 
     @Autowired
-    public NifflerAuthServiceConfig(KeyManager keyManager,
-                                    @Value("${rangiffler-front.base-uri}") String nifflerFrontUri,
-                                    @Value("${rangiffler-auth.base-uri}") String nifflerAuthUri, CorsCustomizer corsCustomizer) {
+    public RangifflerAuthServiceConfig(KeyManager keyManager,
+                                    @Value("${rangiffler-front.base-uri}") String rangifflerFrontUri,
+                                    @Value("${rangiffler-auth.base-uri}") String rangifflerAuthUri, CorsCustomizer corsCustomizer) {
         this.keyManager = keyManager;
-        this.nifflerFrontUri = nifflerFrontUri;
-        this.nifflerAuthUri = nifflerAuthUri;
+        this.rangifflerFrontUri = rangifflerFrontUri;
+        this.rangifflerAuthUri = rangifflerAuthUri;
         this.corsCustomizer = corsCustomizer;
     }
 
@@ -77,7 +77,7 @@ public class NifflerAuthServiceConfig {
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-                .redirectUri(nifflerFrontUri + "/authorized")
+                .redirectUri(rangifflerFrontUri + "/authorized")
                 .scope(OidcScopes.OPENID)
                 .clientSettings(ClientSettings.builder()
                         .requireAuthorizationConsent(true).build())
@@ -98,7 +98,7 @@ public class NifflerAuthServiceConfig {
     @Bean
     public AuthorizationServerSettings authorizationServerSettings() {
         return AuthorizationServerSettings.builder()
-                .issuer(nifflerAuthUri)
+                .issuer(rangifflerAuthUri)
                 .build();
     }
 
