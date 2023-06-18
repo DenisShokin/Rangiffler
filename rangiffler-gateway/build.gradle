@@ -5,7 +5,7 @@ plugins {
     id 'com.palantir.docker' version '0.34.0'
 }
 
-group 'guru.qa'
+group 'org.rangiffler'
 version '0.0.3-SNAPSHOT'
 
 repositories {
@@ -57,7 +57,7 @@ sourceSets {
     main {
         java {
             srcDir 'src/main/java'
-            srcDir 'build/generated-sources/jaxb'
+            //srcDir 'build/generated-sources/jaxb'
         }
     }
 }
@@ -77,6 +77,9 @@ dependencies {
     implementation 'net.devh:grpc-client-spring-boot-starter:2.14.0.RELEASE'
     implementation "org.springframework:spring-webflux"
     implementation "io.projectreactor.netty:reactor-netty"
+    implementation project(path: ':rangiffler-auth')
+    compileOnly 'org.projectlombok:lombok:1.18.26'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
     // For Java 11:
     implementation 'org.glassfish.jaxb:jaxb-runtime:4.0.1'
     implementation(files(genJaxb.classesDir).builtBy(genJaxb))
