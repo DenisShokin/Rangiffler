@@ -1,6 +1,8 @@
 package org.rangiffler.service.api;
 
+import lombok.RequiredArgsConstructor;
 import org.rangiffler.model.PhotoJson;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -8,9 +10,9 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class PhotoService {
-
-  private final UserApiService userApiService = new UserApiService();
+  private final UserApiService userApiService;
   private final CountryService countryService = new CountryService();
 
   List<PhotoJson> mainUserPhotoList = new ArrayList<>();
@@ -27,7 +29,7 @@ public class PhotoService {
 
   public PhotoJson addPhoto(PhotoJson photoJson) {
     photoJson.setId(UUID.randomUUID());
-    photoJson.setUsername(userApiService.getCurrentUser().getUsername());
+    photoJson.setUsername(userApiService.getCurrentUser(photoJson.getUsername()).getUsername());
     mainUserPhotoList.add(photoJson);
     return photoJson;
   }

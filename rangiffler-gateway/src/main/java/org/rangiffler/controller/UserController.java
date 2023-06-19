@@ -24,14 +24,15 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public List<UserJson> getAllUsers() {
-        return userApiService.getAllUsers();
+    public List<UserJson> getAllUsers(@AuthenticationPrincipal Jwt principal) {
+        String username = principal.getClaim("sub");
+        return userApiService.getAllUsers(username);
     }
 
     @GetMapping("/currentUser")
     public UserJson getCurrentUser(@AuthenticationPrincipal Jwt principal) {
         String username = principal.getClaim("sub");
-        return userApiService.getCurrentUser();
+        return userApiService.getCurrentUser(username);
     }
 
     @PatchMapping("/currentUser")

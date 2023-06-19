@@ -1,9 +1,18 @@
 package org.rangiffler.service.api;
 
+import jakarta.annotation.Nonnull;
 import org.rangiffler.model.FriendStatus;
 import org.rangiffler.model.UserJson;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -11,6 +20,15 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserApiService {
+  private final WebClient webClient;
+  private final String rangifflerUserdataBaseUri;
+
+  @Autowired
+  public UserApiService(WebClient webClient,
+                            @Value("${rangiffler-users.base-uri}") String rangifflerUserdataBaseUri) {
+    this.webClient = webClient;
+    this.rangifflerUserdataBaseUri = rangifflerUserdataBaseUri;
+  }
 
   private final UserJson currentUser = UserJson.builder()
       .id(UUID.randomUUID())
@@ -59,12 +77,29 @@ public class UserApiService {
           .build()
   ));
 
-  public List<UserJson> getAllUsers() {
-    return allUsers;
+  public List<UserJson> getAllUsers(@Nonnull String username) {
+    MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+    params.add("username", username);
+    URI uri = UriComponentsBuilder.fromHttpUrl(rangifflerUserdataBaseUri + "/allUsers").queryParams(params).build().toUri();
+
+    return webClient.get()
+            .uri(uri)
+            .retrieve()
+            .bodyToMono(new ParameterizedTypeReference<List<UserJson>>() {
+            })
+            .block();
   }
 
-  public UserJson getCurrentUser() {
-    return currentUser;
+  public UserJson getCurrentUser(@Nonnull String username) {
+    MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+    params.add("username", username);
+    URI uri = UriComponentsBuilder.fromHttpUrl(rangifflerUserdataBaseUri + "/currentUser").queryParams(params).build().toUri();
+
+    return webClient.get()
+            .uri(uri)
+            .retrieve()
+            .bodyToMono(UserJson.class)
+            .block();
   }
 
   public List<UserJson> getFriends() {

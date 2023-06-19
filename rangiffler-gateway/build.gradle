@@ -77,7 +77,7 @@ dependencies {
     implementation 'net.devh:grpc-client-spring-boot-starter:2.14.0.RELEASE'
     implementation "org.springframework:spring-webflux"
     implementation "io.projectreactor.netty:reactor-netty"
-    implementation project(path: ':rangiffler-auth')
+    //implementation project(path: ':rangiffler-auth')
     compileOnly 'org.projectlombok:lombok:1.18.26'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
     // For Java 11:

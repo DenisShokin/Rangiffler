@@ -31,6 +31,8 @@ spring:
 
 rangiffler-front:
   base-uri: 'http://127.0.0.1:3001'
+rangiffler-users:
+  base-uri: 'http://127.0.0.1:8089'
 
 ---
 spring:
