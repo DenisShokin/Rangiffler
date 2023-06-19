@@ -2,13 +2,12 @@ package org.rangiffler.model;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Builder;
 import lombok.Data;
 
 import java.util.UUID;
 
 @Data
-@Builder
+        //@Builder
 public class UserJson {
 
   @JsonProperty("id")
@@ -28,5 +27,8 @@ public class UserJson {
 
   @JsonProperty("friendStatus")
   private FriendStatus friendStatus;
+
+  public UserJson() {
+  }
 }
 

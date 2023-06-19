@@ -5,6 +5,7 @@ import org.rangiffler.service.api.UserApiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,7 +37,10 @@ public class UserController {
     }
 
     @PatchMapping("/currentUser")
-    public UserJson updateCurrentUser(@RequestBody UserJson user) {
+    public UserJson updateCurrentUser(@AuthenticationPrincipal Jwt principal,
+                                      @Validated @RequestBody UserJson user) {
+        String username = principal.getClaim("sub");
+        user.setUsername(username);
         return userApiService.updateCurrentUser(user);
     }
 
