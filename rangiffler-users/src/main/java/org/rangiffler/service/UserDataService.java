@@ -93,11 +93,10 @@ public class UserDataService {
     }
 
     public @Nonnull
-    List<UserJson> friends(@Nonnull String username, boolean includePending) {
+    List<UserJson> friends(@Nonnull String username) {
         return userRepository.findByUsername(username)
                 .getFriends()
                 .stream()
-                .filter(fe -> includePending || !fe.isPending())
                 .map(fe -> UserJson.fromEntity(fe.getFriend(), fe.isPending()
                         ? FriendStatus.INVITATION_SENT
                         : FriendStatus.FRIEND))

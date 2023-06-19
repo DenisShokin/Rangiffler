@@ -27,9 +27,8 @@ public class FriendsController {
     }
 
     @GetMapping("/friends")
-    public List<UserJson> friends(@RequestParam String username,
-                                  @RequestParam boolean includePending) {
-        return userService.friends(username, includePending);
+    public List<UserJson> friends(@RequestParam String username) {
+        return userService.friends(username);
     }
 
     @GetMapping("/invitations")

@@ -18,6 +18,7 @@ public class CountryController {
     this.countryService = countryService;
   }
 
+  //TODO: реализовать
   @GetMapping("/countries")
   public List<CountryJson> getAllCountries() {
     return countryService.getAllCountries();

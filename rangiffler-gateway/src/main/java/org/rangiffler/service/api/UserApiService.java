@@ -56,9 +56,17 @@ public class UserApiService {
             .block();
   }
 
-  public List<UserJson> getFriends() {
-    return allUsers.stream().filter(user -> user.getFriendStatus().equals(FriendStatus.FRIEND))
-        .collect(Collectors.toList());
+  public List<UserJson> getFriends(@Nonnull String username) {
+    MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+    params.add("username", username);
+    URI uri = UriComponentsBuilder.fromHttpUrl(rangifflerUserdataBaseUri + "/friends").queryParams(params).build().toUri();
+
+    return webClient.get()
+            .uri(uri)
+            .retrieve()
+            .bodyToMono(new ParameterizedTypeReference<List<UserJson>>() {
+            })
+            .block();
   }
 
   public UserJson sendInvitation(UserJson user) {

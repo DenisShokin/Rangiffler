@@ -45,30 +45,36 @@ public class UserController {
     }
 
     @GetMapping("/friends")
-    public List<UserJson> getFriendsByUserId() {
-        return userApiService.getFriends();
+    public List<UserJson> friends(@AuthenticationPrincipal Jwt principal) {
+        String username = principal.getClaim("sub");
+        return userApiService.getFriends(username);
     }
 
+    //TODO: реализовать
     @GetMapping("invitations")
     public List<UserJson> getInvitations() {
         return userApiService.getInvitations();
     }
 
+    //TODO: реализовать
     @PostMapping("users/invite/")
     public UserJson sendInvitation(@RequestBody UserJson user) {
         return userApiService.sendInvitation(user);
     }
 
+    //TODO: реализовать
     @PostMapping("friends/remove")
     public UserJson removeFriendFromUser(@RequestBody UserJson friend) {
         return userApiService.removeUserFromFriends(friend);
     }
 
+    //TODO: реализовать
     @PostMapping("friends/submit")
     public UserJson submitFriend(@RequestBody UserJson friend) {
         return userApiService.acceptInvitation(friend);
     }
 
+    //TODO: реализовать
     @PostMapping("friends/decline")
     public UserJson declineFriend(@RequestBody UserJson friend) {
         return userApiService.declineInvitation(friend);

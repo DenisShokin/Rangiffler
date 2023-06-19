@@ -24,27 +24,31 @@ public class PhotoController {
     this.photoService = photoService;
   }
 
-
+  //TODO: реализовать
   @GetMapping("/photos")
   public List<PhotoJson> getPhotosForUser() {
     return photoService.getAllUserPhotos();
   }
 
+  //TODO: реализовать
   @GetMapping("/friends/photos")
   public List<PhotoJson> getAllFriendsPhotos() {
     return photoService.getAllFriendsPhotos();
   }
 
+  //TODO: реализовать
   @PostMapping("/photos")
   public PhotoJson addPhoto(@RequestBody PhotoJson photoJson) {
     return photoService.addPhoto(photoJson);
   }
 
+  //TODO: реализовать
   @PatchMapping("/photos/{id}")
   public PhotoJson editPhoto(@RequestBody PhotoJson photoJson) {
     return photoService.editPhoto(photoJson);
   }
 
+  //TODO: реализовать
   @DeleteMapping("/photos")
   public void deletePhoto(@RequestParam UUID photoId) {
     photoService.deletePhoto(photoId);
