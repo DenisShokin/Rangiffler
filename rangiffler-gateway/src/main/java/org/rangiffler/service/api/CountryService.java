@@ -1,71 +1,42 @@
 package org.rangiffler.service.api;
 
 import org.rangiffler.model.CountryJson;
+import org.rangiffler.model.UserJson;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
 @Service
 public class CountryService {
 
-  private final List<CountryJson> countries = List.of(
-      CountryJson.builder()
-          .id(UUID.randomUUID())
-          .code("ru")
-          .name("Russia")
-          .build(),
-      CountryJson.builder()
-          .id(UUID.randomUUID())
-          .code("it")
-          .name("Italy")
-          .build(),
-      CountryJson.builder()
-          .id(UUID.randomUUID())
-          .code("de")
-          .name("Germany")
-          .build(),
-      CountryJson.builder()
-          .id(UUID.randomUUID())
-          .code("fr")
-          .name("France")
-          .build(),
-      CountryJson.builder()
-          .id(UUID.randomUUID())
-          .code("FJ")
-          .name("Fiji")
-          .build(),
-      CountryJson.builder()
-          .id(UUID.randomUUID())
-          .code("TZ")
-          .name("Tanzania")
-          .build(),
-      CountryJson.builder()
-          .id(UUID.randomUUID())
-          .code("EH")
-          .name("Western Sahara")
-          .build(),
-      CountryJson.builder()
-          .id(UUID.randomUUID())
-          .code("CA")
-          .name("Canada")
-          .build(),
-      CountryJson.builder()
-          .id(UUID.randomUUID())
-          .code("US")
-          .name("United States")
-          .build(),
-      CountryJson.builder()
-          .id(UUID.randomUUID())
-          .code("KZ")
-          .name("Kazakhstan")
-          .build());
+  private final WebClient webClient;
+  private final String rangifflerGeoBaseUri;
+
+  @Autowired
+  public CountryService(WebClient webClient, @Value("${rangiffler-geo.base-uri}") String rangifflerGeoBaseUri) {
+    this.webClient = webClient;
+    this.rangifflerGeoBaseUri = rangifflerGeoBaseUri;
+  }
 
   public List<CountryJson> getAllCountries() {
-    return countries;
+    URI uri = UriComponentsBuilder.fromHttpUrl(rangifflerGeoBaseUri + "/countries").build().toUri();
+
+    return webClient.get()
+            .uri(uri)
+            .retrieve()
+            .bodyToMono(new ParameterizedTypeReference<List<CountryJson>>() {
+            })
+            .block();
   }
 
-  public CountryJson getCountryByCode(String code) {
-    return countries.stream().filter(c -> c.getCode().equals(code)).findFirst().orElseThrow();
-  }
+//  public CountryJson getCountryByCode(String code) {
+//    return countries.stream().filter(c -> c.getCode().equals(code)).findFirst().orElseThrow();
+//  }
 }
