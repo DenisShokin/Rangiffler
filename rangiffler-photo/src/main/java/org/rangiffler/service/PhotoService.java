@@ -17,7 +17,6 @@ public class PhotoService {
 
     private final PhotoRepository photoRepository;
 
-    //@Autowired
     public PhotoService(PhotoRepository photoRepository) {
         this.photoRepository = photoRepository;
     }
@@ -48,5 +47,10 @@ public class PhotoService {
         photoEntity.setCountry(countryEntity);
 
         return PhotoJson.fromEntity(photoRepository.save(photoEntity));
+    }
+
+    public void deletePhoto(UUID photoId) {
+        // TODO: проверки при удалении
+        photoRepository.deleteById(photoId);
     }
 }

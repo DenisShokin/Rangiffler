@@ -31,6 +31,7 @@ public class PhotoService {
 
     List<PhotoJson> mainUserPhotoList = new ArrayList<>();
     List<PhotoJson> allUsersPhotoList = new ArrayList<>();
+
     public PhotoJson addPhoto(String username, PhotoJson photo) {
         photo.setUsername(username);
 
@@ -68,8 +69,15 @@ public class PhotoService {
     }
 
     public void deletePhoto(UUID photoId) {
-        PhotoJson photoJson = mainUserPhotoList.stream().filter(ph -> ph.getId().equals(photoId))
-                .findFirst().orElseThrow();
-        mainUserPhotoList.remove(photoJson);
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("photoId", photoId.toString());
+
+        URI uri = UriComponentsBuilder.fromHttpUrl(rangifflerPhotoBaseUri + "/photos").queryParams(params).build().toUri();
+        webClient.delete()
+                .uri(uri)
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<List<PhotoJson>>() {
+                })
+                .block();
     }
 }

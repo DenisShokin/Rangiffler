@@ -49,7 +49,6 @@ public class PhotoController {
     return photoService.editPhoto(photoJson);
   }
 
-  //TODO: реализовать
   @DeleteMapping("/photos")
   public void deletePhoto(@RequestParam UUID photoId) {
     photoService.deletePhoto(photoId);

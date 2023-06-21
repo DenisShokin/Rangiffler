@@ -34,7 +34,6 @@ public class PhotoJson {
 
     photo.setId(entity.getId());
     photo.setCountryJson(country);
-    //TODO: некорректноая передача изображения
     String photoByteString = new String(entity.getPhoto(), StandardCharsets.UTF_8);
     photo.setPhoto(photoByteString);
     photo.setDescription(entity.getDescription());
