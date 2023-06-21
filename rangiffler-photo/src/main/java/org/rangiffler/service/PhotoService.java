@@ -34,13 +34,15 @@ public class PhotoService {
 
     public PhotoJson addPhoto(PhotoJson photoJson) {
         PhotoEntity photoEntity = new PhotoEntity();
-        photoEntity.setId(photoJson.getId());
+        UUID id = photoJson.getId() == null ? UUID.randomUUID() : photoJson.getId();
+
+        photoEntity.setId(id);
         photoEntity.setDescription(photoJson.getDescription());
         photoEntity.setUsername(photoJson.getUsername());
         photoEntity.setPhoto(photoJson.getPhoto().getBytes());
 
         CountryEntity countryEntity = new CountryEntity();
-        countryEntity.setPhotoId(photoJson.getId());
+        countryEntity.setPhotoId(id);
         countryEntity.setCode(photoJson.getCountryJson().getCode());
         countryEntity.setName(photoJson.getCountryJson().getName());
         photoEntity.setCountry(countryEntity);

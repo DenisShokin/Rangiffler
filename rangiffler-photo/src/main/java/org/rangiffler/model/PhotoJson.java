@@ -27,8 +27,14 @@ public class PhotoJson {
 
   public static PhotoJson fromEntity(PhotoEntity entity) {
     PhotoJson photo = new PhotoJson();
+    CountryJson country = new CountryJson();
+
+    country.setName(entity.getCountry().getName());
+    country.setCode(entity.getCountry().getCode());
+
     photo.setId(entity.getId());
-    //TODO: countryJSON
+    photo.setCountryJson(country);
+    //TODO: некорректноая передача изображения
     photo.setPhoto(Base64.getEncoder().encodeToString(entity.getPhoto()));
     photo.setDescription(entity.getDescription());
     photo.setUsername(entity.getUsername());
