@@ -35,6 +35,8 @@ rangiffler-users:
   base-uri: 'http://127.0.0.1:8089'
 rangiffler-geo:
   base-uri: 'http://127.0.0.1:8081'
+rangiffler-photo:
+  base-uri: 'http://127.0.0.1:8082'
 ---
 spring:
   config:
@@ -48,5 +50,4 @@ spring:
 
 rangiffler-front:
   base-uri: 'http://rangiffler-frontend'
-
 ---
