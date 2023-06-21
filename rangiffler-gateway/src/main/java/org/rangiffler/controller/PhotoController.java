@@ -31,18 +31,16 @@ public class PhotoController {
     String username = principal.getClaim("sub");
     return photoService.getAllUserPhotos(username);
   }
+  @PostMapping("/photos")
+  public PhotoJson addPhoto(@AuthenticationPrincipal Jwt principal, @RequestBody PhotoJson photoJson) {
+    String username = principal.getClaim("sub");
+    return photoService.addPhoto(username, photoJson);
+  }
 
   //TODO: реализовать
   @GetMapping("/friends/photos")
   public List<PhotoJson> getAllFriendsPhotos() {
     return photoService.getAllFriendsPhotos();
-  }
-
-  //TODO: реализовать
-  @PostMapping("/photos")
-  public PhotoJson addPhoto(@AuthenticationPrincipal Jwt principal, @RequestBody PhotoJson photoJson) {
-    String username = principal.getClaim("sub");
-    return photoService.addPhoto(username, photoJson);
   }
 
   //TODO: реализовать

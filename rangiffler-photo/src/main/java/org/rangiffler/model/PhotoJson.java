@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import org.rangiffler.data.PhotoEntity;
 
-import java.util.Base64;
+import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
 @Data
@@ -35,7 +35,8 @@ public class PhotoJson {
     photo.setId(entity.getId());
     photo.setCountryJson(country);
     //TODO: некорректноая передача изображения
-    photo.setPhoto(Base64.getEncoder().encodeToString(entity.getPhoto()));
+    String photoByteString = new String(entity.getPhoto(), StandardCharsets.UTF_8);
+    photo.setPhoto(photoByteString);
     photo.setDescription(entity.getDescription());
     photo.setUsername(entity.getUsername());
 
