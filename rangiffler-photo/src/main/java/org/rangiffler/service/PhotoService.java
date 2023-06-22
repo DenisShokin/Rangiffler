@@ -5,12 +5,15 @@ import org.rangiffler.data.CountryEntity;
 import org.rangiffler.data.PhotoEntity;
 import org.rangiffler.data.repository.PhotoRepository;
 import org.rangiffler.model.PhotoJson;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -51,20 +54,29 @@ public class PhotoService {
     }
 
     public void deletePhoto(UUID photoId) {
-        // TODO: проверки при удалении
-        photoRepository.deleteById(photoId);
+        Optional<PhotoEntity> photoById = photoRepository.findById(photoId);
+        if (photoById.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can`t find photo by given id: " + photoId);
+        } else {
+            photoRepository.deleteById(photoId);
+        }
     }
 
     public PhotoJson editPhoto(@Nonnull PhotoJson photoJson) {
-        PhotoEntity photo = photoRepository.findPhotoEntityById(photoJson.getId());
-        photo.setDescription(photoJson.getDescription());
+        Optional<PhotoEntity> photoById = photoRepository.findById(photoJson.getId());
+        if (photoById.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can`t find photo by given id: " + photoJson.getId());
+        } else {
+            PhotoEntity photo = photoById.get();
+            photo.setDescription(photoJson.getDescription());
 
-        CountryEntity country = photo.getCountry();
-        country.setName(photoJson.getCountryJson().getName());
-        country.setCode(photoJson.getCountryJson().getCode());
-        photo.setCountry(country);
-        PhotoEntity saved = photoRepository.save(photo);
+            CountryEntity country = photo.getCountry();
+            country.setName(photoJson.getCountryJson().getName());
+            country.setCode(photoJson.getCountryJson().getCode());
+            photo.setCountry(country);
+            PhotoEntity saved = photoRepository.save(photo);
 
-        return PhotoJson.fromEntity(saved);
+            return PhotoJson.fromEntity(saved);
+        }
     }
 }
