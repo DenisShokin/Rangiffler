@@ -12,52 +12,10 @@ repositories {
     mavenCentral()
 }
 
-configurations {
-    jaxb
-}
-
-task genJaxb {
-    ext.sourcesDir = "${buildDir}/generated-sources/jaxb"
-    ext.classesDir = "${buildDir}/classes/jaxb"
-    ext.schema = "userdata.wsdl"
-
-    outputs.dir classesDir
-
-    doLast() {
-        project.ant {
-            taskdef name: "xjc", classname: "com.sun.tools.xjc.XJCTask",
-                    classpath: configurations.jaxb.asPath
-            mkdir(dir: sourcesDir)
-            mkdir(dir: classesDir)
-
-            xjc(destdir: sourcesDir, schema: schema,
-                    package: "niffler.userdata.wsdl") {
-                arg(value: "-wsdl")
-                produces(dir: sourcesDir, includes: "**/*.java")
-            }
-
-            javac(destdir: classesDir, source: 17, target: 17, debug: true,
-                    debugLevel: "lines,vars,source",
-                    classpath: configurations.jaxb.asPath) {
-                src(path: sourcesDir)
-                include(name: "**/*.java")
-                include(name: "*.java")
-            }
-
-            copy(todir: classesDir) {
-                fileset(dir: sourcesDir, erroronmissingdir: false) {
-                    exclude(name: "**/*.java")
-                }
-            }
-        }
-    }
-}
-
 sourceSets {
     main {
         java {
             srcDir 'src/main/java'
-            //srcDir 'build/generated-sources/jaxb'
         }
     }
 }
@@ -68,8 +26,6 @@ dependencies {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
     }
     implementation "org.springframework.boot:spring-boot-starter-graphql"
-    implementation 'com.tailrocks.graphql:graphql-datetime-spring-boot-starter:6.0.0'
-    implementation 'org.springframework.ws:spring-ws-core'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
     implementation "org.springframework.boot:spring-boot-starter-validation"
@@ -77,15 +33,9 @@ dependencies {
     implementation 'net.devh:grpc-client-spring-boot-starter:2.14.0.RELEASE'
     implementation "org.springframework:spring-webflux"
     implementation "io.projectreactor.netty:reactor-netty"
-    //implementation project(path: ':rangiffler-auth')
+
     compileOnly 'org.projectlombok:lombok:1.18.26'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
-    // For Java 11:
-    implementation 'org.glassfish.jaxb:jaxb-runtime:4.0.1'
-    implementation(files(genJaxb.classesDir).builtBy(genJaxb))
-
-    jaxb 'org.glassfish.jaxb:jaxb-xjc:4.0.1'
-
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
