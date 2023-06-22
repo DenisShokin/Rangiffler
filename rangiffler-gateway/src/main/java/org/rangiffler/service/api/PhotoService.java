@@ -28,8 +28,6 @@ public class PhotoService {
         this.webClient = webClient;
         this.rangifflerPhotoBaseUri = rangifflerPhotoBaseUri;
     }
-
-    List<PhotoJson> mainUserPhotoList = new ArrayList<>();
     List<PhotoJson> allUsersPhotoList = new ArrayList<>();
 
     public PhotoJson addPhoto(String username, PhotoJson photo) {
@@ -56,12 +54,15 @@ public class PhotoService {
                 .block();
     }
 
-    public PhotoJson editPhoto(PhotoJson photoJson) {
-        PhotoJson photo = mainUserPhotoList.stream().filter(ph -> ph.getId().equals(photoJson.getId()))
-                .findFirst().orElseThrow();
-        photo.setDescription(photoJson.getDescription());
-        photo.setCountryJson(photoJson.getCountryJson());
-        return photo;
+    public PhotoJson editPhoto(UUID id, PhotoJson photo) {
+        URI uri = UriComponentsBuilder.fromHttpUrl(rangifflerPhotoBaseUri + "/photos/" + id.toString()).build().toUri();
+
+        return webClient.patch()
+                .uri(uri)
+                .body(Mono.just(photo), PhotoJson.class)
+                .retrieve()
+                .bodyToMono(PhotoJson.class)
+                .block();
     }
 
     public List<PhotoJson> getAllFriendsPhotos() {

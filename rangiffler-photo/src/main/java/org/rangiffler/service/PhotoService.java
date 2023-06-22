@@ -1,5 +1,6 @@
 package org.rangiffler.service;
 
+import jakarta.annotation.Nonnull;
 import org.rangiffler.data.CountryEntity;
 import org.rangiffler.data.PhotoEntity;
 import org.rangiffler.data.repository.PhotoRepository;
@@ -52,5 +53,18 @@ public class PhotoService {
     public void deletePhoto(UUID photoId) {
         // TODO: проверки при удалении
         photoRepository.deleteById(photoId);
+    }
+
+    public PhotoJson editPhoto(@Nonnull PhotoJson photoJson) {
+        PhotoEntity photo = photoRepository.findPhotoEntityById(photoJson.getId());
+        photo.setDescription(photoJson.getDescription());
+
+        CountryEntity country = photo.getCountry();
+        country.setName(photoJson.getCountryJson().getName());
+        country.setCode(photoJson.getCountryJson().getCode());
+        photo.setCountry(country);
+        PhotoEntity saved = photoRepository.save(photo);
+
+        return PhotoJson.fromEntity(saved);
     }
 }
