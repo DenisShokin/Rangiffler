@@ -4,8 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class RangifflerPhotoApp {
+public class RangifflerUsersApplication {
     public static void main(String[] args) {
-        SpringApplication.run(RangifflerPhotoApp.class, args);
+        SpringApplication.run(RangifflerUsersApplication.class, args);
     }
 }
