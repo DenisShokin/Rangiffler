@@ -71,4 +71,6 @@ db:
   url: 'jdbc:postgresql://rangiffler-all-db:5432/rangiffler-userdata'
   username: postgres
   password: secret
+rangiffler-front:
+  base-uri: 'http://rangiffler-frontend'
 ---

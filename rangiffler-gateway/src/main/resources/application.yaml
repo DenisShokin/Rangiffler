@@ -50,4 +50,10 @@ spring:
 
 rangiffler-front:
   base-uri: 'http://rangiffler-frontend'
+rangiffler-users:
+  base-uri: 'http://rangiffler-users:8089'
+rangiffler-geo:
+  base-uri: 'http://rangiffler-geo:8081'
+rangiffler-photo:
+  base-uri: 'http://rangiffler-photo:8082'
 ---

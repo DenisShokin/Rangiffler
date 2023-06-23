@@ -22,3 +22,21 @@ dependencies {
     runtimeOnly 'org.postgresql:postgresql'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
+//
+//docker {
+//    dependsOn build
+//    name "dshokin/rangiffler-auth:${project.version}"
+//    tag 'latest', 'dshokin/rangiffler-auth:latest'
+//    files bootJar.archiveFile
+//    buildArgs([APP_VER: project.version, DOCKER: project.ext.dockerImage])
+//    noCache true
+//}
+//
+//task dockerRmi(type: Exec) {
+//    workingDir "${buildDir}"
+//    commandLine 'bash', '-c', "docker rmi -f \$(docker images | grep 'niffler')\n"
+//}
+//
+//tasks.named('test') {
+//    useJUnitPlatform()
+//}

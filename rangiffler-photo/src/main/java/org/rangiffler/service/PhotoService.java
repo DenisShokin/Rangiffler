@@ -36,6 +36,9 @@ public class PhotoService {
     }
 
     public PhotoJson addPhoto(PhotoJson photoJson) {
+        if (photoJson.getPhoto().isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Photo must not be empty!");
+        }
         PhotoEntity photoEntity = new PhotoEntity();
         UUID id = photoJson.getId() == null ? UUID.randomUUID() : photoJson.getId();
 
@@ -68,15 +71,19 @@ public class PhotoService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can`t find photo by given id: " + photoJson.getId());
         } else {
             PhotoEntity photo = photoById.get();
-            photo.setDescription(photoJson.getDescription());
+            if (photo.getId().equals(photoJson.getId()) &&
+                    photo.getUsername().equals(photoJson.getUsername())) {
+                photo.setDescription(photoJson.getDescription());
 
-            CountryEntity country = photo.getCountry();
-            country.setName(photoJson.getCountryJson().getName());
-            country.setCode(photoJson.getCountryJson().getCode());
-            photo.setCountry(country);
-            PhotoEntity saved = photoRepository.save(photo);
-
-            return PhotoJson.fromEntity(saved);
+                CountryEntity country = photo.getCountry();
+                country.setName(photoJson.getCountryJson().getName());
+                country.setCode(photoJson.getCountryJson().getCode());
+                photo.setCountry(country);
+                PhotoEntity saved = photoRepository.save(photo);
+                return PhotoJson.fromEntity(saved);
+            } else {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Photo with id = " + photoJson.getPhoto() + "already connect with other username");
+            }
         }
     }
 }

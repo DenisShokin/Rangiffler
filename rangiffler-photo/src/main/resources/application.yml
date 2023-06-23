@@ -69,4 +69,6 @@ spring:
       ddl-auto: validate
 rangiffler-front:
   base-uri: 'http://rangiffler-frontend'
+rangiffler-geo:
+  base-uri: 'http://rangiffler-geo:8081'
 ---
