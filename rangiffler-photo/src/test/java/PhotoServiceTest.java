@@ -24,11 +24,12 @@ public class PhotoServiceTest {
 
     private final String firstUsername = "first_username";
     private final String secondUsername = "second_username";
-    private final String photoStringValue = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/";
+    private final String updateCountryCode = "IN";
+    private final String updateCountryName = "India";
+    private final String updateDescription = "Update description";
     private PhotoEntity firstPhotoEntity, secondPhotoEntity;
-    private CountryEntity firstCountryEntity, secondCountryEntity;
-    private PhotoJson firstPhotoJson, secondPhotoJson;
-    private CountryJson firstCountryJson, secondCountryJson;
+    private PhotoJson firstPhotoJson, secondPhotoJson, thirdPhotoJson;
+    private CountryJson firstCountryJson;
 
     @Mock
     private PhotoRepository photoRepository;
@@ -45,8 +46,9 @@ public class PhotoServiceTest {
         firstPhotoEntity = new PhotoEntity();
         firstPhotoEntity.setId(firstPhotoId);
         firstPhotoEntity.setUsername(firstUsername);
+        String photoStringValue = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/";
         firstPhotoEntity.setPhoto(photoStringValue.getBytes());
-        firstCountryEntity = new CountryEntity();
+        CountryEntity firstCountryEntity = new CountryEntity();
         firstCountryEntity.setPhotoId(firstPhotoId);
         firstCountryEntity.setCode("KZ");
         firstCountryEntity.setName("Kazakhstan");
@@ -62,13 +64,12 @@ public class PhotoServiceTest {
         firstCountryJson.setCode("KZ");
         firstPhotoJson.setCountryJson(firstCountryJson);
 
-
         UUID secondPhotoId = UUID.randomUUID();
         secondPhotoEntity = new PhotoEntity();
         secondPhotoEntity.setId(secondPhotoId);
         secondPhotoEntity.setUsername(secondUsername);
         secondPhotoEntity.setPhoto(photoStringValue.getBytes());
-        secondCountryEntity = new CountryEntity();
+        CountryEntity secondCountryEntity = new CountryEntity();
         secondCountryEntity.setPhotoId(firstPhotoId);
         secondCountryEntity.setCode("KE");
         secondCountryEntity.setName("Kenya");
@@ -79,7 +80,7 @@ public class PhotoServiceTest {
         secondPhotoJson.setDescription("KE description");
         secondPhotoJson.setPhoto(photoStringValue);
         secondPhotoJson.setUsername(secondUsername);
-        secondCountryJson = new CountryJson();
+        CountryJson secondCountryJson = new CountryJson();
         secondCountryJson.setName("Kenya");
         secondCountryJson.setCode("KE");
         secondPhotoJson.setCountryJson(secondCountryJson);
@@ -111,6 +112,24 @@ public class PhotoServiceTest {
     }
 
     @Test
+    public void addPhoto_ThrowExceptionWhenPhotoIsEmptyTest() {
+        UUID thirdPhotoId = UUID.randomUUID();
+
+        thirdPhotoJson = new PhotoJson();
+        thirdPhotoJson.setId(thirdPhotoId);
+        thirdPhotoJson.setDescription("Empty photo");
+        thirdPhotoJson.setUsername(firstUsername);
+        thirdPhotoJson.setPhoto("");
+        CountryJson thirdCountryJson = new CountryJson();
+        thirdCountryJson.setName("India");
+        thirdCountryJson.setCode("in");
+        thirdPhotoJson.setCountryJson(thirdCountryJson);
+
+        Exception exception = assertThrows(ResponseStatusException.class, () -> photoService.addPhoto(thirdPhotoJson));
+        Assertions.assertTrue(exception.getMessage().contains("Photo must not be empty!"));
+    }
+
+    @Test
     public void deletePhoto_ThrowExceptionWhenNonExistentIdTest() {
         Mockito.when(photoRepository.save(Mockito.any(PhotoEntity.class))).thenReturn(firstPhotoEntity);
 
@@ -119,8 +138,26 @@ public class PhotoServiceTest {
     }
 
     @Test
-    public void successEditPhotoTest() {
-        //TODO: реализовать тест
+    public void editPhotoTest() {
+        PhotoEntity savedPhotoEntity = firstPhotoEntity;
+        savedPhotoEntity.setDescription(updateDescription);
+        savedPhotoEntity.getCountry().setName(updateCountryName);
+        savedPhotoEntity.getCountry().setCode(updateCountryCode);
+
+        Mockito.when(photoRepository.findById(firstPhotoEntity.getId())).thenReturn(Optional.of(firstPhotoEntity));
+        Mockito.when(photoRepository.save(Mockito.any(PhotoEntity.class))).thenReturn(savedPhotoEntity);
+
+        PhotoJson photoJson = firstPhotoJson;
+        firstPhotoJson.setDescription(updateDescription);
+        CountryJson countryJson = firstCountryJson;
+        countryJson.setName(updateCountryName);
+        countryJson.setCode(updateCountryCode);
+        PhotoJson result = photoService.editPhoto(photoJson);
+
+        Assertions.assertEquals(photoJson.getId(), result.getId());
+        Assertions.assertEquals(updateDescription, result.getDescription());
+        Assertions.assertEquals(updateCountryCode, result.getCountryJson().getCode());
+        Assertions.assertEquals(updateCountryName, result.getCountryJson().getName());
     }
 
     @Test
@@ -132,8 +169,25 @@ public class PhotoServiceTest {
     }
 
     @Test
-    public void editPhoto_ThrowsExceptionWhenPhotoIdOrUsernameMismatchTest() {
-        //TODO: реализовать тест
+    public void editPhoto_ThrowsExceptionWhenPhotoUsernameMismatchTest() {
+        PhotoEntity savedPhotoEntity = firstPhotoEntity;
+        savedPhotoEntity.setDescription(updateDescription);
+        savedPhotoEntity.getCountry().setName(updateCountryName);
+        savedPhotoEntity.getCountry().setCode(updateCountryCode);
+
+        Mockito.when(photoRepository.findById(firstPhotoEntity.getId())).thenReturn(Optional.of(firstPhotoEntity));
+        Mockito.when(photoRepository.save(Mockito.any(PhotoEntity.class))).thenReturn(savedPhotoEntity);
+
+        PhotoJson photoJson = firstPhotoJson;
+        firstPhotoJson.setUsername(secondUsername);
+        firstPhotoJson.setDescription(updateDescription);
+        CountryJson countryJson = firstCountryJson;
+        countryJson.setName(updateCountryName);
+        countryJson.setCode(updateCountryCode);
+
+        Exception exception = assertThrows(ResponseStatusException.class, () -> photoService.editPhoto(photoJson));
+        Assertions.assertTrue(exception.getMessage().
+                contains("Photo with id = " + photoJson.getPhoto() + "already connect with other username"));
     }
 
 }
