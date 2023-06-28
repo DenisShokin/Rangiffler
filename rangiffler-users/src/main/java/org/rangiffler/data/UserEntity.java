@@ -129,7 +129,14 @@ public class UserEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserEntity that = (UserEntity) o;
-        return Objects.equals(id, that.id) && Objects.equals(username, that.username) && Objects.equals(firstname, that.firstname) && Objects.equals(lastname, that.lastname) && Arrays.equals(avatar, that.avatar) && Objects.equals(friends, that.friends) && Objects.equals(invites, that.invites);
+        return Objects.equals(id, that.id) &&
+                Objects.equals(username, that.username) &&
+                Objects.equals(firstname, that.firstname) &&
+                Objects.equals(lastname, that.lastname) &&
+                Arrays.equals(avatar, that.avatar);
+                //TODO : исправить ошибку
+                //&& Objects.equals(friends, that.friends) &&
+                //Objects.equals(invites, that.invites);
     }
 
     @Override

@@ -16,100 +16,129 @@ import reactor.core.publisher.Mono;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class UserApiService {
-  private final WebClient webClient;
-  private final String rangifflerUserdataBaseUri;
+    private final WebClient webClient;
+    private final String rangifflerUserdataBaseUri;
 
-  @Autowired
-  public UserApiService(WebClient webClient,
-                        @Value("${rangiffler-users.base-uri}") String rangifflerUserdataBaseUri) {
-    this.webClient = webClient;
-    this.rangifflerUserdataBaseUri = rangifflerUserdataBaseUri;
-  }
-  private final List<UserJson> allUsers = new ArrayList<>();
+    @Autowired
+    public UserApiService(WebClient webClient,
+                          @Value("${rangiffler-users.base-uri}") String rangifflerUserdataBaseUri) {
+        this.webClient = webClient;
+        this.rangifflerUserdataBaseUri = rangifflerUserdataBaseUri;
+    }
 
-  public List<UserJson> getAllUsers(@Nonnull String username) {
-    MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-    params.add("username", username);
-    URI uri = UriComponentsBuilder.fromHttpUrl(rangifflerUserdataBaseUri + "/allUsers").queryParams(params).build().toUri();
+    private final List<UserJson> allUsers = new ArrayList<>();
 
-    return webClient.get()
-            .uri(uri)
-            .retrieve()
-            .bodyToMono(new ParameterizedTypeReference<List<UserJson>>() {
-            })
-            .block();
-  }
+    public List<UserJson> getAllUsers(@Nonnull String username) {
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("username", username);
+        URI uri = UriComponentsBuilder.fromHttpUrl(rangifflerUserdataBaseUri + "/allUsers").queryParams(params).build().toUri();
 
-  public UserJson getCurrentUser(@Nonnull String username) {
-    MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-    params.add("username", username);
-    URI uri = UriComponentsBuilder.fromHttpUrl(rangifflerUserdataBaseUri + "/currentUser").queryParams(params).build().toUri();
+        return webClient.get()
+                .uri(uri)
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<List<UserJson>>() {
+                })
+                .block();
+    }
 
-    return webClient.get()
-            .uri(uri)
-            .retrieve()
-            .bodyToMono(UserJson.class)
-            .block();
-  }
+    public UserJson getCurrentUser(@Nonnull String username) {
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("username", username);
+        URI uri = UriComponentsBuilder.fromHttpUrl(rangifflerUserdataBaseUri + "/currentUser").queryParams(params).build().toUri();
 
-  public List<UserJson> getFriends(@Nonnull String username) {
-    MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-    params.add("username", username);
-    URI uri = UriComponentsBuilder.fromHttpUrl(rangifflerUserdataBaseUri + "/friends").queryParams(params).build().toUri();
+        return webClient.get()
+                .uri(uri)
+                .retrieve()
+                .bodyToMono(UserJson.class)
+                .block();
+    }
 
-    return webClient.get()
-            .uri(uri)
-            .retrieve()
-            .bodyToMono(new ParameterizedTypeReference<List<UserJson>>() {
-            })
-            .block();
-  }
+    public List<UserJson> getFriends(@Nonnull String username) {
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("username", username);
+        URI uri = UriComponentsBuilder.fromHttpUrl(rangifflerUserdataBaseUri + "/friends").queryParams(params).build().toUri();
 
-  public UserJson sendInvitation(UserJson user) {
-    UserJson userJson = allUsers.stream().filter(u -> u.getId().equals(user.getId())).findFirst()
-        .orElseThrow();
-    userJson.setFriendStatus(FriendStatus.INVITATION_SENT);
-    return userJson;
-  }
+        return webClient.get()
+                .uri(uri)
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<List<UserJson>>() {
+                })
+                .block();
+    }
 
-  public UserJson acceptInvitation(UserJson friend) {
-    UserJson userJson = allUsers.stream().filter(u -> u.getId().equals(friend.getId())).findFirst()
-        .orElseThrow();
-    userJson.setFriendStatus(FriendStatus.FRIEND);
-    return userJson;
-  }
+    public UserJson sendInvitation(@Nonnull String username, UserJson user) {
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("username", username);
+        URI uri = UriComponentsBuilder.fromHttpUrl(rangifflerUserdataBaseUri + "/addFriend")
+                .queryParams(params).build().toUri();
 
-  public UserJson declineInvitation(UserJson friend) {
-    UserJson userJson = allUsers.stream().filter(u -> u.getId().equals(friend.getId())).findFirst()
-        .orElseThrow();
-    userJson.setFriendStatus(FriendStatus.NOT_FRIEND);
-    return userJson;
-  }
+        return webClient.post()
+                .uri(uri)
+                .body(Mono.just(user), UserJson.class)
+                .retrieve()
+                .bodyToMono(UserJson.class)
+                .block();
+    }
 
+    public UserJson acceptInvitation(@Nonnull String username,
+                                     @Nonnull UserJson invitation) {
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("username", username);
+        URI uri = UriComponentsBuilder.fromHttpUrl(rangifflerUserdataBaseUri + "/acceptInvitation").queryParams(params).build().toUri();
 
-  public UserJson removeUserFromFriends(UserJson friend) {
-    UserJson userJson = allUsers.stream().filter(u -> u.getId().equals(friend.getId())).findFirst()
-        .orElseThrow();
-    userJson.setFriendStatus(FriendStatus.NOT_FRIEND);
-    return userJson;
-  }
+        return webClient.post()
+                .uri(uri)
+                .body(Mono.just(invitation), UserJson.class)
+                .retrieve()
+                .bodyToMono(UserJson.class)
+                .block();
+    }
 
-  public UserJson updateCurrentUser(UserJson user) {
-    return webClient.post()
-            .uri(rangifflerUserdataBaseUri + "/updateUserInfo")
-            .body(Mono.just(user), UserJson.class)
-            .retrieve()
-            .bodyToMono(UserJson.class)
-            .block();
-  }
+    // TODO: реализовать
+    public UserJson declineInvitation(UserJson friend) {
+        UserJson userJson = allUsers.stream().filter(u -> u.getId().equals(friend.getId())).findFirst()
+                .orElseThrow();
+        userJson.setFriendStatus(FriendStatus.NOT_FRIEND);
+        return userJson;
+    }
 
-  public List<UserJson> getInvitations() {
-    return allUsers.stream()
-        .filter(user -> user.getFriendStatus().equals(FriendStatus.INVITATION_RECEIVED))
-        .collect(Collectors.toList());
-  }
+    // TODO: реализовать
+    public UserJson removeUserFromFriends(String username, UserJson friend) {
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("username", username);
+        params.add("friendUsername", friend.getUsername());
+        URI uri = UriComponentsBuilder.fromHttpUrl(rangifflerUserdataBaseUri + "/removeFriend").queryParams(params).build().toUri();
+
+        return webClient.delete()
+                .uri(uri)
+                .retrieve()
+                .bodyToMono(UserJson.class)
+                .block();
+    }
+
+    public UserJson updateCurrentUser(UserJson user) {
+        return webClient.post()
+                .uri(rangifflerUserdataBaseUri + "/updateUserInfo")
+                .body(Mono.just(user), UserJson.class)
+                .retrieve()
+                .bodyToMono(UserJson.class)
+                .block();
+    }
+
+    public List<UserJson> getInvitations(String username) {
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("username", username);
+        URI uri = UriComponentsBuilder.fromHttpUrl(rangifflerUserdataBaseUri + "/invitations").queryParams(params).build().toUri();
+
+        return webClient.get()
+                .uri(uri)
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<List<UserJson>>() {
+                })
+                .block();
+    }
+
 }

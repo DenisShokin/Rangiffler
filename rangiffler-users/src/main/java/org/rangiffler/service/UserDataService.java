@@ -7,7 +7,6 @@ import org.rangiffler.data.FriendsId;
 import org.rangiffler.data.UserEntity;
 import org.rangiffler.data.repository.FriendsRepository;
 import org.rangiffler.data.repository.UserRepository;
-import org.rangiffler.model.FriendJson;
 import org.rangiffler.model.FriendStatus;
 import org.rangiffler.model.UserJson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,7 +85,7 @@ public class UserDataService {
                 }
             }
             if (!result.containsKey(user.getId())) {
-                result.put(user.getId(), UserJson.fromEntity(user));
+                result.put(user.getId(), UserJson.fromEntity(user, FriendStatus.NOT_FRIEND));
             }
         }
         return new ArrayList<>(result.values());
@@ -113,7 +112,7 @@ public class UserDataService {
                 .toList();
     }
 
-    public UserJson addFriend(@Nonnull String username, @Nonnull FriendJson friend) {
+    public UserJson addFriend(@Nonnull String username, @Nonnull UserJson friend) {
         UserEntity currentUser = userRepository.findByUsername(username);
         UserEntity friendEntity = userRepository.findByUsername(friend.getUsername());
         currentUser.addFriends(true, friendEntity);
@@ -122,10 +121,11 @@ public class UserDataService {
     }
 
     public @Nonnull
-    List<UserJson> acceptInvitation(@Nonnull String username, @Nonnull FriendJson invitation) {
+    UserJson acceptInvitation(@Nonnull String username, @Nonnull UserJson invitation) {
         UserEntity currentUser = userRepository.findByUsername(username);
         UserEntity inviteUser = userRepository.findByUsername(invitation.getUsername());
 
+        //TODO : исправить ошибку
         FriendsEntity invite = currentUser.getInvites()
                 .stream()
                 .filter(fe -> fe.getUser().equals(inviteUser))
@@ -139,14 +139,16 @@ public class UserDataService {
         return currentUser
                 .getFriends()
                 .stream()
+                .filter(cu -> cu.getFriend().getUsername().equals(invitation.getUsername()))
                 .map(fe -> UserJson.fromEntity(fe.getFriend(), fe.isPending()
                         ? FriendStatus.INVITATION_SENT
                         : FriendStatus.FRIEND))
-                .toList();
+                .findFirst()
+                .orElseThrow();
     }
 
     public @Nonnull
-    List<UserJson> declineInvitation(@Nonnull String username, @Nonnull FriendJson invitation) {
+    List<UserJson> declineInvitation(@Nonnull String username, @Nonnull UserJson invitation) {
         UserEntity currentUser = userRepository.findByUsername(username);
         UserEntity friendToDecline = userRepository.findByUsername(invitation.getUsername());
 
@@ -168,18 +170,13 @@ public class UserDataService {
     }
 
     public @Nonnull
-    List<UserJson> removeFriend(@Nonnull String username, @Nonnull String friendUsername) {
+    UserJson removeFriend(@Nonnull String username, @Nonnull String friendUsername) {
         UserEntity currentUser = userRepository.findByUsername(username);
         UserEntity friendToRemove = userRepository.findByUsername(friendUsername);
+        //TODO: исправить ошибки
         currentUser.removeFriends(friendToRemove);
         currentUser.removeInvites(friendToRemove);
         userRepository.save(currentUser);
-        return currentUser
-                .getFriends()
-                .stream()
-                .map(fe -> UserJson.fromEntity(fe.getFriend(), fe.isPending()
-                        ? FriendStatus.INVITATION_SENT
-                        : FriendStatus.FRIEND))
-                .toList();
+        return UserJson.fromEntity(friendToRemove, FriendStatus.NOT_FRIEND);
     }
 }

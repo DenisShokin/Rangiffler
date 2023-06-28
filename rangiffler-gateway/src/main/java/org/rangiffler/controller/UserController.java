@@ -50,28 +50,29 @@ public class UserController {
         return userApiService.getFriends(username);
     }
 
-    //TODO: реализовать
     @GetMapping("invitations")
-    public List<UserJson> getInvitations() {
-        return userApiService.getInvitations();
+    public List<UserJson> getInvitations(@AuthenticationPrincipal Jwt principal) {
+        String username = principal.getClaim("sub");
+        return userApiService.getInvitations(username);
     }
 
-    //TODO: реализовать
     @PostMapping("users/invite/")
-    public UserJson sendInvitation(@RequestBody UserJson user) {
-        return userApiService.sendInvitation(user);
+    public UserJson sendInvitation(@AuthenticationPrincipal Jwt principal,@Validated @RequestBody UserJson friend) {
+        String username = principal.getClaim("sub");
+        return userApiService.sendInvitation(username, friend);
     }
 
     //TODO: реализовать
     @PostMapping("friends/remove")
-    public UserJson removeFriendFromUser(@RequestBody UserJson friend) {
-        return userApiService.removeUserFromFriends(friend);
+    public UserJson removeFriendFromUser(@AuthenticationPrincipal Jwt principal, @Validated @RequestBody UserJson friend) {
+        String username = principal.getClaim("sub");
+        return userApiService.removeUserFromFriends(username, friend);
     }
 
-    //TODO: реализовать
     @PostMapping("friends/submit")
-    public UserJson submitFriend(@RequestBody UserJson friend) {
-        return userApiService.acceptInvitation(friend);
+    public UserJson submitFriend(@AuthenticationPrincipal Jwt principal, @Validated @RequestBody UserJson friend) {
+        String username = principal.getClaim("sub");
+        return userApiService.acceptInvitation(username, friend);
     }
 
     //TODO: реализовать

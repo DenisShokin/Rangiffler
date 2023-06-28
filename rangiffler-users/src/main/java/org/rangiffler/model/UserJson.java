@@ -1,5 +1,6 @@
 package org.rangiffler.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.rangiffler.data.UserEntity;
 
@@ -24,6 +25,7 @@ public class UserJson {
     private String avatar;
 
     @JsonProperty("friendStatus")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private FriendStatus friendStatus;
 
     public UserJson() {

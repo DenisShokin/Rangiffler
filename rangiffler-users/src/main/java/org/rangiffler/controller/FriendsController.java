@@ -1,11 +1,8 @@
 package org.rangiffler.controller;
 
 
-import org.rangiffler.model.FriendJson;
 import org.rangiffler.model.UserJson;
 import org.rangiffler.service.UserDataService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+//TODO: реализовать endpoint-ы
 @RestController
 public class FriendsController {
 
@@ -26,6 +24,7 @@ public class FriendsController {
         this.userService = userService;
     }
 
+    //TODO: реализовать
     @GetMapping("/friends")
     public List<UserJson> friends(@RequestParam String username) {
         return userService.friends(username);
@@ -37,25 +36,27 @@ public class FriendsController {
     }
 
     @PostMapping("/acceptInvitation")
-    public List<UserJson> acceptInvitation(@RequestParam String username,
-                                           @RequestBody FriendJson invitation) {
+    public UserJson acceptInvitation(@RequestParam String username,
+                                           @RequestBody UserJson invitation) {
         return userService.acceptInvitation(username, invitation);
     }
 
+    //TODO: реализовать
     @PostMapping("/declineInvitation")
     public List<UserJson> declineInvitation(@RequestParam String username,
-                                            @RequestBody FriendJson invitation) {
+                                            @RequestBody UserJson invitation) {
         return userService.declineInvitation(username, invitation);
     }
 
     @PostMapping("/addFriend")
     public UserJson addFriend(@RequestParam String username,
-                              @RequestBody FriendJson friend) {
+                              @RequestBody UserJson friend) {
         return userService.addFriend(username, friend);
     }
 
+    //TODO: реализовать
     @DeleteMapping("/removeFriend")
-    public List<UserJson> removeFriend(@RequestParam String username,
+    public UserJson removeFriend(@RequestParam String username,
                                        @RequestParam String friendUsername) {
         return userService.removeFriend(username, friendUsername);
     }
