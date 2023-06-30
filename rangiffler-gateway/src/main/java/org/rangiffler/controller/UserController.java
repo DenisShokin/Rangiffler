@@ -62,7 +62,6 @@ public class UserController {
         return userApiService.sendInvitation(username, friend);
     }
 
-    //TODO: реализовать
     @PostMapping("friends/remove")
     public UserJson removeFriendFromUser(@AuthenticationPrincipal Jwt principal, @Validated @RequestBody UserJson friend) {
         String username = principal.getClaim("sub");
@@ -77,8 +76,9 @@ public class UserController {
 
     //TODO: реализовать
     @PostMapping("friends/decline")
-    public UserJson declineFriend(@RequestBody UserJson friend) {
-        return userApiService.declineInvitation(friend);
+    public UserJson declineFriend(@AuthenticationPrincipal Jwt principal, @Validated @RequestBody UserJson friend) {
+        String username = principal.getClaim("sub");
+        return userApiService.declineInvitation(username, friend);
     }
 
 }

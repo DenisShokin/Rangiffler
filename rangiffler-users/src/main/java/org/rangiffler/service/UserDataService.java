@@ -1,7 +1,6 @@
 package org.rangiffler.service;
 
 import jakarta.annotation.Nonnull;
-
 import org.rangiffler.data.FriendsEntity;
 import org.rangiffler.data.FriendsId;
 import org.rangiffler.data.UserEntity;
@@ -147,8 +146,9 @@ public class UserDataService {
                 .orElseThrow();
     }
 
+    // TODO: реализовать
     public @Nonnull
-    List<UserJson> declineInvitation(@Nonnull String username, @Nonnull UserJson invitation) {
+    UserJson declineInvitation(@Nonnull String username, @Nonnull UserJson invitation) {
         UserEntity currentUser = userRepository.findByUsername(username);
         UserEntity friendToDecline = userRepository.findByUsername(invitation.getUsername());
 
@@ -161,12 +161,8 @@ public class UserDataService {
         friendToDecline.removeFriends(currentUser);
 
         userRepository.save(currentUser);
-        userRepository.save(friendToDecline);
-        return currentUser.getInvites()
-                .stream()
-                .filter(FriendsEntity::isPending)
-                .map(fe -> UserJson.fromEntity(fe.getUser(), FriendStatus.INVITATION_RECEIVED))
-                .toList();
+        return null;
+
     }
 
     public @Nonnull

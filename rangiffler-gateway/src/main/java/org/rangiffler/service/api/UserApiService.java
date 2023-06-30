@@ -98,14 +98,19 @@ public class UserApiService {
     }
 
     // TODO: реализовать
-    public UserJson declineInvitation(UserJson friend) {
-        UserJson userJson = allUsers.stream().filter(u -> u.getId().equals(friend.getId())).findFirst()
-                .orElseThrow();
-        userJson.setFriendStatus(FriendStatus.NOT_FRIEND);
-        return userJson;
+    public UserJson declineInvitation(String username, UserJson invitation) {
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("username", username);
+        URI uri = UriComponentsBuilder.fromHttpUrl(rangifflerUserdataBaseUri + "/declineInvitation").queryParams(params).build().toUri();
+
+        return webClient.post()
+                .uri(uri)
+                .body(Mono.just(invitation), UserJson.class)
+                .retrieve()
+                .bodyToMono(UserJson.class)
+                .block();
     }
 
-    // TODO: реализовать
     public UserJson removeUserFromFriends(String username, UserJson friend) {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("username", username);

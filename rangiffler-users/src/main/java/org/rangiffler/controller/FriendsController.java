@@ -24,7 +24,6 @@ public class FriendsController {
         this.userService = userService;
     }
 
-    //TODO: реализовать
     @GetMapping("/friends")
     public List<UserJson> friends(@RequestParam String username) {
         return userService.friends(username);
@@ -43,7 +42,7 @@ public class FriendsController {
 
     //TODO: реализовать
     @PostMapping("/declineInvitation")
-    public List<UserJson> declineInvitation(@RequestParam String username,
+    public UserJson declineInvitation(@RequestParam String username,
                                             @RequestBody UserJson invitation) {
         return userService.declineInvitation(username, invitation);
     }
@@ -54,7 +53,6 @@ public class FriendsController {
         return userService.addFriend(username, friend);
     }
 
-    //TODO: реализовать
     @DeleteMapping("/removeFriend")
     public UserJson removeFriend(@RequestParam String username,
                                        @RequestParam String friendUsername) {
