@@ -5,21 +5,24 @@ import io.qameta.allure.AllureId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.rangiffler.page.RegistrationPage;
+import org.rangiffler.page.StartPage;
 import org.rangiffler.test.web.BaseWebTest;
 
 public class RegistrationErrorTest extends BaseWebTest {
 
-    private RegistrationPage page = new RegistrationPage();
+    private StartPage startPage = new StartPage();
+    private RegistrationPage registrationPage = new RegistrationPage();
 
     @BeforeEach
     void setUp() {
-        Selenide.open(RegistrationPage.URL);
+        Selenide.open(CFG.getFrontUrl());
+        startPage.goToRegister();
     }
 
     @Test
     @AllureId("201")
     public void errorMessageShouldBeVisibleInCaseThatPasswordsAreDifferent() {
-        page.checkThatPageLoaded()
+        registrationPage.checkThatPageLoaded()
                 .fillRegistrationForm("wdfsdasfs", "123", "12345")
                 .checkErrorMessage("Passwords should be equal");
     }
@@ -27,7 +30,7 @@ public class RegistrationErrorTest extends BaseWebTest {
     @Test
     @AllureId("202")
     public void errorMessageShouldBeVisibleInCaseThatPasswordsLessThan3Symbols() {
-        page.checkThatPageLoaded()
+        registrationPage.checkThatPageLoaded()
                 .fillRegistrationForm("wdfsdadfdaasfs", "1", "1")
                 .checkErrorMessage("Allowed password length should be from 3 to 12 characters");
     }
@@ -35,7 +38,7 @@ public class RegistrationErrorTest extends BaseWebTest {
     @Test
     @AllureId("203")
     public void errorMessageShouldBeVisibleInCaseThatUsernameLessThan3Symbols() {
-        page.checkThatPageLoaded()
+        registrationPage.checkThatPageLoaded()
                 .fillRegistrationForm("wd", "123", "123")
                 .checkErrorMessage("Allowed username length should be from 3 to 50 characters");
     }

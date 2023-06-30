@@ -2,14 +2,12 @@ package org.rangiffler.page;
 
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
-import org.rangiffler.config.Config;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 
 public class LoginPage extends BasePage<LoginPage> {
 
-    public static final String URL = Config.getConfig().getAuthUrl() + "/login";
     private final SelenideElement header = $(".form__header");
     private final SelenideElement errorForm = $(".form__error");
     private final SelenideElement usernameInput = $("input[name='username']");
@@ -31,13 +29,14 @@ public class LoginPage extends BasePage<LoginPage> {
     }
 
     @Step("Fill login form and go to main page")
-    public MainPage successFillRegistrationForm(String username, String password, String passwordSubmit) {
+    public MainPage successFillLoginForm(String username, String password) {
         usernameInput.val(username);
         passwordInput.val(password);
         signUpBtn.click();
         return new MainPage();
     }
 
+    @Step("Check error message")
     public LoginPage checkErrorMessage(String expectedMessage) {
         errorForm.shouldHave(text(expectedMessage));
         return this;

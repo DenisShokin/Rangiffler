@@ -26,9 +26,9 @@ public class StartPage extends BasePage<StartPage> {
     }
 
     @Step("Click Register")
-    public LoginPage goToRegister() {
+    public RegistrationPage goToRegister() {
         registerButton.click();
-        return new LoginPage();
+        return new RegistrationPage();
     }
 
 }

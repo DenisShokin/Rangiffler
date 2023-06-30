@@ -6,20 +6,23 @@ import io.qameta.allure.AllureId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.rangiffler.page.LoginPage;
+import org.rangiffler.page.StartPage;
 import org.rangiffler.test.web.BaseWebTest;
 
 public class LoginErrorTest extends BaseWebTest {
-    private LoginPage page = new LoginPage();
+    private StartPage startPage = new StartPage();
+    private LoginPage loginPage = new LoginPage();
     private final Faker faker = new Faker();
     @BeforeEach
     void setUp() {
-        Selenide.open(LoginPage.URL);
+        Selenide.open(CFG.getFrontUrl());
     }
 
     @Test
     @AllureId("301")
     public void errorMessageShouldBeVisibleInCaseThatUserNotCreated() {
-        page.checkThatPageLoaded()
+        loginPage = startPage.goToLogin();
+        loginPage.checkThatPageLoaded()
                 .fillLoginForm(faker.name().name(), String.valueOf(faker.number().randomNumber()))
                 .checkErrorMessage("Неверные учетные данные пользователя");
     }
