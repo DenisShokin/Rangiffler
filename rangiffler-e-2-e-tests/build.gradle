@@ -5,6 +5,7 @@ buildscript {
         selenideVersion = '6.13.0'
         retrofitVersion = '2.9.0'
         springComponentsVersion = '6.0.3'
+        junitVersion = '5.9.3'
     }
 }
 
@@ -34,8 +35,9 @@ compileJava.options.encoding = 'UTF-8'
 compileTestJava.options.encoding = 'UTF-8'
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.3'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.3'
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:${junitVersion}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
 
     // REST
     testImplementation "com.squareup.retrofit2:retrofit:${retrofitVersion}"

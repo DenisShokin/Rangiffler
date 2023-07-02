@@ -1,4 +1,4 @@
-package org.rangiffler.db.entity;
+package org.rangiffler.db.entity.user;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

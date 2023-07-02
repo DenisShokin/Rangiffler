@@ -13,15 +13,18 @@ public class LoginErrorTest extends BaseWebTest {
     private StartPage startPage = new StartPage();
     private LoginPage loginPage = new LoginPage();
     private final Faker faker = new Faker();
+
     @BeforeEach
     void setUp() {
         Selenide.open(CFG.getFrontUrl());
+        startPage
+                .checkThatPageLoaded()
+                .goToLogin();
     }
 
     @Test
     @AllureId("301")
     public void errorMessageShouldBeVisibleInCaseThatUserNotCreated() {
-        loginPage = startPage.goToLogin();
         loginPage.checkThatPageLoaded()
                 .fillLoginForm(faker.name().name(), String.valueOf(faker.number().randomNumber()))
                 .checkErrorMessage("Неверные учетные данные пользователя");

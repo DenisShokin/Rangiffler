@@ -9,23 +9,23 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public enum EmfProvider {
-  INSTANCE;
+    INSTANCE;
 
-  private final Map<ServiceDB, EntityManagerFactory> emfStore = new ConcurrentHashMap<>();
+    private final Map<ServiceDB, EntityManagerFactory> emfStore = new ConcurrentHashMap<>();
 
-  public EntityManagerFactory getEmf(ServiceDB service) {
-    return emfStore.computeIfAbsent(service, serviceDB -> {
-      Map<String, Object> properties = new HashMap<>();
-      properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
-      properties.put("hibernate.connection.driver_class", "com.p6spy.engine.spy.P6SpyDriver");
-      properties.put("hibernate.connection.username", "postgres");
-      properties.put("hibernate.connection.password", "secret");
-      properties.put("hibernate.connection.url", service.p6SpyUrl());
+    public EntityManagerFactory getEmf(ServiceDB service) {
+        return emfStore.computeIfAbsent(service, serviceDB -> {
+            Map<String, Object> properties = new HashMap<>();
+            properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+            properties.put("hibernate.connection.driver_class", "com.p6spy.engine.spy.P6SpyDriver");
+            properties.put("hibernate.connection.username", "postgres");
+            properties.put("hibernate.connection.password", "secret");
+            properties.put("hibernate.connection.url", service.p6SpyUrl());
 
-      return new ThreadLocalEmf(Persistence.createEntityManagerFactory(
-          "rangiffler-persistence-unit-name",
-          properties
-      ));
-    });
-  }
+            return new ThreadLocalEmf(Persistence.createEntityManagerFactory(
+                    "rangiffler-persistence-unit-name",
+                    properties
+            ));
+        });
+    }
 }

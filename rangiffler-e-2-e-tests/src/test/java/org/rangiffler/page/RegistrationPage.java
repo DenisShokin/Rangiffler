@@ -8,9 +8,7 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 
 public class RegistrationPage extends BasePage<RegistrationPage> {
-
     public static final String URL = Config.getConfig().getAuthUrl() + "/register";
-
     private final SelenideElement header = $(".form__header");
     private final SelenideElement usernameInput = $("#username");
     private final SelenideElement passwordInput = $("#password");

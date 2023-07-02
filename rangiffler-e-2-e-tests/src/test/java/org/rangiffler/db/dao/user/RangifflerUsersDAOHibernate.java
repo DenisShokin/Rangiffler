@@ -1,8 +1,8 @@
-package org.rangiffler.db.dao;
+package org.rangiffler.db.dao.user;
 
 
 import org.rangiffler.db.ServiceDB;
-import org.rangiffler.db.entity.UserEntity;
+import org.rangiffler.db.entity.user.UserEntity;
 import org.rangiffler.db.jpa.EmfProvider;
 import org.rangiffler.db.jpa.JpaTransactionManager;
 

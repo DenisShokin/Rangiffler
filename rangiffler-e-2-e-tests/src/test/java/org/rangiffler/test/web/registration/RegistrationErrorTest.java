@@ -16,7 +16,8 @@ public class RegistrationErrorTest extends BaseWebTest {
     @BeforeEach
     void setUp() {
         Selenide.open(CFG.getFrontUrl());
-        startPage.goToRegister();
+        startPage.checkThatPageLoaded()
+                .goToRegister();
     }
 
     @Test

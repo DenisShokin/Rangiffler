@@ -1,7 +1,9 @@
 package org.rangiffler.page;
 
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
+import org.rangiffler.config.Config;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
@@ -9,6 +11,7 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class StartPage extends BasePage<StartPage> {
     //TODO: реализовать
+    public static final String URL = Config.getConfig().getFrontUrl();
     private final SelenideElement header = $("div h1");
     private final SelenideElement loginButton = $x("//a[text()='Login']");
     private final SelenideElement registerButton = $x("//a[text()='Register']");
@@ -29,6 +32,12 @@ public class StartPage extends BasePage<StartPage> {
     public RegistrationPage goToRegister() {
         registerButton.click();
         return new RegistrationPage();
+    }
+
+    @Step("Open welcome page")
+    public StartPage open() {
+        Selenide.open(URL);
+        return new StartPage();
     }
 
 }
