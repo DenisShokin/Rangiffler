@@ -4,10 +4,15 @@ import com.codeborne.selenide.Selenide;
 import io.qameta.allure.AllureId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.rangiffler.db.entity.user.UserEntity;
+import org.rangiffler.jupiter.annotation.GenerateUserAuthData;
+import org.rangiffler.jupiter.extension.GenerateUserAuthDataExtension;
 import org.rangiffler.page.RegistrationPage;
 import org.rangiffler.page.StartPage;
 import org.rangiffler.test.web.BaseWebTest;
 
+@ExtendWith(GenerateUserAuthDataExtension.class)
 public class RegistrationErrorTest extends BaseWebTest {
 
     private StartPage startPage = new StartPage();
@@ -45,8 +50,11 @@ public class RegistrationErrorTest extends BaseWebTest {
     }
 
     @Test
+    @GenerateUserAuthData(password = "12345")
     @AllureId("204")
-    public void errorMessageShouldBeVisibleInCaseThatUsernameAlreadyExists() {
-        // TODO
+    public void errorMessageShouldBeVisibleInCaseThatUsernameAlreadyExists(UserEntity user) {
+        registrationPage.checkThatPageLoaded()
+                .fillRegistrationForm(user.getUsername(), "123456", "123456")
+                .checkErrorMessage("Username `" + user.getUsername() + "` already exists");
     }
 }

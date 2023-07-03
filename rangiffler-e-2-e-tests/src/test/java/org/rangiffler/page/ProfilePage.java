@@ -85,4 +85,11 @@ public class ProfilePage extends BasePage<ProfilePage> {
         inputPhoto.uploadFile(new File(imagePath));
         return this;
     }
+
+    @Step("Check user photo")
+    public ProfilePage checkPhoto(String lastname) {
+        lastNameInput.shouldHave(Condition.value(lastname));
+        return this;
+    }
+
 }
