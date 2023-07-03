@@ -6,6 +6,7 @@ import io.qameta.allure.AllureId;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.rangiffler.db.dao.user.RangifflerUsersDAO;
 import org.rangiffler.db.dao.user.RangifflerUsersDAOHibernate;
 import org.rangiffler.db.dao.userdata.RangifflerUsersDataDAOHibernate;
@@ -14,12 +15,14 @@ import org.rangiffler.db.entity.user.AuthorityEntity;
 import org.rangiffler.db.entity.user.UserEntity;
 import org.rangiffler.db.entity.userdata.UserDataEntity;
 import org.rangiffler.jupiter.annotation.ApiLogin;
+import org.rangiffler.jupiter.extension.ApiLoginExtension;
 import org.rangiffler.page.MainPage;
 import org.rangiffler.page.ProfilePage;
 import org.rangiffler.test.web.BaseWebTest;
 
 import java.util.Arrays;
 
+@ExtendWith(ApiLoginExtension.class)
 public class ProfileTest extends BaseWebTest {
 
     private MainPage mainPage = new MainPage();
