@@ -5,6 +5,7 @@ import com.github.javafaker.Faker;
 import io.qameta.allure.AllureId;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.rangiffler.db.dao.user.RangifflerUsersDAO;
 import org.rangiffler.db.dao.user.RangifflerUsersDAOHibernate;
@@ -13,6 +14,7 @@ import org.rangiffler.page.RegistrationPage;
 import org.rangiffler.page.StartPage;
 import org.rangiffler.test.web.BaseWebTest;
 
+@DisplayName("Registration")
 public class RegistrationNewUserTest extends BaseWebTest {
     private StartPage startPage = new StartPage();
     private RegistrationPage registrationPage = new RegistrationPage();

@@ -5,11 +5,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+@Target({ ElementType.TYPE, ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
-public @interface ApiLogin {
+public @interface GenerateUserAuthAndApiLogin {
 
-    String username();
+    String username() default "";
 
-    String password();
+    String password() default "";
+
 }

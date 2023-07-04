@@ -66,12 +66,6 @@ public class GenerateUserAuthDataExtension implements BeforeEachCallback, AfterT
         }
     }
 
-    private String getTestId(ExtensionContext context) {
-        return Objects
-                .requireNonNull(context.getRequiredTestMethod().getAnnotation(AllureId.class))
-                .value();
-    }
-
     @Override
     public boolean supportsParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
         return parameterContext.getParameter().getType().isAssignableFrom(UserEntity.class);
@@ -80,5 +74,11 @@ public class GenerateUserAuthDataExtension implements BeforeEachCallback, AfterT
     @Override
     public Object resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
         return extensionContext.getStore(NAMESPACE).get(getTestId(extensionContext), UserEntity.class);
+    }
+
+    private String getTestId(ExtensionContext context) {
+        return Objects
+                .requireNonNull(context.getRequiredTestMethod().getAnnotation(AllureId.class))
+                .value();
     }
 }

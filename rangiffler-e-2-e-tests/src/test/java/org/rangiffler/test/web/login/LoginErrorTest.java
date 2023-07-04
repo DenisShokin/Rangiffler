@@ -4,6 +4,7 @@ import com.codeborne.selenide.Selenide;
 import com.github.javafaker.Faker;
 import io.qameta.allure.AllureId;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.rangiffler.db.entity.user.UserEntity;
@@ -13,6 +14,7 @@ import org.rangiffler.page.LoginPage;
 import org.rangiffler.page.StartPage;
 import org.rangiffler.test.web.BaseWebTest;
 
+@DisplayName("Error login")
 @ExtendWith(GenerateUserAuthDataExtension.class)
 public class LoginErrorTest extends BaseWebTest {
     private StartPage startPage = new StartPage();

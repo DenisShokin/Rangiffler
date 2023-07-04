@@ -3,6 +3,7 @@ package org.rangiffler.test.web.registration;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.AllureId;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.rangiffler.db.entity.user.UserEntity;
@@ -12,6 +13,7 @@ import org.rangiffler.page.RegistrationPage;
 import org.rangiffler.page.StartPage;
 import org.rangiffler.test.web.BaseWebTest;
 
+@DisplayName("Registration error")
 @ExtendWith(GenerateUserAuthDataExtension.class)
 public class RegistrationErrorTest extends BaseWebTest {
 
