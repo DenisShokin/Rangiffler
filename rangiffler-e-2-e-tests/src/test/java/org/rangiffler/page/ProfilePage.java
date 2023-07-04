@@ -92,4 +92,10 @@ public class ProfilePage extends BasePage<ProfilePage> {
         return this;
     }
 
+    @Step("Close profile page")
+    public MainPage close() {
+        closeIcon.click();
+        return new MainPage();
+    }
+
 }

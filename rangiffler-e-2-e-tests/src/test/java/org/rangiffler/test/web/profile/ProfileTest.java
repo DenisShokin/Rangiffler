@@ -20,6 +20,7 @@ public class ProfileTest extends BaseWebTest {
     private MainPage mainPage = new MainPage();
     private ProfilePage profilePage = new ProfilePage();
     private static final String TEST_PWD = "123456";
+    private static final String PROFILE_PHOTO_PATH = "src/test/resources/testdata/cat_1.jfif";
 
     @GenerateUserAuthAndApiLogin(password = TEST_PWD)
     @AllureId("501")
@@ -34,7 +35,7 @@ public class ProfileTest extends BaseWebTest {
         mainPage = profilePage.checkThatPageLoaded()
                 .setFirstName(firstname)
                 .setLastName(lastname)
-                .uploadPhoto("src/test/resources/testdata/cat_1.jfif")
+                .uploadPhoto(PROFILE_PHOTO_PATH)
                 .save();
         profilePage = mainPage.checkThatPageLoaded()
                 .clickProfileIcon(user.getUsername());
@@ -42,6 +43,27 @@ public class ProfileTest extends BaseWebTest {
         profilePage.checkThatPageLoaded()
                 .checkFirstname(firstname)
                 .checkLastname(lastname);
+    }
+
+    @GenerateUserAuthAndApiLogin(password = TEST_PWD)
+    @AllureId("502")
+    @Test
+    void updateUserProfileAndNotSaveChanges(UserEntity user) {
+        Allure.step("open page", () -> Selenide.open(CFG.getFrontUrl()));
+
+        profilePage = mainPage.checkThatPageLoaded()
+                .clickEmptyPhotoProfileButton();
+        mainPage = profilePage.checkThatPageLoaded()
+                .setFirstName(user.getUsername() + " firstname")
+                .setLastName(user.getUsername() + " lastname")
+                .uploadPhoto(PROFILE_PHOTO_PATH)
+                .close();
+        profilePage = mainPage.checkThatPageLoaded()
+                .clickEmptyPhotoProfileButton();
+
+        profilePage.checkThatPageLoaded()
+                .checkFirstname("")
+                .checkLastname("");
     }
 
 }
