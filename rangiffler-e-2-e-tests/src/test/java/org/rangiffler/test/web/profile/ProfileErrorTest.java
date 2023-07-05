@@ -3,6 +3,7 @@ package org.rangiffler.test.web.profile;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Allure;
 import io.qameta.allure.AllureId;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,12 +22,15 @@ public class ProfileErrorTest extends BaseWebTest {
     private static final String FIFTY_ONE_CHARACTERS = "123fsdfgsdfgsdfgsdfgsdfgsdfgsdfgsdfgwergrtehtrebgfa";
     private static final String TEST_PWD = "123456";
 
+    @BeforeEach
+    void setUp() {
+        Allure.step("open page", () -> Selenide.open(CFG.getFrontUrl()));
+    }
+
     @GenerateUserAuthAndApiLogin(password = TEST_PWD)
     @Test
     @AllureId("601")
     public void errorMessageShouldBeVisibleInCaseThatFirstnameMoreThan50Symbols() {
-        Allure.step("open page", () -> Selenide.open(CFG.getFrontUrl()));
-
         profilePage = mainPage.checkThatPageLoaded()
                 .clickEmptyPhotoProfileButton();
         profilePage.checkThatPageLoaded()
@@ -38,8 +42,6 @@ public class ProfileErrorTest extends BaseWebTest {
     @Test
     @AllureId("602")
     public void errorMessageShouldBeVisibleInCaseThatLastnameMoreThan50Symbols() {
-        Allure.step("open page", () -> Selenide.open(CFG.getFrontUrl()));
-
         profilePage = mainPage.checkThatPageLoaded()
                 .clickEmptyPhotoProfileButton();
         profilePage.checkThatPageLoaded()

@@ -17,7 +17,9 @@ public class MainPage extends BasePage<MainPage> {
     private final SelenideElement yourVisitedCountries = $("div[aria-label='Your visited countries']");
     private final SelenideElement yourPhotos = $("div[aria-label='Your photos']");
     private final SelenideElement yourFriends = $("div[aria-label='Your friends']");
-
+    private final SelenideElement yourTravelsButton = $x("//div[@role='tablist']/button[text()='Your travels']");
+    private final SelenideElement friendsTravelsButton = $x("//div[@role='tablist']/button[text()='Friends travels']");
+    private final SelenideElement peopleAroundButton = $x("//div[@role='tablist']/button[text()='People Around']");
 
     @Override
     public MainPage checkThatPageLoaded() {

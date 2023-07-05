@@ -3,6 +3,7 @@ package org.rangiffler.test.web.profile;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Allure;
 import io.qameta.allure.AllureId;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,11 +23,15 @@ public class ProfileTest extends BaseWebTest {
     private static final String TEST_PWD = "123456";
     private static final String PROFILE_PHOTO_PATH = "src/test/resources/testdata/cat_1.jfif";
 
+    @BeforeEach
+    void setUp() {
+        Allure.step("open page", () -> Selenide.open(CFG.getFrontUrl()));
+    }
+
     @GenerateUserAuthAndApiLogin(password = TEST_PWD)
     @AllureId("501")
     @Test
     void updateUserProfile(UserEntity user) {
-        Allure.step("open page", () -> Selenide.open(CFG.getFrontUrl()));
         String firstname = user.getUsername() + " firstname";
         String lastname = user.getUsername() + " lastname";
 
@@ -49,8 +54,6 @@ public class ProfileTest extends BaseWebTest {
     @AllureId("502")
     @Test
     void updateUserProfileAndNotSaveChanges(UserEntity user) {
-        Allure.step("open page", () -> Selenide.open(CFG.getFrontUrl()));
-
         profilePage = mainPage.checkThatPageLoaded()
                 .clickEmptyPhotoProfileButton();
         mainPage = profilePage.checkThatPageLoaded()
