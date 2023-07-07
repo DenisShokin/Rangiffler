@@ -28,6 +28,7 @@ public class PhotoService {
         this.webClient = webClient;
         this.rangifflerPhotoBaseUri = rangifflerPhotoBaseUri;
     }
+
     List<PhotoJson> allUsersPhotoList = new ArrayList<>();
 
     public PhotoJson addPhoto(String username, PhotoJson photo) {
@@ -65,8 +66,17 @@ public class PhotoService {
                 .block();
     }
 
-    public List<PhotoJson> getAllFriendsPhotos() {
-        return allUsersPhotoList;
+    public List<PhotoJson> getAllFriendsPhotos(String username) {
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("username", username);
+        URI uri = UriComponentsBuilder.fromHttpUrl(rangifflerPhotoBaseUri + "/friends/photos").queryParams(params).build().toUri();
+
+        return webClient.get()
+                .uri(uri)
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<List<PhotoJson>>() {
+                })
+                .block();
     }
 
     public void deletePhoto(UUID photoId) {

@@ -46,11 +46,10 @@ public class PhotoController {
         return photoService.editPhoto(photoJson);
     }
 
-//  //TODO: реализовать
-//  @GetMapping("/friends/photos")
-//  public List<PhotoJson> getAllFriendsPhotos() {
-//    return photoService.getAllFriendsPhotos();
-//  }
-//
+    @GetMapping("/friends/photos")
+    public List<PhotoJson> getAllFriendsPhotos(@RequestParam String username) {
+        return photoService.getAllFriendsPhotos(username);
+    }
+
 
 }

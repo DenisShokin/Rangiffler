@@ -49,10 +49,10 @@ public class PhotoController {
         photoService.deletePhoto(photoId);
     }
 
-    //TODO: реализовать
     @GetMapping("/friends/photos")
-    public List<PhotoJson> getAllFriendsPhotos() {
-        return photoService.getAllFriendsPhotos();
+    public List<PhotoJson> getAllFriendsPhotos(@AuthenticationPrincipal Jwt principal) {
+        String username = principal.getClaim("sub");
+        return photoService.getAllFriendsPhotos(username);
     }
 
 }
