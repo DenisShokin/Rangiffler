@@ -42,21 +42,26 @@ public class GenerateUserAuthAndApiLoginExtension implements BeforeEachCallback,
 
     @Override
     public void afterEach(ExtensionContext context) {
-        SessionContext.getInstance().release();
-        CookieContext.getInstance().release();
+        GenerateUserAuthAndApiLogin annotation = context.getRequiredTestMethod()
+                .getAnnotation(GenerateUserAuthAndApiLogin.class);
 
-        RangifflerUsersDAO usersDAO = new RangifflerUsersDAOHibernate();
-        String testId = getTestId(context);
-        UserEntity user = (UserEntity) context.getStore(NAMESPACE).get(testId);
-        usersDAO.removeUser(user);
+        if (annotation != null) {
+            SessionContext.getInstance().release();
+            CookieContext.getInstance().release();
 
-        RangifflerUsersDataDAOHibernate usersDataDAO = new RangifflerUsersDataDAOHibernate();
-        UserDataEntity userData = usersDataDAO.getUserByUsername(user.getUsername());
-        usersDataDAO.removeUser(userData);
+            RangifflerUsersDAO usersDAO = new RangifflerUsersDAOHibernate();
+            String testId = getTestId(context);
+            UserEntity user = (UserEntity) context.getStore(NAMESPACE).get(testId);
+            usersDAO.removeUser(user);
+
+            RangifflerUsersDataDAOHibernate usersDataDAO = new RangifflerUsersDataDAOHibernate();
+            UserDataEntity userData = usersDataDAO.getUserByUsername(user.getUsername());
+            usersDataDAO.removeUser(userData);
+        }
     }
 
     @Override
-    public void beforeEach(ExtensionContext context) throws InterruptedException {
+    public void beforeEach(ExtensionContext context) {
         final String testId = getTestId(context);
 
         GenerateUserAuthAndApiLogin annotation = context.getRequiredTestMethod()

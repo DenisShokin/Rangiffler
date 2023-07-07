@@ -33,7 +33,8 @@ public class LoginErrorTest extends BaseWebTest {
     @Test
     @AllureId("301")
     public void errorMessageShouldBeVisibleInCaseThatUserNotCreated() {
-        loginPage.checkThatPageLoaded()
+        loginPage
+                .checkThatPageLoaded()
                 .fillLoginForm(faker.name().name(), String.valueOf(faker.number().randomNumber()))
                 .checkErrorMessage("Неверные учетные данные пользователя");
     }
@@ -42,7 +43,8 @@ public class LoginErrorTest extends BaseWebTest {
     @GenerateUserAuthData(password = TEST_PWD, enabled = false)
     @AllureId("302")
     public void errorMessageShouldBeVisibleInCaseThatUserIsDisable(UserEntity user) {
-        loginPage.checkThatPageLoaded()
+        loginPage
+                .checkThatPageLoaded()
                 .fillLoginForm(user.getUsername(), TEST_PWD)
                 .checkErrorMessage("Пользователь отключен");
     }
@@ -51,7 +53,8 @@ public class LoginErrorTest extends BaseWebTest {
     @GenerateUserAuthData(password = TEST_PWD, accountNonExpired = false)
     @AllureId("303")
     public void errorMessageShouldBeVisibleInCaseThatUserAccountIsExpired(UserEntity user) {
-        loginPage.checkThatPageLoaded()
+        loginPage
+                .checkThatPageLoaded()
                 .fillLoginForm(user.getUsername(), TEST_PWD)
                 .checkErrorMessage("Срок действия учетной записи пользователя истек");
     }
@@ -62,7 +65,8 @@ public class LoginErrorTest extends BaseWebTest {
             accountNonLocked = false)
     @AllureId("304")
     public void errorMessageShouldBeVisibleInCaseThatUserAccountIsLock(UserEntity user) {
-        loginPage.checkThatPageLoaded()
+        loginPage
+                .checkThatPageLoaded()
                 .fillLoginForm(user.getUsername(), TEST_PWD)
                 .checkErrorMessage("Учетная запись пользователя заблокирована");
     }
@@ -73,7 +77,8 @@ public class LoginErrorTest extends BaseWebTest {
             credentialsNonExpired = false)
     @AllureId("305")
     public void errorMessageShouldBeVisibleInCaseThatUserCredentialsExpired(UserEntity user) {
-        loginPage.checkThatPageLoaded()
+        loginPage
+                .checkThatPageLoaded()
                 .fillLoginForm(user.getUsername(), TEST_PWD)
                 .checkErrorMessage("Срок действия учетных данных пользователя истек");
     }

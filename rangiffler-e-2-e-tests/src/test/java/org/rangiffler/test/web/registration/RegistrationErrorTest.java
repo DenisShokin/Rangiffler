@@ -23,14 +23,16 @@ public class RegistrationErrorTest extends BaseWebTest {
     @BeforeEach
     void setUp() {
         Selenide.open(CFG.getFrontUrl());
-        startPage.checkThatPageLoaded()
+        startPage
+                .checkThatPageLoaded()
                 .goToRegister();
     }
 
     @Test
     @AllureId("201")
     public void errorMessageShouldBeVisibleInCaseThatPasswordsAreDifferent() {
-        registrationPage.checkThatPageLoaded()
+        registrationPage
+                .checkThatPageLoaded()
                 .fillRegistrationForm("wdfsdasfs", "123", "12345")
                 .checkErrorMessage("Passwords should be equal");
     }
@@ -38,7 +40,8 @@ public class RegistrationErrorTest extends BaseWebTest {
     @Test
     @AllureId("202")
     public void errorMessageShouldBeVisibleInCaseThatPasswordsLessThan3Symbols() {
-        registrationPage.checkThatPageLoaded()
+        registrationPage
+                .checkThatPageLoaded()
                 .fillRegistrationForm("wdfsdadfdaasfs", "1", "1")
                 .checkErrorMessage("Allowed password length should be from 3 to 12 characters");
     }
@@ -46,7 +49,8 @@ public class RegistrationErrorTest extends BaseWebTest {
     @Test
     @AllureId("203")
     public void errorMessageShouldBeVisibleInCaseThatUsernameLessThan3Symbols() {
-        registrationPage.checkThatPageLoaded()
+        registrationPage
+                .checkThatPageLoaded()
                 .fillRegistrationForm("wd", "123", "123")
                 .checkErrorMessage("Allowed username length should be from 3 to 50 characters");
     }
@@ -55,7 +59,8 @@ public class RegistrationErrorTest extends BaseWebTest {
     @GenerateUserAuthData(password = "12345")
     @AllureId("204")
     public void errorMessageShouldBeVisibleInCaseThatUsernameAlreadyExists(UserEntity user) {
-        registrationPage.checkThatPageLoaded()
+        registrationPage
+                .checkThatPageLoaded()
                 .fillRegistrationForm(user.getUsername(), "123456", "123456")
                 .checkErrorMessage("Username `" + user.getUsername() + "` already exists");
     }

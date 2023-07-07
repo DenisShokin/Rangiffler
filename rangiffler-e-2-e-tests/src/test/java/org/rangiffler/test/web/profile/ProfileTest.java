@@ -10,15 +10,15 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.rangiffler.db.entity.user.UserEntity;
 import org.rangiffler.jupiter.annotation.GenerateUserAuthAndApiLogin;
 import org.rangiffler.jupiter.extension.GenerateUserAuthAndApiLoginExtension;
-import org.rangiffler.page.MainPage;
 import org.rangiffler.page.ProfilePage;
+import org.rangiffler.page.YourTravelsPage;
 import org.rangiffler.test.web.BaseWebTest;
 
 @DisplayName("Update profile")
 @ExtendWith(GenerateUserAuthAndApiLoginExtension.class)
 public class ProfileTest extends BaseWebTest {
 
-    private MainPage mainPage = new MainPage();
+    private YourTravelsPage yourTravelsPage = new YourTravelsPage();
     private ProfilePage profilePage = new ProfilePage();
     private static final String TEST_PWD = "123456";
     private static final String PROFILE_PHOTO_PATH = "src/test/resources/testdata/cat_1.jfif";
@@ -35,14 +35,18 @@ public class ProfileTest extends BaseWebTest {
         String firstname = user.getUsername() + " firstname";
         String lastname = user.getUsername() + " lastname";
 
-        profilePage = mainPage.checkThatPageLoaded()
+        profilePage = yourTravelsPage
+                .checkThatPageLoaded()
+                .getHeader()
                 .clickEmptyPhotoProfileButton();
-        mainPage = profilePage.checkThatPageLoaded()
+        profilePage.checkThatPageLoaded()
                 .setFirstName(firstname)
                 .setLastName(lastname)
                 .uploadPhoto(PROFILE_PHOTO_PATH)
                 .save();
-        profilePage = mainPage.checkThatPageLoaded()
+        profilePage = yourTravelsPage
+                .checkThatPageLoaded()
+                .getHeader()
                 .clickProfileIcon(user.getUsername());
 
         profilePage.checkThatPageLoaded()
@@ -54,14 +58,18 @@ public class ProfileTest extends BaseWebTest {
     @AllureId("502")
     @Test
     void updateUserProfileAndNotSaveChanges(UserEntity user) {
-        profilePage = mainPage.checkThatPageLoaded()
+        profilePage = yourTravelsPage
+                .checkThatPageLoaded()
+                .getHeader()
                 .clickEmptyPhotoProfileButton();
-        mainPage = profilePage.checkThatPageLoaded()
+        profilePage.checkThatPageLoaded()
                 .setFirstName(user.getUsername() + " firstname")
                 .setLastName(user.getUsername() + " lastname")
                 .uploadPhoto(PROFILE_PHOTO_PATH)
                 .close();
-        profilePage = mainPage.checkThatPageLoaded()
+        profilePage = yourTravelsPage
+                .checkThatPageLoaded()
+                .getHeader()
                 .clickEmptyPhotoProfileButton();
 
         profilePage.checkThatPageLoaded()

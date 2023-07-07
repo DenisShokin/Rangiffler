@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.rangiffler.jupiter.annotation.GenerateUserAuthAndApiLogin;
 import org.rangiffler.jupiter.extension.GenerateUserAuthAndApiLoginExtension;
-import org.rangiffler.page.MainPage;
 import org.rangiffler.page.StartPage;
+import org.rangiffler.page.YourTravelsPage;
 import org.rangiffler.test.web.BaseWebTest;
 
 @DisplayName("Logout")
@@ -17,15 +17,17 @@ import org.rangiffler.test.web.BaseWebTest;
 public class LogoutTest extends BaseWebTest {
 
     private StartPage startPage = new StartPage();
-    private MainPage mainPage = new MainPage();
+    private YourTravelsPage yourTravelsPage = new YourTravelsPage();
     private static final String TEST_PWD = "12345";
 
-    @AllureId("801")
+    @AllureId("701")
     @GenerateUserAuthAndApiLogin(password = TEST_PWD)
     @Test
     void logoutTest() {
         Allure.step("open page", () -> Selenide.open(CFG.getFrontUrl()));
-        startPage = mainPage.checkThatPageLoaded()
+        startPage = yourTravelsPage
+                .checkThatPageLoaded()
+                .getHeader()
                 .logout();
         startPage.checkThatPageLoaded();
     }

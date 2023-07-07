@@ -29,11 +29,11 @@ public class LoginPage extends BasePage<LoginPage> {
     }
 
     @Step("Fill login form and go to main page")
-    public MainPage successFillLoginForm(String username, String password) {
+    public YourTravelsPage successFillLoginForm(String username, String password) {
         usernameInput.val(username);
         passwordInput.val(password);
         signUpBtn.click();
-        return new MainPage();
+        return new YourTravelsPage();
     }
 
     @Step("Check error message")

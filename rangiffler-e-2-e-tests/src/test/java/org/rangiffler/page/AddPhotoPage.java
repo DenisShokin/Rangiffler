@@ -33,11 +33,10 @@ public class AddPhotoPage extends BasePage<AddPhotoPage> {
     }
 
     @Step("Save profile changes")
-    public MainPage save() {
+    public void save() {
         saveBtn.click();
         // sleep for replication updated data
         Selenide.sleep(4000);
-        return new MainPage();
     }
 
     @Step("Upload photo")

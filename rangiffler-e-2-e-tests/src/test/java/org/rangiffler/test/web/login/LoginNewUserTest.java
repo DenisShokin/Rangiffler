@@ -10,8 +10,8 @@ import org.rangiffler.db.entity.user.UserEntity;
 import org.rangiffler.jupiter.annotation.GenerateUserAuthData;
 import org.rangiffler.jupiter.extension.GenerateUserAuthDataExtension;
 import org.rangiffler.page.LoginPage;
-import org.rangiffler.page.MainPage;
 import org.rangiffler.page.StartPage;
+import org.rangiffler.page.YourTravelsPage;
 import org.rangiffler.test.web.BaseWebTest;
 
 @DisplayName("Login")
@@ -26,11 +26,12 @@ public class LoginNewUserTest extends BaseWebTest {
     @Test
     void loginTest(UserEntity user) {
         Allure.step("open page", () -> Selenide.open(CFG.getFrontUrl()));
-        loginPage = startPage.goToLogin()
+        loginPage = startPage
+                .goToLogin()
                 .checkThatPageLoaded();
-        MainPage mainPage = loginPage
+        YourTravelsPage yourTravelsPage = loginPage
                 .successFillLoginForm(user.getUsername(), TEST_PWD);
-        mainPage.checkThatPageLoaded();
+        yourTravelsPage.checkThatPageLoaded();
     }
 
 }
