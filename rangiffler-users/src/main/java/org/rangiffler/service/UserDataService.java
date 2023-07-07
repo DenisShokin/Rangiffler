@@ -9,7 +9,9 @@ import org.rangiffler.data.repository.UserRepository;
 import org.rangiffler.model.FriendStatus;
 import org.rangiffler.model.UserJson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -34,12 +36,16 @@ public class UserDataService {
     public @Nonnull
     UserJson update(@Nonnull UserJson user) {
         UserEntity userEntity = userRepository.findByUsername(user.getUsername());
-        userEntity.setFirstname(user.getFirstName());
-        userEntity.setLastname(user.getLastName());
-        userEntity.setAvatar(user.getAvatar() != null ? user.getAvatar().getBytes(StandardCharsets.UTF_8) : null);
-        UserEntity saved = userRepository.save(userEntity);
+        if (userEntity != null) {
+            userEntity.setFirstname(user.getFirstName());
+            userEntity.setLastname(user.getLastName());
+            userEntity.setAvatar(user.getAvatar() != null ? user.getAvatar().getBytes(StandardCharsets.UTF_8) : null);
+            UserEntity saved = userRepository.save(userEntity);
 
-        return UserJson.fromEntity(saved);
+            return UserJson.fromEntity(saved);
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User not found");
+        }
     }
 
     public @Nonnull

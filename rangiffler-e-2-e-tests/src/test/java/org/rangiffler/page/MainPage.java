@@ -1,11 +1,18 @@
 package org.rangiffler.page;
 
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
+import org.junit.jupiter.api.Assertions;
 
+import static com.codeborne.selenide.Condition.enabled;
+import static com.codeborne.selenide.Condition.focused;
 import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
+import static com.codeborne.selenide.Selenide.actions;
 
 public class MainPage extends BasePage<MainPage> {
     private final SelenideElement header = $x("//h1");
@@ -20,10 +27,13 @@ public class MainPage extends BasePage<MainPage> {
     private final SelenideElement yourTravelsButton = $x("//div[@role='tablist']/button[text()='Your travels']");
     private final SelenideElement friendsTravelsButton = $x("//div[@role='tablist']/button[text()='Friends travels']");
     private final SelenideElement peopleAroundButton = $x("//div[@role='tablist']/button[text()='People Around']");
+    private final SelenideElement photoList = $x("//div/main//ul");
+    private final ElementsCollection photoListItems = $$x("//div/main//ul/li");
 
     @Override
     public MainPage checkThatPageLoaded() {
         header.shouldHave(text("Rangiffler"));
+        zoomIcon.shouldBe(visible).shouldBe(enabled);
         return this;
     }
 
@@ -67,6 +77,37 @@ public class MainPage extends BasePage<MainPage> {
     public AddPhotoPage clickAddPhoto() {
         addPhotoButton.click();
         return new AddPhotoPage();
+    }
+
+    @Step("Your travels tab click")
+    public MainPage clickYourTravelsPhoto() {
+        yourTravelsButton.click();
+        return this;
+    }
+
+    @Step("Friends travels tab click")
+    public MainPage clickFriendsTravelsPhoto() {
+        friendsTravelsButton.click();
+        return this;
+    }
+
+    @Step("People around tab click")
+    public MainPage clickPeopleAroundPhoto() {
+        peopleAroundButton.click();
+        return this;
+    }
+
+    @Step("Photo list is visible")
+    public MainPage checkPhotoListIsVisible() {
+        photoList.shouldHave(visible);
+        Assertions.assertTrue(photoListItems.size() != 0, "Photo list hasn't got items");
+        return this;
+    }
+
+    @Step("Check count photos in list")
+    public MainPage checkPhotosCountInList(int countPhoto) {
+        Assertions.assertEquals(countPhoto, photoListItems.size(), "List contains another count photos");
+        return this;
     }
 
 }

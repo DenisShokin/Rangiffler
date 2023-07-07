@@ -56,7 +56,7 @@ public class GenerateUserAuthAndApiLoginExtension implements BeforeEachCallback,
     }
 
     @Override
-    public void beforeEach(ExtensionContext context) {
+    public void beforeEach(ExtensionContext context) throws InterruptedException {
         final String testId = getTestId(context);
 
         GenerateUserAuthAndApiLogin annotation = context.getRequiredTestMethod()
