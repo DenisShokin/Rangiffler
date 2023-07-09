@@ -1,120 +1,109 @@
-# Rangiffler
+# ![](readme/img/camera.png) Rangiffler
+**Дипломная работа по курсу QA.GURU Advanced**
+<hr>
 
-Приветствую тебя, мой дорогой друг!
-Если ты это читаешь - то ты собираешься сделать первый шаг в написании диплома QA.GURU Advanced.
-Далее я опишу основные направения работы, но помни, что этот диплом - не шаблонная работа, а место
-для творчества - прояви себя! Be like Rangiffler!
+## ![](readme/img/edit-info.png) О проекте
++ Rangiffler - web-приложение для сохранения фотографий посещенных стран на карте мира
 
-Кстати, Rangiffler - произошло от названия северных оленей - Rangifer. Мы выбрали именно такое
-название для этого проекта - потому, что он про путешествия, а северный олень - рекордсмен по
-преодолеваемым расстояниям на суше. Путешествуй, будь как Rangiffler!
+### Технологии, использованные в Rangiffler:
+- [Spring Authorization Server](https://spring.io/projects/spring-authorization-server)
+- [Spring OAuth 2.0 Resource Server](https://docs.spring.io/spring-security/reference/servlet/oauth2/resource-server/index.html)
+- [Spring data JPA](https://spring.io/projects/spring-data-jpa)
+- [Spring Web](https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#spring-web)
+- [Spring actuator](https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html)
+- [Spring web-services](https://docs.spring.io/spring-ws/docs/current/reference/html/)
+- [Postgres](https://www.postgresql.org/about/)
+- [React](https://ru.reactjs.org/docs/getting-started.html)
+- [GraphQL](https://graphql.org/)
+- [Thymeleaf](https://www.thymeleaf.org/)
+- [Jakarta Bean Validation](https://beanvalidation.org/)
+- [JUnit 5 (Extensions, Resolvers, etc)](https://junit.org/junit5/docs/current/user-guide/)
+- [Allure](https://docs.qameta.io/allure/)
+- [Selenide](https://selenide.org/)
+- [Java 17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
+- [Gradle 7.6](https://docs.gradle.org/7.6/release-notes.html)
 
-# Что будет являться готовым дипломом?
+### Микросервисы rangiffler:
++ [Rangiffler-auth]() - *Сервис авторизации*
++ [Rangiffler-gateway]() - *Api-шлюз*
++ [Rangiffler-photo]() - *Сервис для работы с фотографиями пользователей*
++ [Rangiffler-geo]() - *Сервис для работы с геоданными*
++ [Rangiffler-users]() - *Сервис для работы с профилями пользователей*
 
-Тут все просто, диплом глоабльно требует от тебя реализовать три вещи:
+<hr>
 
-- Реализовать бэкенд на микросервисах (Spring boot)
-- Реализовать полноценное покрытие тестами микросервисов и фронтенда (если будут какие-то
-  unit-тесты - это большой плюс!)
-- Красиво оформить репозиторий на гихабе, что бы любой, кто зайдет на твою страничку, смог понять,
-  как все запустить, как прогнать тесты
+###  Минимальные предусловия для работы с проектом Rangiffler:
+#### 1. Установить Postgres
+#### 2. Установить одну из программ для визуальной работы с Postgres. 
+Например, PgAdmin 4.
+#### 3.Подключиться к БД postgres (host: localhost, port: 5432, user: postgres, pass: secret, database name: postgres) из PgAdmin и создать пустые БД микросервисов
 
-# С чего начать?
+```sql
+create
+database "rangiffler-userdata" with owner postgres;
+create
+database "rangiffler-photo" with owner postgres;
+create
+database "rangiffler-geo" with owner postgres;
+create
+database "rangiffler-auth" with owner postgres;
+```
+#### 4. Установить Java версии 17 или новее.
+#### 5. Установить пакетый менеджер для сборки front-end npm
 
-Мы подготовили для тебя полностью рабочий front-end, а так же страницы регистрации и логина. Кроме
-того, у тебя есть и простой бэкенд - по сути своей, мок. В этом бекенде есть контроллеры, по которым
-можно понять, какие микросервисы вам предстоит реализовать. И самое главное - у тебя есть проект
-niffler, который будет выступать образцом для подражания в разработке микросервисов. Тестовое
-покрытие niffler, однако, является явно слабым - учтите это при написании тестов на Rangiffler - это
-все-таки диплом для SDET / QA Automation и падать в грязь лицом с десятком тестов на весь сервис
-точно не стоит. Итак, приступим!
+[Инструкция](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
+Рекомендованная версия Node.js - 18.13.0 (LTS)
+<hr>
 
+## ![](readme/img/editor.png) Запуск Rangiffler локальное в IDE:
 #### 1. Запусти фронт Rangiffler, для этого перейти в соответсвующий каталог
 
 ```posh
-Dmitriis-MacBook-Pro rangiffler % cd rangiffler-client
+dshokin rangiffler % cd rangiffler-client
 ```
-
-#### 2. Обнови зависимости и запускай фронт:
+---
+Обнови зависимости и запускай фронт:
 
 ```posh
-Dmitriis-MacBook-Pro rangiffler-client % npm i
-Dmitriis-MacBook-Pro rangiffler-client % npm start
+dshokin rangiffler-client % npm i
+dshokin rangiffler-client % npm start
 ```
 
 Фронт стартанет в твоем браузере на порту 3001: http://127.0.0.1:3001/
 
-#### 3. Запустите бэкенд rangiffler-gateway
+#### 2. Прописать run конфигурацию для всех сервисов rangiffler-* - Active profiles local
+
+Для этого зайти в меню Run -> Edit Configurations -> выбрать main класс -> указать Active profiles: local
+[Инструкция](https://stackoverflow.com/questions/39738901/how-do-i-activate-a-spring-boot-profile-when-running-from-intellij).
+
+#### 3. Запустить сервис Rangiffler-auth c помощью gradle или командой Run в IDE:
+
+- Запустить сервис auth
 
 ```posh
-Dmitriis-MacBook-Pro rangiffler % ./gradlew :rangiffler-gateway:bootRun
+dshokin niffler % cd niffler-auth
+dshokin niffler-auth % gradle bootRun --args='--spring.profiles.active=local'
 ```
 
-Бэк стартанет на порту 8080: http://127.0.0.1:8080/
+Или просто перейдя к main-классу приложения RangifflerAuthApplication выбрать run в IDEA (предварительно удостовериться что
+выполнен предыдущий пункт)
 
-# Что дальше?
+#### 4. Запустить другие сервисы: rangiffler-gateway, rangiffler-geo, rangiffler-photo, rangiffler-userdata
 
-#### 1. В первую очередь, необходимо реализовать сервис rangiffler-auth
+---
 
-Фронтенд полностью готов к использованию сервиса на порту 9000,
-твоя задача взять сервис niffler-auth и аккуратно переделать его для работы с rangiffler.
-Страницы логина / регистрации, а так же стили и графику мы даем:
+## ![](readme/img/testing.png) Автотесты
+Для Rangiffler реализованы e-2-e тесты, покрывающие основные сценари работы с приложением.
+#### 1. Для запуска тестов Rangiffler, необходимо перейти в соответствующий каталог
 
-- deer-logo.svg
-- favicon.ico
-- styles.css
-- login.html
-- register.html
-
-Основная задача - аккуратно заменить упоминания о niffler в этом сервисе, а в идеале - еще и
-разобраться, как он работает. В этом будет полезно
-видео [Implementing an OAuth 2 authorization server with Spring Security - the new way! by Laurentiu Spilca](https://youtu.be/DaUGKnA7aro)
-
-#### 2. Как только у вас появилось уже 2 сервиса, есть смысл подумать о докеризации
-
-Чем раньше у ва получится запустить в докере фронт и все бэкенды, тем проще будет дальше.
-На самом деле, докеризация не является строго обязательным требованием, но если вы хотите в будущем
-задеплоить свой сервис на прод, прикрутить CI/CD, без этого никак не обойдется
-
-#### 3. Подумать о необходимых микросервисах.
-
-У вас должен остаться основной бэкенд, куда будет ходить фронт, но он будет играть роль прокси,
-проверяющего вашу аутентифкацию. Все, как и в niffler. Это значит, что основная логика уйдет в свои
-микросервисы со своими БД. На мой вззгляд, здесь будут уместны сервисы rangiffler-photo,
-rangiffler-geo, rangiffler-users. Возможно, у вас другие мысли, какие микросервисы создать - вы
-можете проявить свою фантазию
-
-#### 4. Выбрать протоколо взаимодействия между сервисами
-
-В поставляемом фронтенде классический REST. Его можно поменять на GraphQL - но это потребует
-переписывания фронта, и тебе придется делать это самому. Поэтому я бы посоветовал оставить между
-фронтом и rangiffler-gateway старый добрый REST. А вот взаимодействие между микросервисами можно
-делать как угодно! REST, gRPC, SOAP. Делай проект я, однозначно взял бы gRPC - не писать руками кучу
-model-классов, получить перформанс и простое написание тестов. Стоит сказать, что здесь не
-понадобятся streaming rpc, и все ограничится простыми унарными запросами. Однако если вы хотите
-использовать REST или SOAP - я не буду возражать
-
-#### 5. Реализовать микросервисный бэкенд
-
-Это место где, внезапно, СОВА НАРИСОВАНА!
-На самом деле, концептуально и технически каждый сервис будет похож на что-то из niffler, поэтому
-главное внимательность и аккуратность. Любые отхождения от niffler возможны - ты можешь захотеть
-использовать, например, NoSQL базы или по другому организовать конфигурацию / структуру проекта -
-никаких ограничений, лишь бы сервис выполнял свое прямое назначение
-
-#### 6. Подготовить структуру тестового "фреймворка", подумать о том какие прекондишены и как вы будете создавать
-
-#### 7. Реализовать достаточное, на твой взгляд, покрытие e-2- тестами
-
-#### 8. Оформить все красиво!
-
-
-
-
-
-
-
-
-
-
-
+```posh
+dshokin rangiffler % cd rangiffler-e-2-e-tests
+```
+#### 2. Выполнить команду
+```posh
+dshokin rangiffler-e-2-e-tests % gradle rangiffler-e-2-e-tests:clean test
+```
+#### 3. После завершения тестов для просмотра Allure-отчета выполнить команду
+```posh
+dshokin rangiffler-e-2-e-tests % gradle :rangiffler-e-2-e-tests:allureServe
+```
