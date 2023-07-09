@@ -7,7 +7,9 @@ import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterEach;
 import org.rangiffler.config.Config;
+import org.rangiffler.jupiter.annotation.WebTest;
 
+@WebTest
 public class BaseWebTest {
 
     protected static final Config CFG = Config.getConfig();
@@ -28,4 +30,5 @@ public class BaseWebTest {
         Selenide.clearBrowserCookies();
         Selenide.closeWebDriver();
     }
+
 }

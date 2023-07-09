@@ -34,7 +34,7 @@ public class LocalConfig implements Config {
     }
 
     @Override
-    public String getUsersUrl() {
+    public String getUserdataUrl() {
         return "http://127.0.0.1:8089";
     }
 

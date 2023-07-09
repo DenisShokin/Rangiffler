@@ -25,5 +25,5 @@ public interface Config {
 
     String getPhotoUrl();
 
-    String getUsersUrl();
+    String getUserdataUrl();
 }

@@ -6,21 +6,18 @@ import io.qameta.allure.AllureId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.rangiffler.db.entity.user.UserEntity;
-import org.rangiffler.jupiter.annotation.GenerateUserAuthAndApiLogin;
-import org.rangiffler.jupiter.extension.GenerateUserAuthAndApiLoginExtension;
+import org.rangiffler.jupiter.annotation.ApiLogin;
+import org.rangiffler.jupiter.annotation.GenerateUser;
+import org.rangiffler.model.UserJson;
 import org.rangiffler.page.ProfilePage;
 import org.rangiffler.page.YourTravelsPage;
 import org.rangiffler.test.web.BaseWebTest;
 
 @DisplayName("Update profile")
-@ExtendWith(GenerateUserAuthAndApiLoginExtension.class)
 public class ProfileTest extends BaseWebTest {
 
     private YourTravelsPage yourTravelsPage = new YourTravelsPage();
     private ProfilePage profilePage = new ProfilePage();
-    private static final String TEST_PWD = "123456";
     private static final String PROFILE_PHOTO_PATH = "src/test/resources/testdata/cat_1.jfif";
 
     @BeforeEach
@@ -28,10 +25,10 @@ public class ProfileTest extends BaseWebTest {
         Allure.step("open page", () -> Selenide.open(CFG.getFrontUrl()));
     }
 
-    @GenerateUserAuthAndApiLogin(password = TEST_PWD)
     @AllureId("501")
+    @ApiLogin(user = @GenerateUser)
     @Test
-    void updateUserProfile(UserEntity user) {
+    void updateUserProfile(UserJson user) {
         String firstname = user.getUsername() + " firstname";
         String lastname = user.getUsername() + " lastname";
 
@@ -54,10 +51,10 @@ public class ProfileTest extends BaseWebTest {
                 .checkLastname(lastname);
     }
 
-    @GenerateUserAuthAndApiLogin(password = TEST_PWD)
     @AllureId("502")
+    @ApiLogin(user = @GenerateUser)
     @Test
-    void updateUserProfileAndNotSaveChanges(UserEntity user) {
+    void updateUserProfileAndNotSaveChanges(UserJson user) {
         profilePage = yourTravelsPage
                 .checkThatPageLoaded()
                 .getHeader()

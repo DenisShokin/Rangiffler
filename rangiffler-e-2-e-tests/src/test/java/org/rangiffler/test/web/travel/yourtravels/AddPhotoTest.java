@@ -4,11 +4,11 @@ import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Allure;
 import io.qameta.allure.AllureId;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.rangiffler.jupiter.annotation.GenerateUserAuthAndApiLogin;
+import org.rangiffler.jupiter.annotation.ApiLogin;
+import org.rangiffler.jupiter.annotation.GenerateUser;
 import org.rangiffler.jupiter.extension.GenerateUserAuthAndApiLoginExtension;
 import org.rangiffler.page.AddPhotoPage;
 import org.rangiffler.page.YourTravelsPage;
@@ -21,9 +21,8 @@ public class AddPhotoTest extends BaseWebTest {
 
     private HeaderComponent headerComponent = new HeaderComponent();
     private AddPhotoPage addPhotoPage = new AddPhotoPage();
-    private static final String TEST_PWD = "123456";
 
-    @GenerateUserAuthAndApiLogin(password = TEST_PWD)
+    @ApiLogin(user = @GenerateUser)
     @AllureId("801")
     @ParameterizedTest(name = "add photo with extension - {0}")
     @ValueSource(strings =

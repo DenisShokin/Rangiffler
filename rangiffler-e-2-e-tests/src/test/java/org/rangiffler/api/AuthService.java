@@ -41,5 +41,16 @@ public interface AuthService {
             @Query("code_verifier") String codeVerifier
     );
 
+    @GET("/register")
+    Call<Void> requestRegisterForm();
 
+    @POST("/register")
+    @FormUrlEncoded
+    Call<Void> register(
+            @Header("Cookie") String xsrfCookie,
+            @Field("_csrf") String xsrf,
+            @Field("username") String username,
+            @Field("password") String password,
+            @Field("passwordSubmit") String passwordSubmit
+    );
 }

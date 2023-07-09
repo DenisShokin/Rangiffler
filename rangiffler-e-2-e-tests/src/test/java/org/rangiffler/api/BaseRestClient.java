@@ -13,7 +13,6 @@ import static okhttp3.logging.HttpLoggingInterceptor.Level.BODY;
 public abstract class BaseRestClient {
 
     protected static final Config CFG = Config.getConfig();
-
     protected final String serviceBaseUrl;
     protected final OkHttpClient httpClient;
     protected final Retrofit retrofit;

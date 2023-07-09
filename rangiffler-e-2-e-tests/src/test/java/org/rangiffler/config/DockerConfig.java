@@ -5,7 +5,7 @@ public class DockerConfig implements Config {
     //TODO: реализовать
     @Override
     public String getDBHost() {
-        return "niffler-all-db";
+        return "rangiffler-all-db";
     }
 
     @Override
@@ -20,7 +20,7 @@ public class DockerConfig implements Config {
 
     @Override
     public String getGeoUrl() {
-        return "niffler-spend";
+        return "rangiffler-spend";
     }
 
     @Override
@@ -29,7 +29,7 @@ public class DockerConfig implements Config {
     }
 
     @Override
-    public String getUsersUrl() {
+    public String getUserdataUrl() {
         return null;
     }
 
@@ -40,12 +40,12 @@ public class DockerConfig implements Config {
 
     @Override
     public String getFrontUrl() {
-        return "http://niffler-fronend:3000/";
+        return "http://rangiffler-fronend:3000/";
     }
 
     @Override
     public String getAuthUrl() {
-        return "http://niffler-auth:9000/";
+        return "http://rangiffler-auth:9000/";
     }
 
 }
