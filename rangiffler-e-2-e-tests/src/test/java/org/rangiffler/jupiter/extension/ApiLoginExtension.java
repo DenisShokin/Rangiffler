@@ -37,7 +37,7 @@ public class ApiLoginExtension  implements BeforeEachCallback, AfterTestExecutio
     }
 
     @Override
-    public void beforeEach(ExtensionContext context) throws Exception {
+    public void beforeEach(ExtensionContext context) {
         ApiLogin apiLogin = context.getRequiredTestMethod().getAnnotation(ApiLogin.class);
         if (apiLogin != null) {
             String username;

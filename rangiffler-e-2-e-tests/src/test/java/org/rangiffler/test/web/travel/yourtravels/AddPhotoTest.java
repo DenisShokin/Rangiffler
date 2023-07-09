@@ -4,12 +4,10 @@ import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Allure;
 import io.qameta.allure.AllureId;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.rangiffler.jupiter.annotation.ApiLogin;
 import org.rangiffler.jupiter.annotation.GenerateUser;
-import org.rangiffler.jupiter.extension.GenerateUserAuthAndApiLoginExtension;
 import org.rangiffler.model.CountryJson;
 import org.rangiffler.model.PhotoJson;
 import org.rangiffler.page.AddPhotoPage;
@@ -19,7 +17,6 @@ import org.rangiffler.test.web.BaseWebTest;
 import org.rangiffler.utils.ImageUtils;
 
 @DisplayName("Your travel. Add photo")
-@ExtendWith(GenerateUserAuthAndApiLoginExtension.class)
 public class AddPhotoTest extends BaseWebTest {
 
     private HeaderComponent headerComponent = new HeaderComponent();
