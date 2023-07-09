@@ -1,5 +1,6 @@
 package org.rangiffler.page.component;
 
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.rangiffler.page.AddPhotoPage;
@@ -32,13 +33,7 @@ public class HeaderComponent extends BaseComponent<HeaderComponent> {
     public HeaderComponent checkThatComponentDisplayed() {
         self.shouldHave(text("Rangiffler"));
         logoutButton.shouldBe(visible);
-
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
+        Selenide.sleep(3000);
         return this;
     }
 

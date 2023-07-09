@@ -16,7 +16,6 @@ alter table photos
 
 create table if not exists countries
 (
---    id                      UUID unique  not null default uuid_generate_v1() primary key,
     code                    varchar(50)        not null,
     name                    varchar(255)       not null,
     photo_id UUID unique                       not null,
