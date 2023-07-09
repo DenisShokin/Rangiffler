@@ -37,8 +37,4 @@ public class YourTravelsPage extends BasePage<YourTravelsPage> {
         return this;
     }
 
-    public void checkImagesListContainsPhotos(PhotoJson...photos) {
-        photoListItems.shouldHave(PhotosCondition.photos(photos));
-    }
-
 }

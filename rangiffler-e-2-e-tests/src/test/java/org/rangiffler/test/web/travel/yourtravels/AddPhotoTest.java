@@ -55,19 +55,8 @@ public class AddPhotoTest extends BaseWebTest {
                 .checkPhotosCount(1)
                 .checkVisitedCountriesCount(1)
                 .goToYourTravelsPage();
-        yourTravelsPage.checkImagesListContainsPhotos(photo);
+        yourTravelsPage.getImagesList()
+                .checkImagesListContainsPhotos(photo);
     }
-
-//    @Test
-//    @AllureId("802")
-//    void addTwoPhotoTravelForOneCountry() {
-//
-//    }
-//
-//    @Test
-//    @AllureId("803")
-//    void addPhotosForTwoCountry() {
-//
-//    }
 
 }

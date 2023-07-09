@@ -3,7 +3,8 @@ package org.rangiffler.page.component;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import io.qameta.allure.Step;
-import org.junit.jupiter.api.Assertions;
+import org.rangiffler.condition.PhotosCondition;
+import org.rangiffler.model.PhotoJson;
 import org.rangiffler.page.BaseComponent;
 
 import static com.codeborne.selenide.Selenide.$$x;
@@ -23,10 +24,9 @@ public class ImagesListComponent extends BaseComponent<ImagesListComponent> {
         return this;
     }
 
-    @Step("Check count photos in list")
-    public ImagesListComponent checkPhotoCount(int countPhoto) {
-        Assertions.assertEquals(countPhoto, photoListItems.size(), "List contains another count photos");
-        return this;
+    @Step("Check that images list contains photos")
+    public void checkImagesListContainsPhotos(PhotoJson... photos) {
+        photoListItems.shouldHave(PhotosCondition.photos(photos));
     }
 
 }
