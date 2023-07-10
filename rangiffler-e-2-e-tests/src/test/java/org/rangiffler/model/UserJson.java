@@ -4,6 +4,8 @@ package org.rangiffler.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class UserJson {
@@ -32,6 +34,15 @@ public class UserJson {
   public UserJson() {
   }
 
+  private transient List<PhotoJson> photos = new ArrayList<>();
+
+  public List<PhotoJson> getPhotos() {
+    return photos;
+  }
+
+  public void setPhotos(List<PhotoJson> photos) {
+    this.photos = photos;
+  }
   public UUID getId() {
     return id;
   }

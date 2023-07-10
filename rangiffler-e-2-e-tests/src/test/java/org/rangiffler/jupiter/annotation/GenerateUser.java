@@ -15,6 +15,6 @@ public @interface GenerateUser {
 
     Friend[] incomeInvitations() default {};
 
-    Photo[] photos() default {};
+    GeneratePhoto[] photos() default {};
 
 }

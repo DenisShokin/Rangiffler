@@ -26,7 +26,8 @@ public class GenerateUserExtension implements BeforeEachCallback, ParameterResol
                 .getAnnotation(GenerateUser.class);
 
         if (annotation != null) {
-            context.getStore(NAMESPACE).put(getTestId(context), generateUserService.generateUser(annotation));
+            UserJson userJson = generateUserService.generateUser(annotation);
+            context.getStore(NAMESPACE).put(getTestId(context), userJson);
         }
     }
 

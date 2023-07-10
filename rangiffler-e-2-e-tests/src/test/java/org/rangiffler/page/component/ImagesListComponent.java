@@ -1,18 +1,23 @@
 package org.rangiffler.page.component;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
+import org.rangiffler.condition.PhotoCondition;
 import org.rangiffler.condition.PhotosCondition;
 import org.rangiffler.model.PhotoJson;
+import org.rangiffler.page.PhotoPage;
 import org.rangiffler.page.BaseComponent;
 
+import static com.codeborne.selenide.Condition.hidden;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class ImagesListComponent extends BaseComponent<ImagesListComponent> {
 
     private final ElementsCollection photoListItems = $$x("//div/main//ul/li");
+    private final SelenideElement photoList = $x("//div/main//ul");
 
     public ImagesListComponent() {
         super($x("//main//ul"));
@@ -20,13 +25,24 @@ public class ImagesListComponent extends BaseComponent<ImagesListComponent> {
 
     @Override
     public ImagesListComponent checkThatComponentDisplayed() {
-        self.shouldBe(Condition.visible);
+        self.shouldBe(visible);
         return this;
     }
 
     @Step("Check that images list contains photos")
     public void checkImagesListContainsPhotos(PhotoJson... photos) {
         photoListItems.shouldHave(PhotosCondition.photos(photos));
+    }
+
+    @Step("Click image")
+    public PhotoPage clickToImage(PhotoJson photo) {
+        photoListItems.shouldHave(PhotoCondition.photo(photo)).first().click();
+        return new PhotoPage();
+    }
+
+    @Step("Images list is hidden")
+    public void checkThatComponentIsHidden() {
+        self.shouldBe(hidden);
     }
 
 }

@@ -3,7 +3,7 @@ package org.rangiffler.page.component;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
-import org.rangiffler.page.AddPhotoPage;
+import org.rangiffler.page.PhotoPage;
 import org.rangiffler.page.BaseComponent;
 import org.rangiffler.page.ProfilePage;
 import org.rangiffler.page.StartPage;
@@ -89,9 +89,9 @@ public class HeaderComponent extends BaseComponent<HeaderComponent> {
     }
 
     @Step("Click Add Photo")
-    public AddPhotoPage clickAddPhoto() {
+    public PhotoPage clickAddPhoto() {
         addPhotoButton.click();
-        return new AddPhotoPage();
+        return new PhotoPage();
     }
 
 }

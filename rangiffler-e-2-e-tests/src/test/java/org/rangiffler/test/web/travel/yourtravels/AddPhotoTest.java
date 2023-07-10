@@ -10,7 +10,7 @@ import org.rangiffler.jupiter.annotation.ApiLogin;
 import org.rangiffler.jupiter.annotation.GenerateUser;
 import org.rangiffler.model.CountryJson;
 import org.rangiffler.model.PhotoJson;
-import org.rangiffler.page.AddPhotoPage;
+import org.rangiffler.page.PhotoPage;
 import org.rangiffler.page.YourTravelsPage;
 import org.rangiffler.page.component.HeaderComponent;
 import org.rangiffler.test.web.BaseWebTest;
@@ -20,7 +20,7 @@ import org.rangiffler.utils.ImageUtils;
 public class AddPhotoTest extends BaseWebTest {
 
     private HeaderComponent headerComponent = new HeaderComponent();
-    private AddPhotoPage addPhotoPage = new AddPhotoPage();
+    private PhotoPage photoPage = new PhotoPage();
 
     @ApiLogin(user = @GenerateUser)
     @AllureId("801")
@@ -39,12 +39,12 @@ public class AddPhotoTest extends BaseWebTest {
         photo.setCountryJson(country);
 
         Allure.step("open page", () -> Selenide.open(CFG.getFrontUrl()));
-        addPhotoPage = headerComponent
+        photoPage = headerComponent
                 .checkThatComponentDisplayed()
                 .checkPhotosCount(0)
                 .checkVisitedCountriesCount(0)
                 .clickAddPhoto();
-        addPhotoPage
+        photoPage
                 .checkThatPageLoaded()
                 .uploadPhoto(imagePath)
                 .setDescription(photo.getDescription())
