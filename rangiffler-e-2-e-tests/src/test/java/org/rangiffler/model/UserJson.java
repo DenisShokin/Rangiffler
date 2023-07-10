@@ -35,6 +35,15 @@ public class UserJson {
   }
 
   private transient List<PhotoJson> photos = new ArrayList<>();
+  private transient List<UserJson> friends = new ArrayList<>();
+
+  public List<UserJson> getFriends() {
+    return friends;
+  }
+
+  public void setFriends(List<UserJson> friends) {
+    this.friends = friends;
+  }
 
   public List<PhotoJson> getPhotos() {
     return photos;

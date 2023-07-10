@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-//TODO: реализовать endpoint-ы
 @RestController
 public class FriendsController {
 

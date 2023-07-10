@@ -4,6 +4,7 @@ import com.google.common.base.Stopwatch;
 import org.rangiffler.api.AuthRestClient;
 import org.rangiffler.api.PhotoRestClient;
 import org.rangiffler.api.UserdataRestClient;
+import org.rangiffler.jupiter.annotation.Friend;
 import org.rangiffler.jupiter.annotation.GeneratePhoto;
 import org.rangiffler.jupiter.annotation.GenerateUser;
 import org.rangiffler.model.PhotoJson;
@@ -29,6 +30,7 @@ public class GenerateUserService {
         UserJson user = createRandomUser();
 
         addPhotoIfPresent(user, annotation.photos());
+        addFriendsIfPresent(user, annotation.friends());
         return user;
     }
 
@@ -50,6 +52,19 @@ public class GenerateUserService {
                 photoList.add(photoJson);
             }
             targetUser.setPhotos(photoList);
+        }
+    }
+
+    private void addFriendsIfPresent(UserJson targetUser, Friend[] friends) {
+        if (isNotEmpty(friends)) {
+            List<UserJson> friendsList = new ArrayList<>();
+            for (Friend friend : friends) {
+                UserJson friendJson = createRandomUser();
+                userdataClient.addFriend(targetUser.getUsername(), friendJson.getUsername());
+                userdataClient.acceptInvitation(friendJson.getUsername(), targetUser.getUsername());
+                friendsList.add(friendJson);
+            }
+            targetUser.setFriends(friendsList);
         }
     }
 

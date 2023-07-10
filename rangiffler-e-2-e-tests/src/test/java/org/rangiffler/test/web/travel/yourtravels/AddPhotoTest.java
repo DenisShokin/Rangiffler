@@ -9,9 +9,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.rangiffler.jupiter.annotation.ApiLogin;
+import org.rangiffler.jupiter.annotation.GeneratePhoto;
 import org.rangiffler.jupiter.annotation.GenerateUser;
 import org.rangiffler.model.CountryJson;
 import org.rangiffler.model.PhotoJson;
+import org.rangiffler.model.UserJson;
 import org.rangiffler.page.PhotoPage;
 import org.rangiffler.page.YourTravelsPage;
 import org.rangiffler.page.component.HeaderComponent;
@@ -25,6 +27,7 @@ public class AddPhotoTest extends BaseWebTest {
     private PhotoPage photoPage = new PhotoPage();
     private PhotoJson photo = new PhotoJson();
     private CountryJson country = new CountryJson();
+    private static final String IMAGE_PATH = "src/test/resources/testdata/country/china_1.jfif";
 
     @BeforeEach
     void setUp() {
@@ -67,11 +70,10 @@ public class AddPhotoTest extends BaseWebTest {
     }
 
     @ApiLogin(user = @GenerateUser)
-    @AllureId("801")
+    @AllureId("802")
     @Test
     void addPhotoWithoutClickSave() {
-        final String imagePath = "src/test/resources/testdata/country/china_1.jfif";
-        photo.setPhoto(ImageUtils.getDataURI(imagePath));
+        photo.setPhoto(ImageUtils.getDataURI(IMAGE_PATH));
 
         Allure.step("open page", () -> Selenide.open(CFG.getFrontUrl()));
         photoPage = headerComponent
@@ -81,7 +83,7 @@ public class AddPhotoTest extends BaseWebTest {
                 .clickAddPhoto();
         photoPage
                 .checkThatPageLoaded()
-                .uploadPhoto(imagePath)
+                .uploadPhoto(IMAGE_PATH)
                 .setDescription(photo.getDescription())
                 .selectCountry(photo.getCountryJson().getName())
                 .clickCloseButton();
@@ -92,6 +94,40 @@ public class AddPhotoTest extends BaseWebTest {
                 .goToYourTravelsPage();
         yourTravelsPage.getImagesList()
                 .checkThatComponentIsHidden();
+    }
+
+    @ApiLogin(user = @GenerateUser
+            (photos = @GeneratePhoto)
+    )
+    @AllureId("803")
+    @Test
+    void addTwoPhotoForOneCountry(UserJson user) {
+        final PhotoJson photo = user.getPhotos().get(0);
+        PhotoJson secondPhoto = new PhotoJson();
+        secondPhoto.setDescription(photo.getDescription());
+        secondPhoto.setPhoto(ImageUtils.getDataURI(IMAGE_PATH));
+        secondPhoto.setCountryJson(photo.getCountryJson());
+
+        Allure.step("open page", () -> Selenide.open(CFG.getFrontUrl()));
+
+        photoPage = headerComponent
+                .checkThatComponentDisplayed()
+                .checkPhotosCount(1)
+                .checkVisitedCountriesCount(1)
+                .clickAddPhoto();
+        photoPage
+                .checkThatPageLoaded()
+                .uploadPhoto(IMAGE_PATH)
+                .setDescription(photo.getDescription())
+                .selectCountry(photo.getCountryJson().getName())
+                .save();
+        YourTravelsPage yourTravelsPage = headerComponent
+                .checkThatComponentDisplayed()
+                .checkPhotosCount(2)
+                .checkVisitedCountriesCount(1)
+                .goToYourTravelsPage();
+        yourTravelsPage.getImagesList()
+                .checkImagesListContainsPhotos(photo, secondPhoto);
     }
 
 }

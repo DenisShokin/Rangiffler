@@ -23,7 +23,7 @@ public interface UserdataService {
             @Body UserJson friendJson);
 
     @POST("/acceptInvitation")
-    Call<List<UserJson>> acceptInvitation(
+    Call<UserJson> acceptInvitation(
             @Query("username") String username,
             @Body UserJson friendJson);
 

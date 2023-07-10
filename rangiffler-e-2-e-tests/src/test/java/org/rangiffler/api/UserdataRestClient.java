@@ -20,4 +20,24 @@ public class UserdataRestClient extends BaseRestClient {
         }
     }
 
+    public UserJson addFriend(String username, String friendUsername) {
+        try {
+            UserJson friendJson = new UserJson();
+            friendJson.setUsername(friendUsername);
+            return userdataService.addFriend(username, friendJson).execute().body();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public UserJson acceptInvitation(String username, String inviteUsername) {
+        try {
+            UserJson friendJson = new UserJson();
+            friendJson.setUsername(inviteUsername);
+            return userdataService.acceptInvitation(username, friendJson).execute().body();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

@@ -3,6 +3,7 @@ package org.rangiffler.page.component;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
+import org.rangiffler.page.FriendsPage;
 import org.rangiffler.page.PhotoPage;
 import org.rangiffler.page.BaseComponent;
 import org.rangiffler.page.ProfilePage;
@@ -93,5 +94,12 @@ public class HeaderComponent extends BaseComponent<HeaderComponent> {
         addPhotoButton.click();
         return new PhotoPage();
     }
+
+    @Step("Click Your friends button")
+    public FriendsPage clickFriendsButton() {
+        yourFriends.click();
+        return new FriendsPage();
+    }
+
 
 }
