@@ -88,4 +88,9 @@ public class PhotoPage extends BasePage<PhotoPage> {
         return this;
     }
 
+    @Step("Click close button")
+    public void clickCloseButton() {
+        closeBtn.click();
+    }
+
 }
