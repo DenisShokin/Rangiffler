@@ -31,6 +31,7 @@ public class GenerateUserService {
 
         addPhotoIfPresent(user, annotation.photos());
         addFriendsIfPresent(user, annotation.friends());
+        addIncomeInvitationsIfPresent(user, annotation.incomeInvitations());
         return user;
     }
 
@@ -66,6 +67,16 @@ public class GenerateUserService {
                 friendsList.add(friendJson);
             }
             targetUser.setFriends(friendsList);
+        }
+    }
+
+    private void addIncomeInvitationsIfPresent(UserJson targetUser, Friend[] incomeInvitations) {
+        if (isNotEmpty(incomeInvitations)) {
+            for (Friend ii : incomeInvitations) {
+                UserJson friendJson = createRandomUser();
+                userdataClient.addFriend(friendJson.getUsername(), targetUser.getUsername());
+                targetUser.getIncomeInvitations().add(friendJson);
+            }
         }
     }
 

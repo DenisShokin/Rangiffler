@@ -39,7 +39,25 @@ public class PeopleAroundTest extends BaseWebTest {
                 .checkFriendsCount(0);
     }
 
-    //test for accept invite
+    @Test
+    @ApiLogin(user = @GenerateUser(incomeInvitations = @Friend))
+    @AllureId("905")
+    void acceptInvitationTest(UserJson user) {
+        final UserJson incomeUser = user.getIncomeInvitations().get(0);
+
+        Allure.step("open page", () -> Selenide.open(CFG.getFrontUrl()));
+        PeopleAroundPage peopleAroundPage = headerComponent
+                .checkThatComponentDisplayed()
+                .checkFriendsCount(0)
+                .goToPeopleAroundPage();
+        peopleAroundPage
+                .checkThatPageLoaded()
+                .acceptInvites(incomeUser);
+        headerComponent
+                .checkThatComponentDisplayed()
+                .refresh()
+                .checkFriendsCount(1);
+    }
 
     //test for decline invite
 }

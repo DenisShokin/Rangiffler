@@ -36,6 +36,14 @@ public class UserJson {
 
   private transient List<PhotoJson> photos = new ArrayList<>();
   private transient List<UserJson> friends = new ArrayList<>();
+  private transient List<UserJson> incomeInvitations = new ArrayList<>();
+
+  public List<UserJson> getIncomeInvitations() {
+    return incomeInvitations;
+  }
+  public void setIncomeInvitations(List<UserJson> incomeInvitations) {
+    this.incomeInvitations = incomeInvitations;
+  }
 
   public List<UserJson> getFriends() {
     return friends;
