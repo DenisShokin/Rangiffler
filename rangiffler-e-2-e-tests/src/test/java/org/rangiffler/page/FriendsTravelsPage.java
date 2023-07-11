@@ -1,17 +1,10 @@
 package org.rangiffler.page;
 
-import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.SelenideElement;
-import org.rangiffler.condition.PhotosCondition;
-import org.rangiffler.model.PhotoJson;
 import org.rangiffler.page.component.HeaderComponent;
 import org.rangiffler.page.component.ImagesListComponent;
 import org.rangiffler.page.component.WorldMapComponent;
 
-import static com.codeborne.selenide.Selenide.$$x;
-import static com.codeborne.selenide.Selenide.$x;
-
-public class YourTravelsPage extends BasePage<YourTravelsPage> {
+public class FriendsTravelsPage extends BasePage<FriendsTravelsPage> {
 
     private final HeaderComponent headerComponent = new HeaderComponent();
     private final WorldMapComponent worldMapComponent = new WorldMapComponent();
@@ -30,7 +23,7 @@ public class YourTravelsPage extends BasePage<YourTravelsPage> {
     }
 
     @Override
-    public YourTravelsPage checkThatPageLoaded() {
+    public FriendsTravelsPage checkThatPageLoaded() {
         worldMapComponent.checkThatComponentDisplayed();
         return this;
     }

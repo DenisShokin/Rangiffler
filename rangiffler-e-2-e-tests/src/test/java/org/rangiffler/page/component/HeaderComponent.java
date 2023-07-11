@@ -3,14 +3,16 @@ package org.rangiffler.page.component;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
+import org.rangiffler.page.BaseComponent;
 import org.rangiffler.page.FriendsPage;
+import org.rangiffler.page.FriendsTravelsPage;
 import org.rangiffler.page.PeopleAroundPage;
 import org.rangiffler.page.PhotoPage;
-import org.rangiffler.page.BaseComponent;
 import org.rangiffler.page.ProfilePage;
 import org.rangiffler.page.StartPage;
 import org.rangiffler.page.YourTravelsPage;
 
+import static com.codeborne.selenide.Condition.attributeMatching;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
@@ -42,17 +44,21 @@ public class HeaderComponent extends BaseComponent<HeaderComponent> {
     @Step("Go to your travels page")
     public YourTravelsPage goToYourTravelsPage() {
         yourTravelsButton.click();
+        yourTravelsButton.shouldHave(attributeMatching("aria-selected","true"));
         return new YourTravelsPage();
     }
 
-//    public YourTravelsPage goToFriendsTravelsPage() {
-//        friendsTravelsButton.click();
-//        return new YourTravelsPage();
-//    }
+    @Step("Go to friends travels page")
+    public FriendsTravelsPage goToFriendsTravelsPage() {
+        friendsTravelsButton.click();
+        friendsTravelsButton.shouldHave(attributeMatching("aria-selected","true"));
+        return new FriendsTravelsPage();
+    }
 
     @Step("Go to people around page")
     public PeopleAroundPage goToPeopleAroundPage() {
         peopleAroundButton.click();
+        peopleAroundButton.shouldHave(attributeMatching("aria-selected","true"));
         return new PeopleAroundPage();
     }
 

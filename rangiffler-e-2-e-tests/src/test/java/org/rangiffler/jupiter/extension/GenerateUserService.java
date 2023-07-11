@@ -62,6 +62,7 @@ public class GenerateUserService {
                 UserJson friendJson = createRandomUser();
                 userdataClient.addFriend(targetUser.getUsername(), friendJson.getUsername());
                 userdataClient.acceptInvitation(friendJson.getUsername(), targetUser.getUsername());
+                addPhotoIfPresent(friendJson, friend.photos());
                 friendsList.add(friendJson);
             }
             targetUser.setFriends(friendsList);

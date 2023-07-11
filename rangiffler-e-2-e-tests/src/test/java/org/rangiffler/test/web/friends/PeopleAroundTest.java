@@ -37,6 +37,9 @@ public class PeopleAroundTest extends BaseWebTest {
         headerComponent
                 .refresh()
                 .checkFriendsCount(0);
-
     }
+
+    //test for accept invite
+
+    //test for decline invite
 }
