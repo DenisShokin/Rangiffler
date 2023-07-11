@@ -2,9 +2,7 @@ package org.rangiffler.service;
 
 import jakarta.annotation.Nonnull;
 import org.rangiffler.data.FriendsEntity;
-import org.rangiffler.data.FriendsId;
 import org.rangiffler.data.UserEntity;
-import org.rangiffler.data.repository.FriendsRepository;
 import org.rangiffler.data.repository.UserRepository;
 import org.rangiffler.model.FriendStatus;
 import org.rangiffler.model.UserJson;
@@ -25,12 +23,10 @@ import java.util.UUID;
 public class UserDataService {
 
     private final UserRepository userRepository;
-    private final FriendsRepository friendsRepository;
 
     @Autowired
-    public UserDataService(UserRepository userRepository, FriendsRepository friendsRepository) {
+    public UserDataService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.friendsRepository = friendsRepository;
     }
 
     public @Nonnull
@@ -120,6 +116,13 @@ public class UserDataService {
     public UserJson addFriend(@Nonnull String username, @Nonnull UserJson friend) {
         UserEntity currentUser = userRepository.findByUsername(username);
         UserEntity friendEntity = userRepository.findByUsername(friend.getUsername());
+        if (currentUser == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can`t find user by username: " + username);
+        }
+        if (friendEntity == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can`t find user by username: " + friend.getUsername());
+        }
+
         currentUser.addFriends(true, friendEntity);
         userRepository.save(currentUser);
         return UserJson.fromEntity(friendEntity, FriendStatus.INVITATION_SENT);
@@ -129,8 +132,13 @@ public class UserDataService {
     UserJson acceptInvitation(@Nonnull String username, @Nonnull UserJson invitation) {
         UserEntity currentUser = userRepository.findByUsername(username);
         UserEntity inviteUser = userRepository.findByUsername(invitation.getUsername());
+        if (currentUser == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can`t find user by username: " + username);
+        }
+        if (inviteUser == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can`t find user by username: " + invitation.getUsername());
+        }
 
-        //TODO : исправить ошибку
         FriendsEntity invite = currentUser.getInvites()
                 .stream()
                 .filter(fe -> fe.getUser().equals(inviteUser))
@@ -152,30 +160,38 @@ public class UserDataService {
                 .orElseThrow();
     }
 
-    // TODO: реализовать
+
     public @Nonnull
     UserJson declineInvitation(@Nonnull String username, @Nonnull UserJson invitation) {
         UserEntity currentUser = userRepository.findByUsername(username);
         UserEntity friendToDecline = userRepository.findByUsername(invitation.getUsername());
-
-        FriendsId fId = new FriendsId();
-        fId.setUser(friendToDecline.getId());
-        fId.setFriend(currentUser.getId());
-        friendsRepository.deleteById(fId);
+        if (currentUser == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can`t find user by username: " + username);
+        }
+        if (friendToDecline == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can`t find user by username: " + invitation.getUsername());
+        }
 
         currentUser.removeInvites(friendToDecline);
         friendToDecline.removeFriends(currentUser);
 
         userRepository.save(currentUser);
-        return null;
+        userRepository.save(friendToDecline);
 
+        return UserJson.fromEntity(friendToDecline, FriendStatus.NOT_FRIEND);
     }
 
     public @Nonnull
     UserJson removeFriend(@Nonnull String username, @Nonnull String friendUsername) {
         UserEntity currentUser = userRepository.findByUsername(username);
         UserEntity friendToRemove = userRepository.findByUsername(friendUsername);
-        //TODO: исправить ошибки
+        if (currentUser == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can`t find user by username: " + username);
+        }
+        if (friendToRemove == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can`t find user by username: " + friendUsername);
+        }
+
         currentUser.removeFriends(friendToRemove);
         currentUser.removeInvites(friendToRemove);
         userRepository.save(currentUser);

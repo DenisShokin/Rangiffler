@@ -39,4 +39,16 @@ public class PeopleAroundPage extends BasePage<PeopleAroundPage> {
         return new PeopleAroundPage();
     }
 
+    @Step("Decline invites")
+    public PeopleAroundPage declineInvites(UserJson... friends) {
+        for (UserJson friend : friends) {
+            SelenideElement row = allPeopleTable.findAll("tr").findBy(Condition.text(friend.getUsername()));
+            row.find(By.cssSelector("button[aria-label='Decline invitation']")).click();
+            DeclineFriendPage declineFriendPage = new DeclineFriendPage();
+            declineFriendPage.declineButtonClick();
+
+        }
+        return new PeopleAroundPage();
+    }
+
 }

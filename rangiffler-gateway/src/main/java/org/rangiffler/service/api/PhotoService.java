@@ -11,7 +11,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Mono;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,8 +27,6 @@ public class PhotoService {
         this.webClient = webClient;
         this.rangifflerPhotoBaseUri = rangifflerPhotoBaseUri;
     }
-
-    List<PhotoJson> allUsersPhotoList = new ArrayList<>();
 
     public PhotoJson addPhoto(String username, PhotoJson photo) {
         photo.setUsername(username);

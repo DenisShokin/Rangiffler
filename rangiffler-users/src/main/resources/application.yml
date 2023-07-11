@@ -19,7 +19,7 @@ spring:
     password: ${db.password}
     url: ${db.url}
   jpa:
-    show-sql: true
+    show-sql: false
     open-in-view: false
     database: default
     hibernate.ddl-auto: validate

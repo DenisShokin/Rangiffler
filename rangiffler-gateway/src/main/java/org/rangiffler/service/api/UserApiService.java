@@ -1,7 +1,6 @@
 package org.rangiffler.service.api;
 
 import jakarta.annotation.Nonnull;
-import org.rangiffler.model.FriendStatus;
 import org.rangiffler.model.UserJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,7 +13,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Mono;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -28,8 +26,6 @@ public class UserApiService {
         this.webClient = webClient;
         this.rangifflerUserdataBaseUri = rangifflerUserdataBaseUri;
     }
-
-    private final List<UserJson> allUsers = new ArrayList<>();
 
     public List<UserJson> getAllUsers(@Nonnull String username) {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
@@ -97,7 +93,6 @@ public class UserApiService {
                 .block();
     }
 
-    // TODO: реализовать
     public UserJson declineInvitation(String username, UserJson invitation) {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("username", username);

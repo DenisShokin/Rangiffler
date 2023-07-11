@@ -49,7 +49,7 @@ public class PhotoService {
         return new ArrayList<>(result.values());
     }
 
-    public PhotoJson addPhoto(PhotoJson photoJson) {
+    public PhotoJson addPhoto(@Nonnull PhotoJson photoJson) {
         if (photoJson.getPhoto().isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Photo must not be empty!");
         }
@@ -71,7 +71,7 @@ public class PhotoService {
         return PhotoJson.fromEntity(photoRepository.save(photoEntity));
     }
 
-    public void deletePhoto(UUID photoId) {
+    public void deletePhoto(@Nonnull UUID photoId) {
         Optional<PhotoEntity> photoById = photoRepository.findById(photoId);
         if (photoById.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can`t find photo by given id: " + photoId);
@@ -102,7 +102,7 @@ public class PhotoService {
         }
     }
 
-    public List<PhotoJson> getAllFriendsPhotos(String currentUser) {
+    public List<PhotoJson> getAllFriendsPhotos(@Nonnull String currentUser) {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("username", currentUser);
         URI uri = UriComponentsBuilder.fromHttpUrl(rangifflerUserDataBaseUri + "/friends").queryParams(params).build().toUri();

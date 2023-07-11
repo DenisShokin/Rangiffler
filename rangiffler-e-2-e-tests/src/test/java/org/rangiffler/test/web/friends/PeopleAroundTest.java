@@ -14,6 +14,7 @@ import org.rangiffler.page.component.HeaderComponent;
 import org.rangiffler.test.web.BaseWebTest;
 
 @DisplayName("People around")
+// TODO: add check popup for friends
 public class PeopleAroundTest extends BaseWebTest {
 
     private HeaderComponent headerComponent = new HeaderComponent();
@@ -59,5 +60,26 @@ public class PeopleAroundTest extends BaseWebTest {
                 .checkFriendsCount(1);
     }
 
-    //test for decline invite
+    @Test
+    @ApiLogin(user = @GenerateUser(incomeInvitations = @Friend))
+    @AllureId("906")
+    void declineInvitationTest(UserJson user) {
+        final UserJson incomeUser = user.getIncomeInvitations().get(0);
+
+        Allure.step("open page", () -> Selenide.open(CFG.getFrontUrl()));
+        PeopleAroundPage peopleAroundPage = headerComponent
+                .checkThatComponentDisplayed()
+                .checkFriendsCount(0)
+                .goToPeopleAroundPage();
+        peopleAroundPage
+                .checkThatPageLoaded()
+                .declineInvites(incomeUser);
+        headerComponent
+                .checkThatComponentDisplayed()
+                .refresh()
+                .checkFriendsCount(0);
+        // TODO: доделать тест, проверку
+    }
+
+
 }
