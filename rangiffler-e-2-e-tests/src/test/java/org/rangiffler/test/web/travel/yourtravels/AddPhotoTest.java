@@ -130,4 +130,20 @@ public class AddPhotoTest extends BaseWebTest {
                 .checkImagesListContainsPhotos(photo, secondPhoto);
     }
 
+    @ApiLogin(user = @GenerateUser)
+    @AllureId("804")
+    @Test
+    void addPhotoCardWithoutImage() {
+        Allure.step("open page", () -> Selenide.open(CFG.getFrontUrl()));
+        photoPage = headerComponent
+                .checkThatComponentDisplayed()
+                .clickAddPhoto();
+        photoPage
+                .checkThatPageLoaded()
+                .setDescription(photo.getDescription())
+                .selectCountry(photo.getCountryJson().getName())
+                .saveButtonIsDisable();
+    }
+
+
 }

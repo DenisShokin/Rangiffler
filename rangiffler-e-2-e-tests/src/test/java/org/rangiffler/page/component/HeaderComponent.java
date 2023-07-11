@@ -4,6 +4,7 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.rangiffler.page.FriendsPage;
+import org.rangiffler.page.PeopleAroundPage;
 import org.rangiffler.page.PhotoPage;
 import org.rangiffler.page.BaseComponent;
 import org.rangiffler.page.ProfilePage;
@@ -38,6 +39,7 @@ public class HeaderComponent extends BaseComponent<HeaderComponent> {
         return this;
     }
 
+    @Step("Go to your travels page")
     public YourTravelsPage goToYourTravelsPage() {
         yourTravelsButton.click();
         return new YourTravelsPage();
@@ -47,11 +49,12 @@ public class HeaderComponent extends BaseComponent<HeaderComponent> {
 //        friendsTravelsButton.click();
 //        return new YourTravelsPage();
 //    }
-//
-//    public YourTravelsPage goToPeopleAroundPage() {
-//        peopleAroundButton.click();
-//        return new YourTravelsPage();
-//    }
+
+    @Step("Go to people around page")
+    public PeopleAroundPage goToPeopleAroundPage() {
+        peopleAroundButton.click();
+        return new PeopleAroundPage();
+    }
 
     @Step("Logout from rangiffler")
     public StartPage logout() {
@@ -99,6 +102,13 @@ public class HeaderComponent extends BaseComponent<HeaderComponent> {
     public FriendsPage clickFriendsButton() {
         yourFriends.click();
         return new FriendsPage();
+    }
+
+    @Step("Refresh")
+    public HeaderComponent refresh() {
+        Selenide.refresh();
+        checkThatComponentDisplayed();
+        return this;
     }
 
 

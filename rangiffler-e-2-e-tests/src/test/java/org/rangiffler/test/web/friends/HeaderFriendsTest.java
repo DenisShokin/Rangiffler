@@ -50,4 +50,24 @@ public class HeaderFriendsTest extends BaseWebTest {
                 .checkNoFriendsYetIsVisible();
     }
 
+    @Test
+    @ApiLogin(user = @GenerateUser
+            (friends = @Friend)
+    )
+    @AllureId("1003")
+    void deleteFriend(UserJson user) {
+        final UserJson friend = user.getFriends().get(0);
+
+        Allure.step("open page", () -> Selenide.open(CFG.getFrontUrl()));
+        FriendsPage friendsPage = headerComponent
+                .checkThatComponentDisplayed()
+                .checkFriendsCount(1)
+                .clickFriendsButton();
+        friendsPage
+                .checkThatPageLoaded()
+                .deleteFriends(friend);
+        headerComponent
+                .checkFriendsCount(0);
+    }
+
 }

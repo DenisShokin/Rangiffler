@@ -9,6 +9,7 @@ import org.openqa.selenium.Keys;
 
 import java.io.File;
 
+import static com.codeborne.selenide.Condition.disabled;
 import static com.codeborne.selenide.Condition.image;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
@@ -91,6 +92,11 @@ public class PhotoPage extends BasePage<PhotoPage> {
     @Step("Click close button")
     public void clickCloseButton() {
         closeBtn.click();
+    }
+
+    @Step("Save button is disable")
+    public void saveButtonIsDisable() {
+        saveBtn.shouldBe(disabled);
     }
 
 }
