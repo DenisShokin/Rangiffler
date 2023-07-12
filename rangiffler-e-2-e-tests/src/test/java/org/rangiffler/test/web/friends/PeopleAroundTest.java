@@ -9,12 +9,12 @@ import org.rangiffler.jupiter.annotation.ApiLogin;
 import org.rangiffler.jupiter.annotation.Friend;
 import org.rangiffler.jupiter.annotation.GenerateUser;
 import org.rangiffler.model.UserJson;
+import org.rangiffler.page.FriendsPage;
 import org.rangiffler.page.PeopleAroundPage;
 import org.rangiffler.page.component.HeaderComponent;
 import org.rangiffler.test.web.BaseWebTest;
 
 @DisplayName("People around")
-// TODO: add check popup for friends
 public class PeopleAroundTest extends BaseWebTest {
 
     private HeaderComponent headerComponent = new HeaderComponent();
@@ -54,10 +54,13 @@ public class PeopleAroundTest extends BaseWebTest {
         peopleAroundPage
                 .checkThatPageLoaded()
                 .acceptInvites(incomeUser);
-        headerComponent
+        FriendsPage friendsPage = headerComponent
                 .checkThatComponentDisplayed()
                 .refresh()
-                .checkFriendsCount(1);
+                .checkFriendsCount(1)
+                .clickFriendsButton();
+        friendsPage.checkThatPageLoaded()
+                .checkTableContainsFriends(incomeUser);
     }
 
     @Test
@@ -74,11 +77,13 @@ public class PeopleAroundTest extends BaseWebTest {
         peopleAroundPage
                 .checkThatPageLoaded()
                 .declineInvites(incomeUser);
-        headerComponent
+        FriendsPage friendsPage = headerComponent
                 .checkThatComponentDisplayed()
                 .refresh()
-                .checkFriendsCount(0);
-        // TODO: доделать тест, проверку
+                .checkFriendsCount(0)
+                .clickFriendsButton();
+        friendsPage.checkThatPageLoaded()
+                .checkNoFriendsYetIsVisible();
     }
 
 

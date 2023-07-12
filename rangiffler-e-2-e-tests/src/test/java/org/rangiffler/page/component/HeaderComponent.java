@@ -94,7 +94,7 @@ public class HeaderComponent extends BaseComponent<HeaderComponent> {
 
     @Step("Click to profile photo")
     public ProfilePage clickProfileIcon(String username) {
-        $("img[alt='" + username + "']").click();
+        $(String.format("img[alt='%s']", username)).click();
         return new ProfilePage();
     }
 
@@ -116,6 +116,5 @@ public class HeaderComponent extends BaseComponent<HeaderComponent> {
         checkThatComponentDisplayed();
         return this;
     }
-
 
 }
