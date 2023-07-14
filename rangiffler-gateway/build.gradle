@@ -43,6 +43,20 @@ tasks.named('bootJar') {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
+docker {
+    dependsOn build
+    name "shokindenis/rangiffler-gateway:${project.version}"
+    tag 'latest', 'shokindenis/rangiffler-gateway:latest'
+    files bootJar.archiveFile
+    buildArgs([APP_VER: project.version, DOCKER: project.ext.dockerImage])
+    noCache true
+}
+
+task dockerRmi(type: Exec) {
+    workingDir "${buildDir}"
+    commandLine 'bash', '-c', "docker rmi -f \$(docker images | grep 'rangiffler')\n"
+}
+
 tasks.named('test') {
     useJUnitPlatform()
 }

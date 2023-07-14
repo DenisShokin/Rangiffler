@@ -73,5 +73,5 @@ db:
   username: postgres
   password: secret
 rangiffler-front:
-  base-uri: 'http://rangiffler-frontend'
+  base-uri: 'http://client.rangiffler.dc'
 ---

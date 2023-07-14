@@ -28,6 +28,24 @@ dependencies {
     testImplementation 'org.mockito:mockito-junit-jupiter:5.1.1'
 }
 
+docker {
+    dependsOn build
+    name "shokindenis/rangiffler-photo:${project.version}"
+    tag 'latest', 'shokindenis/rangiffler-photo:latest'
+    files bootJar.archiveFile
+    buildArgs([APP_VER: project.version, DOCKER: project.ext.dockerImage])
+    noCache true
+}
+
+task dockerRmi(type: Exec) {
+    workingDir "${buildDir}"
+    commandLine 'bash', '-c', "docker rmi -f \$(docker images | grep 'rangiffler')\n"
+}
+
+tasks.named('bootJar') {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
 test {
     useJUnitPlatform()
 }

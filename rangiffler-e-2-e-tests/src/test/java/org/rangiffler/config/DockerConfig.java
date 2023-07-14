@@ -19,33 +19,34 @@ public class DockerConfig implements Config {
     }
 
     @Override
-    public String getGeoUrl() {
-        return "rangiffler-spend";
-    }
-
-    @Override
-    public String getPhotoUrl() {
-        return null;
-    }
-
-    @Override
-    public String getUserdataUrl() {
-        return null;
-    }
-
-    @Override
     public int getDBPort() {
         return 5432;
     }
 
     @Override
+    public String getGeoUrl() {
+        return "http://rangiffler-geo:8081";
+    }
+
+    @Override
+    public String getPhotoUrl() {
+        return "http://rangiffler-photo:8082";
+    }
+
+    @Override
+    public String getUserdataUrl() {
+        return "http://rangiffler-users:8089";
+    }
+
+
+    @Override
     public String getFrontUrl() {
-        return "http://rangiffler-fronend:3000/";
+        return "http://rangiffler-fronend:3000";
     }
 
     @Override
     public String getAuthUrl() {
-        return "http://rangiffler-auth:9000/";
+        return "http://rangiffler-auth:9000";
     }
 
 }

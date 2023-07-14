@@ -24,6 +24,20 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
 }
 
+docker {
+    dependsOn build
+    name "shokindenis/rangiffler-users:${project.version}"
+    tag 'latest', 'shokindenis/rangiffler-users:latest'
+    files bootJar.archiveFile
+    buildArgs([APP_VER: project.version, DOCKER: project.ext.dockerImage])
+    noCache true
+}
+
+task dockerRmi(type: Exec) {
+    workingDir "${buildDir}"
+    commandLine 'bash', '-c', "docker rmi -f \$(docker images | grep 'rangiffler')\n"
+}
+
 test {
     useJUnitPlatform()
 }

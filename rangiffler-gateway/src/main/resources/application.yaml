@@ -46,14 +46,14 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: 'http://rangiffler-auth:9000'
+          issuer-uri: 'http://auth.rangiffler.dc:9000'
 
 rangiffler-front:
-  base-uri: 'http://rangiffler-frontend'
+  base-uri: 'http://client.rangiffler.dc'
 rangiffler-users:
-  base-uri: 'http://rangiffler-users:8089'
+  base-uri: 'http://users.rangiffler.dc:8089'
 rangiffler-geo:
-  base-uri: 'http://rangiffler-geo:8081'
+  base-uri: 'http://geo.rangiffler.dc:8081'
 rangiffler-photo:
-  base-uri: 'http://rangiffler-photo:8082'
+  base-uri: 'http://photo.rangiffler.dc:8082'
 ---
