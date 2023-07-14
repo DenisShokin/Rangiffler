@@ -1,4 +1,4 @@
-# ![](readme/img/camera.png) Rangiffler
+# ![](readme/img/deer-logo.png) Rangiffler
 **Дипломная работа по курсу QA.GURU Advanced**
 <hr>
 
@@ -33,7 +33,7 @@
 <hr>
 
 ###  Минимальные предусловия для работы с проектом Rangiffler:
-#### 1. Установить Postgres
+#### 1. Установить PostgresSQL Server
 #### 2. Установить одну из программ для визуальной работы с Postgres. 
 Например, PgAdmin 4.
 #### 3.Подключиться к БД postgres (host: localhost, port: 5432, user: postgres, pass: secret, database name: postgres) из PgAdmin и создать пустые БД микросервисов
@@ -107,3 +107,74 @@ dshokin rangiffler-e-2-e-tests % gradle rangiffler-e-2-e-tests:clean test
 ```posh
 dshokin rangiffler-e-2-e-tests % gradle :rangiffler-e-2-e-tests:allureServe
 ```
+---
+
+# ![](readme/img/docker.png) Запуск Rangiffler в докере:
+
+#### 1. Установить docker (Если не установлен)
+
+Используется docker для БД (Postgres), кроме того, микросервисы запускаются в едином docker network при
+помощи docker-compose
+
+[Установка на Windows](https://docs.docker.com/desktop/install/windows-install/)
+
+[Установка на Mac](https://docs.docker.com/desktop/install/mac-install/) (Для ARM и Intel разные пакеты)
+
+[Установка на Linux](https://docs.docker.com/desktop/install/linux-install/)
+
+После установки и запуска docker daemon необходимо убедиться в работе команд docker, например `docker -v`:
+
+```posh
+docker -v
+Docker version 20.10.14, build a224086
+```
+
+#### 2. Создать volume для сохранения данных из БД в docker на вашем компьютере
+
+```posh
+docker volume create pgdata
+```
+#### 3. Прописать в etc/hosts элиас для Docker-имени
+#### frontend:  127.0.0.1 client.rangiffler.dc
+#### auth:      127.0.0.1 auth.rangiffler.dc
+#### gateway:   127.0.0.1 gateway.rangiffler.dc
+
+```posh
+##
+# Host Database
+#
+# localhost is used to configure the loopback interface
+# when the system is booting.  Do not change this entry.
+##
+127.0.0.1       localhost
+127.0.0.1       client.rangiffler.dc
+127.0.0.1       auth.rangiffler.dc
+127.0.0.1       gateway.rangiffler.dc
+```
+
+#### 4. Перейти в корневой каталог проекта
+
+```posh
+cd rangiffler
+```
+
+#### 5. Запустить все сервисы:
+
+```posh
+bash docker-compose-dev.sh
+```
+
+#### 6. Подключиться к контейнеру rangiffler-all-db
+Для создания баз данных для микросервисов выполнить скрипты в терминале:
+```
+psql -U postgres -c "CREATE DATABASE \"rangiffler-auth"\"
+    
+psql -U postgres -c "CREATE DATABASE \"rangiffler-geo"\"
+    
+psql -U postgres -c "CREATE DATABASE \"rangiffler-photo"\"
+    
+psql -U postgres -c "CREATE DATABASE \"rangiffler-userdata"\"
+```
+Дождаться старта всех контейнеров rangiffler-*
+
+Rangiffler при запуске в докере доступен по адресу http://client.rangiffler.dc/,
