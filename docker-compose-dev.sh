@@ -10,10 +10,7 @@ docker stop $(docker ps -a -q)
 docker rm $(docker ps -a -q)
 docker rmi -f $(docker images | grep 'rangiffler')
 
-if [[ $1 = "gql" ]]; then a="$c"; else a="$d"; fi
-
-var front
-if [[ "$1" = "gql" ]]; then front="./rangiffler-frontend-gql/"; else front="./rangiffler-client/"; fi
+front="./rangiffler-client/"
 
 if [ "$1" = "push" ] || [ "$2" = "push" ]; then
   echo "### Build & push images (front: $front) ###"
@@ -27,7 +24,6 @@ else
   bash ./docker-build.sh dev
 fi
 
-#cd ../
 docker images
 docker-compose up -d
 docker ps -a

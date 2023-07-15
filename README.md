@@ -93,7 +93,7 @@ dshokin niffler-auth % gradle bootRun --args='--spring.profiles.active=local'
 ---
 
 ## ![](readme/img/testing.png) Автотесты
-Для Rangiffler реализованы e-2-e тесты, покрывающие основные сценари работы с приложением.
+Для Rangiffler реализованы e-2-e тесты, покрывающие основные сценарии работы с приложением.
 #### 1. Для запуска тестов Rangiffler, необходимо перейти в соответствующий каталог
 
 ```posh
