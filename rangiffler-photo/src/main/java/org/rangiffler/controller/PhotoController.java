@@ -40,7 +40,6 @@ public class PhotoController {
         photoService.deletePhoto(photoId);
     }
 
-    // TODO: использовать параметр id - проверять с photoJson.id -> бросать ошибку, если не равны
     @PatchMapping("/photos/{id}")
     public PhotoJson editPhoto(@PathVariable UUID id, @RequestBody PhotoJson photoJson) {
         return photoService.editPhoto(photoJson);

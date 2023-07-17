@@ -21,9 +21,6 @@ public class PhotoEntity {
     @Column(name = "id", nullable = false, columnDefinition = "UUID")
     private UUID id;
 
-    //    @OneToOne(fetch = FetchType.LAZY,
-//            cascade = CascadeType.ALL)
-//    @JoinColumn(name = "id", referencedColumnName = "photo_id", nullable = false)
     @OneToOne(mappedBy = "photo", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private CountryEntity country;

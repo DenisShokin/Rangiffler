@@ -36,7 +36,4 @@ public class CountryService {
             .block();
   }
 
-//  public CountryJson getCountryByCode(String code) {
-//    return countries.stream().filter(c -> c.getCode().equals(code)).findFirst().orElseThrow();
-//  }
 }

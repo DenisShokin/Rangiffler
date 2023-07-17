@@ -113,7 +113,8 @@ public class UserDataService {
                 .toList();
     }
 
-    public UserJson addFriend(@Nonnull String username, @Nonnull UserJson friend) {
+    public @Nonnull
+    UserJson addFriend(@Nonnull String username, @Nonnull UserJson friend) {
         UserEntity currentUser = userRepository.findByUsername(username);
         UserEntity friendEntity = userRepository.findByUsername(friend.getUsername());
         if (currentUser == null) {

@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class RegisterController {
 
     private static final Logger LOG = LoggerFactory.getLogger(RegisterController.class);
-
     private static final String REGISTRATION_VIEW_NAME = "register";
     private static final String MODEL_USERNAME_ATTR = "username";
     private static final String MODEL_REG_FORM_ATTR = "registrationModel";

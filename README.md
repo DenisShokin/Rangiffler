@@ -56,7 +56,7 @@ database "rangiffler-auth" with owner postgres;
 <hr>
 
 ## ![](readme/img/editor.png) Запуск Rangiffler локальное в IDE:
-#### 1. Запусти фронт Rangiffler, для этого перейти в соответсвующий каталог
+#### 1. Запусти фронт Rangiffler, для этого перейти в соответствующий каталог
 
 ```posh
 dshokin rangiffler % cd rangiffler-client
@@ -81,8 +81,8 @@ dshokin rangiffler-client % npm start
 - Запустить сервис auth
 
 ```posh
-dshokin niffler % cd niffler-auth
-dshokin niffler-auth % gradle bootRun --args='--spring.profiles.active=local'
+dshokin rangiffler % cd rangiffler-auth
+dshokin rangiffler-auth % gradle bootRun --args='--spring.profiles.active=local'
 ```
 
 Или просто перейдя к main-классу приложения RangifflerAuthApplication выбрать run в IDEA (предварительно удостовериться что
@@ -92,16 +92,16 @@ dshokin niffler-auth % gradle bootRun --args='--spring.profiles.active=local'
 
 ---
 
-## ![](readme/img/testing.png) Автотесты
+## ![](readme/img/testing.png) Запуск e2e тестов локально
 Для Rangiffler реализованы e-2-e тесты, покрывающие основные сценарии работы с приложением.
 #### 1. Для запуска тестов Rangiffler, необходимо перейти в соответствующий каталог
 
 ```posh
 dshokin rangiffler % cd rangiffler-e-2-e-tests
 ```
-#### 2. Выполнить команду
+#### 2. Выполнить gradle task в IDE
 ```posh
-dshokin rangiffler-e-2-e-tests % gradle rangiffler-e-2-e-tests:clean test
+dshokin rangiffler-e-2-e-tests % gradle rangiffler-e-2-e-tests:clean rangiffler-e-2-e-tests:test
 ```
 #### 3. После завершения тестов для просмотра Allure-отчета выполнить команду
 ```posh
@@ -177,4 +177,22 @@ psql -U postgres -c "CREATE DATABASE \"rangiffler-userdata"\"
 ```
 Дождаться старта всех контейнеров rangiffler-*
 
-Rangiffler при запуске в докере доступен по адресу http://client.rangiffler.dc/,
+Rangiffler при запуске в докере доступен по адресу http://client.rangiffler.dc/
+
+---
+# ![](readme/img/testing.png) Запуск e2e тестов в докере:
+#### 1. Перейти в корневой каталог проекта
+
+```posh
+cd rangiffler
+```
+
+#### 2. Запустить все сервисы и тесты:
+
+```posh
+rangiffler % bash docker-compose-e2e.sh
+```
+
+#### 3. [Selenoid UI](http://localhost:9090/)
+
+#### 4. [Allure](http://localhost:5050/allure-docker-service/projects/rangiffler-e-2-e-tests/reports/latest/index.html)

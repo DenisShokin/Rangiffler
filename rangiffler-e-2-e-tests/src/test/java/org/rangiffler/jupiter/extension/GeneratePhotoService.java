@@ -22,10 +22,10 @@ public class GeneratePhotoService {
     static {
         countries = geoRestClient.getCountries();
 
-        images.add("src/test/resources/testdata/country/canada_1.jfif");
-        images.add("src/test/resources/testdata/country/china_1.jfif");
-        images.add("src/test/resources/testdata/country/germany_1.jfif");
-        images.add("src/test/resources/testdata/country/turkey_1.jpg");
+        images.add("testdata/country/canada_1.jfif");
+        images.add("testdata/country/china_1.jfif");
+        images.add("testdata/country/germany_1.jfif");
+        images.add("testdata/country/turkey_1.jpg");
     }
 
     public PhotoJson generatePhoto(@Nonnull GeneratePhoto annotation, String username) {

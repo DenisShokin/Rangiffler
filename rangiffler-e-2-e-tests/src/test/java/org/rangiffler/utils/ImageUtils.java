@@ -10,7 +10,7 @@ public class ImageUtils {
 
     public static String getDataURI(String imagePath) {
 
-        File file = new File(imagePath);
+        File file = FileResourcesUtils.getFileFromResource(imagePath);
 
         String contentType;
         try {

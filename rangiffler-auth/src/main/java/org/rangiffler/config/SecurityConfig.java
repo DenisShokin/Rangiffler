@@ -36,7 +36,6 @@ public class SecurityConfig {
                 )
                 .csrf((csrf) -> csrf
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                        // https://stackoverflow.com/a/74521360/65681
                         .csrfTokenRequestHandler(new CsrfTokenRequestAttributeHandler())
                 )
                 .addFilterAfter(new CookieCsrfFilter(), BasicAuthenticationFilter.class)
@@ -44,7 +43,7 @@ public class SecurityConfig {
                         .loginPage("/login")
                         .permitAll())
                 .logout(logout ->
-                        logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout")) // https://github.com/spring-projects/spring-authorization-server/issues/266
+                        logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                                 .deleteCookies("JSESSIONID", "XSRF-TOKEN")
                                 .invalidateHttpSession(true)
                                 .clearAuthentication(true)

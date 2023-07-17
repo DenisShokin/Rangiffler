@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-//@RequiredArgsConstructor
 public class PhotoService {
     private final UserApiService userApiService;
     private final WebClient webClient;

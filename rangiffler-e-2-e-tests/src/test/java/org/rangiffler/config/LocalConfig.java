@@ -1,8 +1,21 @@
 package org.rangiffler.config;
 
+import com.codeborne.selenide.Configuration;
+
 public class LocalConfig implements Config {
 
-    //TODO: реализовать
+    static final LocalConfig INSTANCE = new LocalConfig();
+
+    static {
+        Configuration.browser = "chrome";
+        Configuration.browserVersion = "110.0";
+        Configuration.browserSize = "1920x1080";
+        Configuration.timeout = 10000;
+    }
+
+    private LocalConfig() {
+    }
+
     @Override
     public String getDBHost() {
         return "localhost";

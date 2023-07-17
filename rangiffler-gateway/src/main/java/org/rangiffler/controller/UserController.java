@@ -74,7 +74,6 @@ public class UserController {
         return userApiService.acceptInvitation(username, friend);
     }
 
-    //TODO: реализовать
     @PostMapping("friends/decline")
     public UserJson declineFriend(@AuthenticationPrincipal Jwt principal, @Validated @RequestBody UserJson friend) {
         String username = principal.getClaim("sub");

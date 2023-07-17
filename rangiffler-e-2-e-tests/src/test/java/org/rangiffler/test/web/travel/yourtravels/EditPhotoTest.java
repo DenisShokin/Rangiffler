@@ -50,7 +50,7 @@ public class EditPhotoTest extends BaseWebTest {
                 .checkThatPageLoaded()
                 .editButtonClick()
                 .setDescription(updatedPhoto.getDescription())
-                .selectCountry(updatedCountry.getName())
+                .selectCountry(updatedCountry)
                 .save();
         photoPage = yourTravelsPage
                 .checkThatPageLoaded()

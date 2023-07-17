@@ -27,7 +27,7 @@ public class AddPhotoTest extends BaseWebTest {
     private PhotoPage photoPage = new PhotoPage();
     private PhotoJson photo = new PhotoJson();
     private CountryJson country = new CountryJson();
-    private static final String IMAGE_PATH = "src/test/resources/testdata/country/china_1.jfif";
+    private static final String IMAGE_PATH = "testdata/country/china_1.jfif";
 
     @BeforeEach
     void setUp() {
@@ -42,9 +42,10 @@ public class AddPhotoTest extends BaseWebTest {
     @AllureId("801")
     @ParameterizedTest(name = "add photo with extension - {0}")
     @ValueSource(strings =
-            {"src/test/resources/testdata/country/china_1.jfif",
-                    "src/test/resources/testdata/country/china_1.png",
-                    "src/test/resources/testdata/country/china_1.gif"})
+            {"testdata/country/china_4.jpeg",
+                    "testdata/country/china_2.png",
+                    "testdata/country/china_3.gif"
+            })
     void addPhotoWithDifferentExtension(String imagePath) {
         photo.setPhoto(ImageUtils.getDataURI(imagePath));
 
@@ -58,7 +59,7 @@ public class AddPhotoTest extends BaseWebTest {
                 .checkThatPageLoaded()
                 .uploadPhoto(imagePath)
                 .setDescription(photo.getDescription())
-                .selectCountry(photo.getCountryJson().getName())
+                .selectCountry(photo.getCountryJson())
                 .save();
         YourTravelsPage yourTravelsPage = headerComponent
                 .checkThatComponentDisplayed()
@@ -85,7 +86,7 @@ public class AddPhotoTest extends BaseWebTest {
                 .checkThatPageLoaded()
                 .uploadPhoto(IMAGE_PATH)
                 .setDescription(photo.getDescription())
-                .selectCountry(photo.getCountryJson().getName())
+                .selectCountry(photo.getCountryJson())
                 .clickCloseButton();
         YourTravelsPage yourTravelsPage = headerComponent
                 .checkThatComponentDisplayed()
@@ -119,7 +120,7 @@ public class AddPhotoTest extends BaseWebTest {
                 .checkThatPageLoaded()
                 .uploadPhoto(IMAGE_PATH)
                 .setDescription(photo.getDescription())
-                .selectCountry(photo.getCountryJson().getName())
+                .selectCountry(photo.getCountryJson())
                 .save();
         YourTravelsPage yourTravelsPage = headerComponent
                 .checkThatComponentDisplayed()
@@ -141,7 +142,7 @@ public class AddPhotoTest extends BaseWebTest {
         photoPage
                 .checkThatPageLoaded()
                 .setDescription(photo.getDescription())
-                .selectCountry(photo.getCountryJson().getName())
+                .selectCountry(photo.getCountryJson())
                 .saveButtonIsDisable();
     }
 

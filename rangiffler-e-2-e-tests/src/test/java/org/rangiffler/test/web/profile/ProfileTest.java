@@ -18,7 +18,7 @@ public class ProfileTest extends BaseWebTest {
 
     private YourTravelsPage yourTravelsPage = new YourTravelsPage();
     private ProfilePage profilePage = new ProfilePage();
-    private static final String PROFILE_PHOTO_PATH = "src/test/resources/testdata/cat_1.jfif";
+    private static final String PROFILE_PHOTO_PATH = "testdata/cat_1.jfif";
 
     @BeforeEach
     void setUp() {

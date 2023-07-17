@@ -6,8 +6,8 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.openqa.selenium.Keys;
-
-import java.io.File;
+import org.rangiffler.model.CountryJson;
+import org.rangiffler.utils.FileResourcesUtils;
 
 import static com.codeborne.selenide.Condition.disabled;
 import static com.codeborne.selenide.Condition.image;
@@ -52,15 +52,17 @@ public class PhotoPage extends BasePage<PhotoPage> {
 
     @Step("Upload photo")
     public PhotoPage uploadPhoto(String imagePath) {
-        inputPhoto.uploadFile(new File(imagePath));
+        inputPhoto.uploadFile(FileResourcesUtils.getFileFromResource(imagePath));
         uploadImageLabel.shouldBe(image);
         return this;
     }
 
     @Step("Select country")
-    public PhotoPage selectCountry(String country) {
+    public PhotoPage selectCountry(CountryJson country) {
         countryDropDown.click();
-        SelenideElement element = countryListBox.find(Condition.text(country));
+        SelenideElement element = countryListBox.
+                filterBy(Condition.text(country.getName()))
+                .find(Condition.attribute("data-value", country.getCode()));
         element.click();
         return this;
     }

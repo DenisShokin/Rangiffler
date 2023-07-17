@@ -3,10 +3,11 @@ package org.rangiffler.config;
 public interface Config {
 
     static Config getConfig() {
-        if ("docker".equals(System.getProperty("env"))) {
-            return new DockerConfig();
+        if ("docker".equals(System.getProperty("test.env"))) {
+            return DockerConfig.INSTANCE;
+        } else {
+            return LocalConfig.INSTANCE;
         }
-        return new LocalConfig();
     }
 
     String getDBHost();
