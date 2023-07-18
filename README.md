@@ -109,7 +109,7 @@ dshokin rangiffler-e-2-e-tests % gradle :rangiffler-e-2-e-tests:allureServe
 ```
 ---
 
-# ![](readme/img/docker.png) Запуск Rangiffler в докере:
+## ![](readme/img/docker.png) Запуск Rangiffler в докере:
 
 #### 1. Установить docker (Если не установлен)
 
@@ -180,7 +180,7 @@ psql -U postgres -c "CREATE DATABASE \"rangiffler-userdata"\"
 Rangiffler при запуске в докере доступен по адресу http://client.rangiffler.dc/
 
 ---
-# ![](readme/img/testing.png) Запуск e2e тестов в докере:
+## ![](readme/img/testing.png) Запуск e-2-e тестов в докере:
 #### 1. Перейти в корневой каталог проекта
 
 ```posh
