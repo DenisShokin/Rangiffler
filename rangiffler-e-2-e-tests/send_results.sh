@@ -1,5 +1,6 @@
 #!/bin/bash
 
+PWD
 # This directory is where you have all your results locally, generally named as `allure-results`
 ALLURE_RESULTS_DIRECTORY='build/allure-results'
 # This url is where the Allure container is deployed. We are using localhost as example

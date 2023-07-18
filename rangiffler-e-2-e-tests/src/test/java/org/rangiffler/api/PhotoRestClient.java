@@ -18,7 +18,7 @@ public class PhotoRestClient extends BaseRestClient {
         try {
             return Objects.requireNonNull(photoService.addPhoto(photo).execute().body());
         } catch (IOException e) {
-            Assertions.fail("Can`t execute api call to rangiffler-photo: " + e.getMessage());
+            Assertions.fail("Can`t execute api call to rangiffler-photo: " + PhotoRestClient.CFG.getGeoUrl() + e.getMessage());
             return null;
         }
     }

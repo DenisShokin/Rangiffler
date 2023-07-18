@@ -19,7 +19,7 @@ public class GeoRestClient extends BaseRestClient {
         try {
             return Objects.requireNonNull(geoService.getCountries().execute().body());
         } catch (IOException e) {
-            Assertions.fail("Can`t execute api call to rangiffler-photo: " + e.getMessage());
+            Assertions.fail("Can`t execute api call to rangiffler-countries: " + GeoRestClient.CFG.getGeoUrl() + e.getMessage());
             return null;
         }
     }
