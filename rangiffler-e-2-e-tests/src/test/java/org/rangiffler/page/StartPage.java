@@ -10,7 +10,7 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class StartPage extends BasePage<StartPage> {
-    //TODO: реализовать
+
     public static final String URL = Config.getConfig().getFrontUrl();
     private final SelenideElement header = $("div h1");
     private final SelenideElement loginButton = $x("//a[text()='Login']");
@@ -22,19 +22,19 @@ public class StartPage extends BasePage<StartPage> {
         return this;
     }
 
-    @Step("Click Login")
+    @Step("Нажать кнопку Логин")
     public LoginPage goToLogin() {
         loginButton.click();
         return new LoginPage();
     }
 
-    @Step("Click Register")
+    @Step("Нажать кнопку Регистрация")
     public RegistrationPage goToRegister() {
         registerButton.click();
         return new RegistrationPage();
     }
 
-    @Step("Open welcome page")
+    @Step("Перейти на стартовую страницу")
     public StartPage open() {
         Selenide.open(URL);
         return new StartPage();

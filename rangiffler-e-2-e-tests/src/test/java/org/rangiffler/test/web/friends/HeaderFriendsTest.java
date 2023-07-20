@@ -4,6 +4,7 @@ import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Allure;
 import io.qameta.allure.AllureId;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.rangiffler.jupiter.annotation.ApiLogin;
 import org.rangiffler.jupiter.annotation.Friend;
@@ -13,7 +14,7 @@ import org.rangiffler.page.FriendsPage;
 import org.rangiffler.page.component.HeaderComponent;
 import org.rangiffler.test.web.BaseWebTest;
 
-@DisplayName("Header. Friends")
+@DisplayName("Header. Друзья")
 public class HeaderFriendsTest extends BaseWebTest {
 
     private HeaderComponent headerComponent = new HeaderComponent();
@@ -23,10 +24,12 @@ public class HeaderFriendsTest extends BaseWebTest {
             (friends = @Friend)
     )
     @AllureId("1001")
+    @Tag("WEB")
+    @DisplayName("WEB: Пользователь должен видеть друзей в хедере")
     void checkFriendsInHeader(UserJson user) {
         final UserJson friend = user.getFriends().get(0);
 
-        Allure.step("open page", () -> Selenide.open(CFG.getFrontUrl()));
+        Allure.step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
         FriendsPage friendsPage = headerComponent
                 .checkThatComponentDisplayed()
                 .checkFriendsCount(1)
@@ -39,8 +42,10 @@ public class HeaderFriendsTest extends BaseWebTest {
     @Test
     @ApiLogin(user = @GenerateUser)
     @AllureId("1002")
+    @Tag("WEB")
+    @DisplayName("WEB: Пользователь должен видеть сообщение в хедере при отсутствии друзей")
     void peopleWithoutFriends() {
-        Allure.step("open page", () -> Selenide.open(CFG.getFrontUrl()));
+        Allure.step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
 
         FriendsPage friendsPage = headerComponent
                 .checkThatComponentDisplayed()
@@ -55,10 +60,12 @@ public class HeaderFriendsTest extends BaseWebTest {
             (friends = @Friend)
     )
     @AllureId("1003")
+    @Tag("WEB")
+    @DisplayName("WEB: Пользователь должен иметь возможность удалить друга в хедере")
     void deleteFriend(UserJson user) {
         final UserJson friend = user.getFriends().get(0);
 
-        Allure.step("open page", () -> Selenide.open(CFG.getFrontUrl()));
+        Allure.step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
         FriendsPage friendsPage =
                 headerComponent
                 .checkThatComponentDisplayed()

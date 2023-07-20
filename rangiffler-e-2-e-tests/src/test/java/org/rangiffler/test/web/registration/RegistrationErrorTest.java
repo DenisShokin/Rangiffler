@@ -1,11 +1,16 @@
 package org.rangiffler.test.web.registration;
 
 import com.codeborne.selenide.Selenide;
+import io.qameta.allure.Allure;
 import io.qameta.allure.AllureId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.rangiffler.db.entity.user.UserEntity;
 import org.rangiffler.jupiter.annotation.GenerateUserAuthData;
 import org.rangiffler.jupiter.extension.GenerateUserAuthDataExtension;
@@ -13,7 +18,9 @@ import org.rangiffler.page.RegistrationPage;
 import org.rangiffler.page.StartPage;
 import org.rangiffler.test.web.BaseWebTest;
 
-@DisplayName("Registration error")
+import java.util.stream.Stream;
+
+@DisplayName("Регистрация. Негативные сценарии")
 @ExtendWith(GenerateUserAuthDataExtension.class)
 public class RegistrationErrorTest extends BaseWebTest {
 
@@ -22,37 +29,21 @@ public class RegistrationErrorTest extends BaseWebTest {
 
     @BeforeEach
     void setUp() {
-        Selenide.open(CFG.getFrontUrl());
+        Allure.step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
         startPage
                 .checkThatPageLoaded()
                 .goToRegister();
     }
 
-    @Test
     @AllureId("201")
-    public void errorMessageShouldBeVisibleInCaseThatPasswordsAreDifferent() {
+    @Tag("WEB")
+    @ParameterizedTest(name = "WEB: Пользователь должен получить сообщение об ошибке : {3} при вводе некорректных данных")
+    @MethodSource("provideErrorRegistration")
+    public void errorMessageShouldBeVisible(String login, String password, String passwordSubmit, String expectedErrorMessage) {
         registrationPage
                 .checkThatPageLoaded()
-                .fillRegistrationForm("wdfsdasfs", "123", "12345")
-                .checkErrorMessage("Passwords should be equal");
-    }
-
-    @Test
-    @AllureId("202")
-    public void errorMessageShouldBeVisibleInCaseThatPasswordsLessThan3Symbols() {
-        registrationPage
-                .checkThatPageLoaded()
-                .fillRegistrationForm("wdfsdadfdaasfs", "1", "1")
-                .checkErrorMessage("Allowed password length should be from 3 to 12 characters");
-    }
-
-    @Test
-    @AllureId("203")
-    public void errorMessageShouldBeVisibleInCaseThatUsernameLessThan3Symbols() {
-        registrationPage
-                .checkThatPageLoaded()
-                .fillRegistrationForm("wd", "123", "123")
-                .checkErrorMessage("Allowed username length should be from 3 to 50 characters");
+                .fillRegistrationForm(login, password, passwordSubmit)
+                .checkErrorMessage(expectedErrorMessage);
     }
 
     @Test
@@ -63,5 +54,13 @@ public class RegistrationErrorTest extends BaseWebTest {
                 .checkThatPageLoaded()
                 .fillRegistrationForm(user.getUsername(), "123456", "123456")
                 .checkErrorMessage("Username `" + user.getUsername() + "` already exists");
+    }
+
+
+    private static Stream<Arguments> provideErrorRegistration() {
+        return Stream.of(
+                Arguments.of("wdfsdasfs", "123", "12345", "Passwords should be equal"),
+                Arguments.of("wdfsdadfdaasfs", "1", "1", "Allowed password length should be from 3 to 12 characters"),
+                Arguments.of("wd", "123", "123", "Allowed username length should be from 3 to 50 characters"));
     }
 }

@@ -18,7 +18,7 @@ public class DeclineFriendPage extends BasePage<DeclineFriendPage>{
         return this;
     }
 
-    @Step("Click Decline button")
+    @Step("Нажать кнопку Отклонить приглашение")
     public void declineButtonClick(){
         declineBtn.click();
     }

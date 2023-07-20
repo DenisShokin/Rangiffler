@@ -4,6 +4,7 @@ import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Allure;
 import io.qameta.allure.AllureId;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.rangiffler.jupiter.annotation.ApiLogin;
 import org.rangiffler.jupiter.annotation.GeneratePhoto;
@@ -17,7 +18,7 @@ import org.rangiffler.page.YourTravelsPage;
 import org.rangiffler.page.component.HeaderComponent;
 import org.rangiffler.test.web.BaseWebTest;
 
-@DisplayName("Your travels. Edit photo")
+@DisplayName("Ваши путешествия (Your travels). Редактирование")
 public class EditPhotoTest extends BaseWebTest {
 
     private HeaderComponent headerComponent = new HeaderComponent();
@@ -27,6 +28,8 @@ public class EditPhotoTest extends BaseWebTest {
     @ApiLogin(user = @GenerateUser
             (photos = @GeneratePhoto)
     )
+    @Tag("WEB")
+    @DisplayName("WEB: Пользователь должен иметь возможность обновить запись о путешествии")
     void updatePhoto(UserJson user) {
         final PhotoJson photo = user.getPhotos().get(0);
         PhotoJson updatedPhoto = new PhotoJson();
@@ -37,7 +40,7 @@ public class EditPhotoTest extends BaseWebTest {
         updatedCountry.setCode("zw");
         updatedPhoto.setCountryJson(updatedCountry);
 
-        Allure.step("open page", () -> Selenide.open(CFG.getFrontUrl()));
+        Allure.step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
 
         YourTravelsPage yourTravelsPage = headerComponent
                 .checkThatComponentDisplayed()
@@ -67,10 +70,12 @@ public class EditPhotoTest extends BaseWebTest {
     @ApiLogin(user = @GenerateUser
             (photos = @GeneratePhoto)
     )
+    @Tag("WEB")
+    @DisplayName("WEB: Пользователь должен иметь возможность удалить путешествие")
     void deletePhoto(UserJson user) {
         final PhotoJson photo = user.getPhotos().get(0);
 
-        Allure.step("open page", () -> Selenide.open(CFG.getFrontUrl()));
+        Allure.step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
 
         YourTravelsPage yourTravelsPage = headerComponent
                 .checkThatComponentDisplayed()

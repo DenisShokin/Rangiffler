@@ -4,6 +4,7 @@ import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Allure;
 import io.qameta.allure.AllureId;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.rangiffler.jupiter.annotation.ApiLogin;
 import org.rangiffler.jupiter.annotation.Friend;
@@ -14,7 +15,7 @@ import org.rangiffler.page.PeopleAroundPage;
 import org.rangiffler.page.component.HeaderComponent;
 import org.rangiffler.test.web.BaseWebTest;
 
-@DisplayName("People around")
+@DisplayName("Люди вокруг (People Around)")
 public class PeopleAroundTest extends BaseWebTest {
 
     private HeaderComponent headerComponent = new HeaderComponent();
@@ -24,10 +25,12 @@ public class PeopleAroundTest extends BaseWebTest {
             (friends = @Friend)
     )
     @AllureId("1101")
+    @Tag("WEB")
+    @DisplayName("WEB: Пользователь должен иметь возможность удалить друга с вкладки People Around")
     void deleteFriendFromPeopleAroundPage(UserJson user) {
         final UserJson friend = user.getFriends().get(0);
 
-        Allure.step("open page", () -> Selenide.open(CFG.getFrontUrl()));
+        Allure.step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
         PeopleAroundPage peopleAroundPage = headerComponent
                 .checkThatComponentDisplayed()
                 .checkFriendsCount(1)
@@ -43,10 +46,12 @@ public class PeopleAroundTest extends BaseWebTest {
     @Test
     @ApiLogin(user = @GenerateUser(incomeInvitations = @Friend))
     @AllureId("905")
+    @Tag("WEB")
+    @DisplayName("WEB: Пользователь должен иметь возможность принять приглашение в друзья с вкладки People Around")
     void acceptInvitationTest(UserJson user) {
         final UserJson incomeUser = user.getIncomeInvitations().get(0);
 
-        Allure.step("open page", () -> Selenide.open(CFG.getFrontUrl()));
+        Allure.step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
         PeopleAroundPage peopleAroundPage = headerComponent
                 .checkThatComponentDisplayed()
                 .checkFriendsCount(0)
@@ -66,10 +71,12 @@ public class PeopleAroundTest extends BaseWebTest {
     @Test
     @ApiLogin(user = @GenerateUser(incomeInvitations = @Friend))
     @AllureId("906")
+    @Tag("WEB")
+    @DisplayName("WEB: Пользователь должен иметь возможность отклонить приглашение в друзья с вкладки People Around")
     void declineInvitationTest(UserJson user) {
         final UserJson incomeUser = user.getIncomeInvitations().get(0);
 
-        Allure.step("open page", () -> Selenide.open(CFG.getFrontUrl()));
+        Allure.step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
         PeopleAroundPage peopleAroundPage = headerComponent
                 .checkThatComponentDisplayed()
                 .checkFriendsCount(0)

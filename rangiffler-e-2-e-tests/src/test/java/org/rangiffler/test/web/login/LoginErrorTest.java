@@ -2,9 +2,11 @@ package org.rangiffler.test.web.login;
 
 import com.codeborne.selenide.Selenide;
 import com.github.javafaker.Faker;
+import io.qameta.allure.Allure;
 import io.qameta.allure.AllureId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.rangiffler.db.entity.user.UserEntity;
@@ -14,7 +16,7 @@ import org.rangiffler.page.LoginPage;
 import org.rangiffler.page.StartPage;
 import org.rangiffler.test.web.BaseWebTest;
 
-@DisplayName("Error login")
+@DisplayName("Логин в систему. Негативные сценарии")
 @ExtendWith(GenerateUserAuthDataExtension.class)
 public class LoginErrorTest extends BaseWebTest {
     private StartPage startPage = new StartPage();
@@ -24,7 +26,7 @@ public class LoginErrorTest extends BaseWebTest {
 
     @BeforeEach
     void setUp() {
-        Selenide.open(CFG.getFrontUrl());
+        Allure.step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
         startPage
                 .checkThatPageLoaded()
                 .goToLogin();
@@ -32,6 +34,8 @@ public class LoginErrorTest extends BaseWebTest {
 
     @Test
     @AllureId("301")
+    @Tag("WEB")
+    @DisplayName("WEB: Пользователь должен получить сообщение при вводе неверных учетных данных")
     public void errorMessageShouldBeVisibleInCaseThatUserNotCreated() {
         loginPage
                 .checkThatPageLoaded()
@@ -42,6 +46,8 @@ public class LoginErrorTest extends BaseWebTest {
     @Test
     @GenerateUserAuthData(password = TEST_PWD, enabled = false)
     @AllureId("302")
+    @Tag("WEB")
+    @DisplayName("WEB: Пользователь должен получить сообщение при авторизации под отключенным аккаунтом")
     public void errorMessageShouldBeVisibleInCaseThatUserIsDisable(UserEntity user) {
         loginPage
                 .checkThatPageLoaded()
@@ -52,6 +58,8 @@ public class LoginErrorTest extends BaseWebTest {
     @Test
     @GenerateUserAuthData(password = TEST_PWD, accountNonExpired = false)
     @AllureId("303")
+    @Tag("WEB")
+    @DisplayName("WEB: Пользователь должен получить сообщение при авторизации под просроченным аккаунтом")
     public void errorMessageShouldBeVisibleInCaseThatUserAccountIsExpired(UserEntity user) {
         loginPage
                 .checkThatPageLoaded()
@@ -64,6 +72,8 @@ public class LoginErrorTest extends BaseWebTest {
             password = TEST_PWD,
             accountNonLocked = false)
     @AllureId("304")
+    @Tag("WEB")
+    @DisplayName("WEB: Пользователь должен получить сообщение при авторизации под заблокированным аккаунтом")
     public void errorMessageShouldBeVisibleInCaseThatUserAccountIsLock(UserEntity user) {
         loginPage
                 .checkThatPageLoaded()
@@ -76,6 +86,8 @@ public class LoginErrorTest extends BaseWebTest {
             password = TEST_PWD,
             credentialsNonExpired = false)
     @AllureId("305")
+    @Tag("WEB")
+    @DisplayName("WEB: Пользователь должен получить сообщение при авторизации под аккаунтом с просроченными правами")
     public void errorMessageShouldBeVisibleInCaseThatUserCredentialsExpired(UserEntity user) {
         loginPage
                 .checkThatPageLoaded()

@@ -115,5 +115,21 @@ public class UserJson {
   public void setFriendStatus(FriendStatus friendStatus) {
     this.friendStatus = friendStatus;
   }
+
+  @Override
+  public String toString() {
+    return "UserJson{" +
+            "id=" + id +
+            ", username='" + username + '\'' +
+            ", password='" + password + '\'' +
+            ", firstName='" + firstName + '\'' +
+            ", lastLame='" + lastLame + '\'' +
+            ", avatar='" + avatar + '\'' +
+            ", friendStatus=" + friendStatus +
+            ", photos=" + photos +
+            ", friends=" + friends +
+            ", incomeInvitations=" + incomeInvitations +
+            '}';
+  }
 }
 

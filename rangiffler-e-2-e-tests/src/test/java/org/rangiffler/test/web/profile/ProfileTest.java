@@ -5,6 +5,7 @@ import io.qameta.allure.Allure;
 import io.qameta.allure.AllureId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.rangiffler.jupiter.annotation.ApiLogin;
 import org.rangiffler.jupiter.annotation.GenerateUser;
@@ -13,7 +14,7 @@ import org.rangiffler.page.ProfilePage;
 import org.rangiffler.page.YourTravelsPage;
 import org.rangiffler.test.web.BaseWebTest;
 
-@DisplayName("Update profile")
+@DisplayName("Обновление профиля")
 public class ProfileTest extends BaseWebTest {
 
     private YourTravelsPage yourTravelsPage = new YourTravelsPage();
@@ -22,11 +23,13 @@ public class ProfileTest extends BaseWebTest {
 
     @BeforeEach
     void setUp() {
-        Allure.step("open page", () -> Selenide.open(CFG.getFrontUrl()));
+        Allure.step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
     }
 
     @AllureId("501")
     @ApiLogin(user = @GenerateUser)
+    @Tag("WEB")
+    @DisplayName("WEB: Пользователь должен иметь возможность обновить данные своего профиля")
     @Test
     void updateUserProfile(UserJson user) {
         String firstname = user.getUsername() + " firstname";
@@ -54,6 +57,8 @@ public class ProfileTest extends BaseWebTest {
     @AllureId("502")
     @ApiLogin(user = @GenerateUser)
     @Test
+    @Tag("WEB")
+    @DisplayName("WEB: Обновление профиля не происходит без сохранения изменений")
     void updateUserProfileAndNotSaveChanges(UserJson user) {
         profilePage = yourTravelsPage
                 .checkThatPageLoaded()

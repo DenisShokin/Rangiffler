@@ -18,7 +18,7 @@ public class PeopleAroundPage extends BasePage<PeopleAroundPage> {
         return this;
     }
 
-    @Step("Remove friends")
+    @Step("Удалить друзей")
     public PeopleAroundPage deleteFriends(UserJson... friends) {
         for (UserJson friend : friends) {
             SelenideElement row = allPeopleTable.findAll("tr").findBy(Condition.text(friend.getUsername()));
@@ -30,7 +30,7 @@ public class PeopleAroundPage extends BasePage<PeopleAroundPage> {
         return new PeopleAroundPage();
     }
 
-    @Step("Accept invites")
+    @Step("Принять приглашения")
     public PeopleAroundPage acceptInvites(UserJson... friends) {
         for (UserJson friend : friends) {
             SelenideElement row = allPeopleTable.findAll("tr").findBy(Condition.text(friend.getUsername()));
@@ -39,7 +39,7 @@ public class PeopleAroundPage extends BasePage<PeopleAroundPage> {
         return new PeopleAroundPage();
     }
 
-    @Step("Decline invites")
+    @Step("Отклонить приглашения")
     public PeopleAroundPage declineInvites(UserJson... friends) {
         for (UserJson friend : friends) {
             SelenideElement row = allPeopleTable.findAll("tr").findBy(Condition.text(friend.getUsername()));

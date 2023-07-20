@@ -2,10 +2,12 @@ package org.rangiffler.test.web.registration;
 
 import com.codeborne.selenide.Selenide;
 import com.github.javafaker.Faker;
+import io.qameta.allure.Allure;
 import io.qameta.allure.AllureId;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.rangiffler.db.dao.user.RangifflerUsersDAO;
 import org.rangiffler.db.dao.user.RangifflerUsersDAOHibernate;
@@ -14,7 +16,7 @@ import org.rangiffler.page.RegistrationPage;
 import org.rangiffler.page.StartPage;
 import org.rangiffler.test.web.BaseWebTest;
 
-@DisplayName("Registration")
+@DisplayName("Регистрация")
 public class RegistrationNewUserTest extends BaseWebTest {
     private StartPage startPage = new StartPage();
     private RegistrationPage registrationPage = new RegistrationPage();
@@ -27,7 +29,7 @@ public class RegistrationNewUserTest extends BaseWebTest {
     void setUp() {
         username = faker.name().username();
 
-        Selenide.open(CFG.getFrontUrl());
+        Allure.step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
         startPage
                 .checkThatPageLoaded()
                 .goToRegister();
@@ -41,6 +43,8 @@ public class RegistrationNewUserTest extends BaseWebTest {
 
     @Test
     @AllureId("101")
+    @Tag("WEB")
+    @DisplayName("WEB: Пользователь должен иметь возможность создать аккаунт в системе")
     public void successRegistration() {
         registrationPage
                 .checkThatPageLoaded()

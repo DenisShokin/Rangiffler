@@ -22,7 +22,7 @@ public class RegistrationPage extends BasePage<RegistrationPage> {
         return this;
     }
 
-    @Step("Fill registration form")
+    @Step("Заполнить форму регистрации")
     public RegistrationPage fillRegistrationForm(String username, String password, String passwordSubmit) {
         usernameInput.val(username);
         passwordInput.val(password);
@@ -31,13 +31,13 @@ public class RegistrationPage extends BasePage<RegistrationPage> {
         return this;
     }
 
-    @Step("Check error massage")
+    @Step("Проверить текст ошибки")
     public RegistrationPage checkErrorMessage(String expectedMessage) {
         formError.shouldHave(text(expectedMessage));
         return this;
     }
 
-    @Step("Fill registration form")
+    @Step("Заполнить форму регистрации и перейти на страницу Поздравления")
     public CongratulationsPage successFillRegistrationForm(String username, String password, String passwordSubmit) {
         usernameInput.val(username);
         passwordInput.val(password);

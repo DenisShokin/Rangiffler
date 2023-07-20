@@ -20,7 +20,7 @@ public class LoginPage extends BasePage<LoginPage> {
         return this;
     }
 
-    @Step("Fill login form")
+    @Step("Заполнить форму логина")
     public LoginPage fillLoginForm(String username, String password) {
         usernameInput.val(username);
         passwordInput.val(password);
@@ -28,7 +28,7 @@ public class LoginPage extends BasePage<LoginPage> {
         return this;
     }
 
-    @Step("Fill login form and go to main page")
+    @Step("Авторизоваться в системе")
     public YourTravelsPage successFillLoginForm(String username, String password) {
         usernameInput.val(username);
         passwordInput.val(password);
@@ -36,7 +36,7 @@ public class LoginPage extends BasePage<LoginPage> {
         return new YourTravelsPage();
     }
 
-    @Step("Check error message")
+    @Step("Проверить сообщение об ошибке")
     public LoginPage checkErrorMessage(String expectedMessage) {
         errorForm.shouldHave(text(expectedMessage));
         return this;

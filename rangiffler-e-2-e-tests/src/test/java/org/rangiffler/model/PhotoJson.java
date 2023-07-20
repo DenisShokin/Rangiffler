@@ -60,4 +60,15 @@ public class PhotoJson {
   public void setUsername(String username) {
     this.username = username;
   }
+
+  @Override
+  public String toString() {
+    return "PhotoJson{" +
+            "id=" + id +
+            ", countryJson=" + countryJson +
+            ", photo='" + photo + '\'' +
+            ", description='" + description + '\'' +
+            ", username='" + username + '\'' +
+            '}';
+  }
 }

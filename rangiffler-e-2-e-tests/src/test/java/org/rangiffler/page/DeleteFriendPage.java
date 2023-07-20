@@ -18,7 +18,7 @@ public class DeleteFriendPage extends BasePage<DeleteFriendPage>{
         return this;
     }
 
-    @Step("Click Delete button")
+    @Step("Нажать кнопку удалить друга")
     public void deleteButtonClick(){
         deleteBtn.click();
     }

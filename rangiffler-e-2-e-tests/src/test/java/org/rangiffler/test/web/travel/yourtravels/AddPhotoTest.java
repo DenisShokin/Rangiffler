@@ -5,6 +5,7 @@ import io.qameta.allure.Allure;
 import io.qameta.allure.AllureId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -20,7 +21,7 @@ import org.rangiffler.page.component.HeaderComponent;
 import org.rangiffler.test.web.BaseWebTest;
 import org.rangiffler.utils.ImageUtils;
 
-@DisplayName("Your travels. Add photo")
+@DisplayName("Ваши путешествия (Your travels). Добавление")
 public class AddPhotoTest extends BaseWebTest {
 
     private HeaderComponent headerComponent = new HeaderComponent();
@@ -40,6 +41,8 @@ public class AddPhotoTest extends BaseWebTest {
 
     @ApiLogin(user = @GenerateUser)
     @AllureId("801")
+    @Tag("WEB")
+    @DisplayName("WEB: Пользователь должен получить иметь возможность загрузить изображение с различными расширениями")
     @ParameterizedTest(name = "add photo with extension - {0}")
     @ValueSource(strings =
             {"testdata/country/china_4.jpeg",
@@ -73,10 +76,12 @@ public class AddPhotoTest extends BaseWebTest {
     @ApiLogin(user = @GenerateUser)
     @AllureId("802")
     @Test
+    @Tag("WEB")
+    @DisplayName("WEB: Путешествие не сохраняется без подверждения")
     void addPhotoWithoutClickSave() {
         photo.setPhoto(ImageUtils.getDataURI(IMAGE_PATH));
 
-        Allure.step("open page", () -> Selenide.open(CFG.getFrontUrl()));
+        Allure.step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
         photoPage = headerComponent
                 .checkThatComponentDisplayed()
                 .checkPhotosCount(0)
@@ -102,6 +107,8 @@ public class AddPhotoTest extends BaseWebTest {
     )
     @AllureId("803")
     @Test
+    @Tag("WEB")
+    @DisplayName("WEB: Пользователь должен иметь возможность добавлять несколько фотографий для одной страны")
     void addTwoPhotoForOneCountry(UserJson user) {
         final PhotoJson photo = user.getPhotos().get(0);
         PhotoJson secondPhoto = new PhotoJson();
@@ -109,7 +116,7 @@ public class AddPhotoTest extends BaseWebTest {
         secondPhoto.setPhoto(ImageUtils.getDataURI(IMAGE_PATH));
         secondPhoto.setCountryJson(photo.getCountryJson());
 
-        Allure.step("open page", () -> Selenide.open(CFG.getFrontUrl()));
+        Allure.step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
 
         photoPage = headerComponent
                 .checkThatComponentDisplayed()
@@ -134,8 +141,10 @@ public class AddPhotoTest extends BaseWebTest {
     @ApiLogin(user = @GenerateUser)
     @AllureId("804")
     @Test
+    @Tag("WEB")
+    @DisplayName("WEB: Пользователь должен получить иметь возможнсть добавлять путешествие без фото")
     void addPhotoCardWithoutImage() {
-        Allure.step("open page", () -> Selenide.open(CFG.getFrontUrl()));
+        Allure.step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
         photoPage = headerComponent
                 .checkThatComponentDisplayed()
                 .clickAddPhoto();

@@ -4,6 +4,7 @@ import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Allure;
 import io.qameta.allure.AllureId;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.rangiffler.db.entity.user.UserEntity;
@@ -14,7 +15,7 @@ import org.rangiffler.page.StartPage;
 import org.rangiffler.page.YourTravelsPage;
 import org.rangiffler.test.web.BaseWebTest;
 
-@DisplayName("Login")
+@DisplayName("Логин в систему")
 @ExtendWith(GenerateUserAuthDataExtension.class)
 public class LoginNewUserTest extends BaseWebTest {
     private StartPage startPage = new StartPage();
@@ -24,8 +25,10 @@ public class LoginNewUserTest extends BaseWebTest {
     @AllureId("401")
     @GenerateUserAuthData(password = TEST_PWD)
     @Test
+    @Tag("WEB")
+    @DisplayName("WEB: Пользователь должен успешно авторизоваться")
     void loginTest(UserEntity user) {
-        Allure.step("open page", () -> Selenide.open(CFG.getFrontUrl()));
+        Allure.step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
         loginPage = startPage
                 .goToLogin()
                 .checkThatPageLoaded();

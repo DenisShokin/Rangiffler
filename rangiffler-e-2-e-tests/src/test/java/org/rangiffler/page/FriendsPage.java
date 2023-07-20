@@ -24,17 +24,17 @@ public class FriendsPage extends BasePage<FriendsPage> {
         return this;
     }
 
-    @Step("Check message 'No friends yet' is visible")
+    @Step("Проверить, что сообщение 'No friends yet' отображается")
     public void checkNoFriendsYetIsVisible() {
         noFriendsYetLabel.shouldBe(Condition.visible);
     }
 
-    @Step("Check that table contains friends")
+    @Step("Проверить, что в таблице отображаются друзья")
     public void checkTableContainsFriends(UserJson... friends) {
         friendsTable.findAll("tr").shouldHave(FriendsCondition.friends(friends));
     }
 
-    @Step("Remove friends")
+    @Step("Удалить друзей")
     public void deleteFriends(UserJson... friends) {
         for (UserJson friend : friends) {
             SelenideElement row = friendsTableRows.findBy(Condition.text(friend.getUsername()));

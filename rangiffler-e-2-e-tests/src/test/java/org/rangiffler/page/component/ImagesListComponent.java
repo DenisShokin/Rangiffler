@@ -29,18 +29,18 @@ public class ImagesListComponent extends BaseComponent<ImagesListComponent> {
         return this;
     }
 
-    @Step("Check that images list contains photos")
+    @Step("Проверить, что в таблице содержатся фотографии")
     public void checkImagesListContainsPhotos(PhotoJson... photos) {
         photoListItems.shouldHave(PhotosCondition.photos(photos));
     }
 
-    @Step("Click image")
+    @Step("Нажать на фотографию")
     public PhotoPage clickToImage(PhotoJson photo) {
         photoListItems.shouldHave(PhotoCondition.photo(photo)).first().click();
         return new PhotoPage();
     }
 
-    @Step("Images list is hidden")
+    @Step("Проверить, что таблица с изображениями скрыта")
     public void checkThatComponentIsHidden() {
         self.shouldBe(hidden);
     }

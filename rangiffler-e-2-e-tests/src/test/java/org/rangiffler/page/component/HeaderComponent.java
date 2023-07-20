@@ -41,76 +41,76 @@ public class HeaderComponent extends BaseComponent<HeaderComponent> {
         return this;
     }
 
-    @Step("Go to your travels page")
+    @Step("Перейти на страницу Ваши путешествия")
     public YourTravelsPage goToYourTravelsPage() {
         yourTravelsButton.click();
         yourTravelsButton.shouldHave(attributeMatching("aria-selected","true"));
         return new YourTravelsPage();
     }
 
-    @Step("Go to friends travels page")
+    @Step("Перейти на страницу Путешествия друзей")
     public FriendsTravelsPage goToFriendsTravelsPage() {
         friendsTravelsButton.click();
         friendsTravelsButton.shouldHave(attributeMatching("aria-selected","true"));
         return new FriendsTravelsPage();
     }
 
-    @Step("Go to people around page")
+    @Step("Перейти на страницу Люди вокруг")
     public PeopleAroundPage goToPeopleAroundPage() {
         peopleAroundButton.click();
         peopleAroundButton.shouldHave(attributeMatching("aria-selected","true"));
         return new PeopleAroundPage();
     }
 
-    @Step("Logout from rangiffler")
+    @Step("Нажать кнопку выхода из системы")
     public StartPage logout() {
         logoutButton.click();
         return new StartPage();
     }
 
-    @Step("Check count your visited countries")
+    @Step("Проверить количество посещенных стран")
     public HeaderComponent checkVisitedCountriesCount(int countCountry) {
         yourVisitedCountries.shouldHave(text(String.valueOf(countCountry)));
         return this;
     }
 
-    @Step("Check count your photos")
+    @Step("Проверить количество фотографий")
     public HeaderComponent checkPhotosCount(int countPhoto) {
         yourPhotos.shouldHave(text(String.valueOf(countPhoto)));
         return this;
     }
 
-    @Step("Check count your friends")
+    @Step("Проверить количество друзей")
     public HeaderComponent checkFriendsCount(int countFriend) {
         yourFriends.shouldHave(text(String.valueOf(countFriend)));
         return this;
     }
 
-    @Step("Click to profile empty icon")
+    @Step("Нажать на профиль пользователя")
     public ProfilePage clickEmptyPhotoProfileButton() {
         profileEmptyIcon.click();
         return new ProfilePage();
     }
 
-    @Step("Click to profile photo")
+    @Step("Нажать на аватар профиля")
     public ProfilePage clickProfileIcon(String username) {
         $(String.format("img[alt='%s']", username)).click();
         return new ProfilePage();
     }
 
-    @Step("Click Add Photo")
+    @Step("Нажать кнопку Добавления фото")
     public PhotoPage clickAddPhoto() {
         addPhotoButton.click();
         return new PhotoPage();
     }
 
-    @Step("Click Your friends button")
+    @Step("Нажать на копку Друзья")
     public FriendsPage clickFriendsButton() {
         yourFriends.click();
         return new FriendsPage();
     }
 
-    @Step("Refresh")
+    @Step("Обновить страницу")
     public HeaderComponent refresh() {
         Selenide.refresh();
         checkThatComponentDisplayed();

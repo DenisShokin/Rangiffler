@@ -35,7 +35,7 @@ public class PhotoPage extends BasePage<PhotoPage> {
         return this;
     }
 
-    @Step("Set description for photo")
+    @Step("Заполнить описание")
     public PhotoPage setDescription(String description) {
         descriptionField.sendKeys(Keys.CONTROL + "A");
         descriptionField.sendKeys(Keys.BACK_SPACE);
@@ -43,21 +43,21 @@ public class PhotoPage extends BasePage<PhotoPage> {
         return this;
     }
 
-    @Step("Save profile changes")
+    @Step("Нажать кнопку Сохранить")
     public void save() {
         saveBtn.click();
         // sleep for replication updated data
         Selenide.sleep(4000);
     }
 
-    @Step("Upload photo")
+    @Step("Загрузить фото путешествия")
     public PhotoPage uploadPhoto(String imagePath) {
         inputPhoto.uploadFile(FileResourcesUtils.getFileFromResource(imagePath));
         uploadImageLabel.shouldBe(image);
         return this;
     }
 
-    @Step("Select country")
+    @Step("Выбрать страну")
     public PhotoPage selectCountry(CountryJson country) {
         countryDropDown.click();
         SelenideElement element = countryListBox.
@@ -67,36 +67,36 @@ public class PhotoPage extends BasePage<PhotoPage> {
         return this;
     }
 
-    @Step("Edit photo")
+    @Step("Нажать кнопку Редактировать")
     public PhotoPage editButtonClick() {
         editBtn.click();
         return this;
     }
 
-    @Step("Delete photo")
+    @Step("Нажать кнопку Удалить")
     public DeletePhotoPage deleteButtonClick() {
         deleteBtn.click();
         return new DeletePhotoPage();
     }
 
-    @Step("Check photo country")
+    @Step("Проверить страну")
     public PhotoPage checkPhotoCountry(String expectedCountry) {
         placeIcon.shouldHave(text(expectedCountry));
         return this;
     }
 
-    @Step("Check photo description")
+    @Step("Проверить описание")
     public PhotoPage checkPhotoDescription(String expectedDescription) {
         descriptionLabel.shouldHave(text(expectedDescription));
         return this;
     }
 
-    @Step("Click close button")
+    @Step("Нажать кнопку Закрыть")
     public void clickCloseButton() {
         closeBtn.click();
     }
 
-    @Step("Save button is disable")
+    @Step("Кнопка Сохранить задизейблена")
     public void saveButtonIsDisable() {
         saveBtn.shouldBe(disabled);
     }

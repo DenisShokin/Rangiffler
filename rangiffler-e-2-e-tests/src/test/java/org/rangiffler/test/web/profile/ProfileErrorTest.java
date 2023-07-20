@@ -5,6 +5,7 @@ import io.qameta.allure.Allure;
 import io.qameta.allure.AllureId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.rangiffler.jupiter.annotation.ApiLogin;
 import org.rangiffler.jupiter.annotation.GenerateUser;
@@ -12,7 +13,7 @@ import org.rangiffler.page.ProfilePage;
 import org.rangiffler.page.YourTravelsPage;
 import org.rangiffler.test.web.BaseWebTest;
 
-@DisplayName("Update profile error")
+@DisplayName("Обновление профиля. Негативные сценарии")
 public class ProfileErrorTest extends BaseWebTest {
 
     private ProfilePage profilePage = new ProfilePage();
@@ -21,12 +22,14 @@ public class ProfileErrorTest extends BaseWebTest {
 
     @BeforeEach
     void setUp() {
-        Allure.step("open page", () -> Selenide.open(CFG.getFrontUrl()));
+        Allure.step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
     }
 
     @Test
     @ApiLogin(user = @GenerateUser)
     @AllureId("601")
+    @Tag("WEB")
+    @DisplayName("WEB: Пользователь должен получить сообщение об ошибке при вводе более 50 символов в поле Имя")
     public void errorMessageShouldBeVisibleInCaseThatFirstnameMoreThan50Symbols() {
         profilePage = yourTravelsPage.checkThatPageLoaded()
                 .getHeader()
@@ -39,6 +42,8 @@ public class ProfileErrorTest extends BaseWebTest {
     @Test
     @ApiLogin(user = @GenerateUser)
     @AllureId("602")
+    @Tag("WEB")
+    @DisplayName("WEB: Пользователь должен получить сообщение об ошибке при вводе более 50 символов в поле Фамилия")
     public void errorMessageShouldBeVisibleInCaseThatLastnameMoreThan50Symbols() {
         profilePage = yourTravelsPage.checkThatPageLoaded()
                 .getHeader()

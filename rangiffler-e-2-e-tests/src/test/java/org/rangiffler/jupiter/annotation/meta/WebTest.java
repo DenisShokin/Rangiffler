@@ -1,4 +1,4 @@
-package org.rangiffler.jupiter.annotation;
+package org.rangiffler.jupiter.annotation.meta;
 
 import io.qameta.allure.junit5.AllureJunit5;
 import org.junit.jupiter.api.extension.ExtendWith;

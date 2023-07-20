@@ -18,9 +18,10 @@ public class CongratulationsPage extends BasePage<CongratulationsPage> {
         return this;
     }
 
-    @Step("Click login button")
+    @Step("Нажать кнопку Логина")
     public LoginPage clickLoginButton() {
         loginButton.click();
         return new LoginPage();
     }
+
 }

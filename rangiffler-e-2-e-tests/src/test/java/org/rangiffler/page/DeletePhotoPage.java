@@ -18,7 +18,7 @@ public class DeletePhotoPage extends BasePage<DeletePhotoPage>{
         return this;
     }
 
-    @Step("Click Delete button")
+    @Step("Нажать кнопку Удалить фото")
     public void deleteButtonClick(){
         deleteBtn.click();
     }

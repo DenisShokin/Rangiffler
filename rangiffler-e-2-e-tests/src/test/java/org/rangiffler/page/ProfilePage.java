@@ -31,38 +31,38 @@ public class ProfilePage extends BasePage<ProfilePage> {
         return this;
     }
 
-    @Step("Set firstname")
+    @Step("Ввести Имя")
     public ProfilePage setFirstName(String firstName) {
         firstnameInput.val(firstName);
         return this;
     }
 
-    @Step("Set lastname")
+    @Step("Ввести Фамилию")
     public ProfilePage setLastName(String lastName) {
         lastNameInput.val(lastName);
         return this;
     }
 
-    @Step("Save profile changes")
+    @Step("Сохранить изменения")
     public void save() {
         saveBtn.click();
         // sleep for replication updated data
         Selenide.sleep(4000);
     }
 
-    @Step("Check user firstname")
+    @Step("Проверить имя")
     public ProfilePage checkFirstname(String firstname) {
         firstnameInput.shouldHave(Condition.value(firstname));
         return this;
     }
 
-    @Step("Check user lastname")
+    @Step("Проверить фамилию")
     public ProfilePage checkLastname(String lastname) {
         lastNameInput.shouldHave(Condition.value(lastname));
         return this;
     }
 
-    @Step("Check user firstname error message")
+    @Step("Проверить текст ошибки для поля Имя")
     public ProfilePage checkFirstnameErrorMessage(String expectedMessage) {
         firstnameTextHelperLabel.shouldHave(visible);
         firstnameTextHelperLabel.shouldHave(text(expectedMessage));
@@ -70,7 +70,7 @@ public class ProfilePage extends BasePage<ProfilePage> {
         return this;
     }
 
-    @Step("Check user lastname error message")
+    @Step("Проверить текст ошибки для поля Фамилия")
     public ProfilePage checkLastnameErrorMessage(String expectedMessage) {
         lastnameTextHelperLabel.shouldHave(visible);
         lastnameTextHelperLabel.shouldHave(text(expectedMessage));
@@ -78,19 +78,19 @@ public class ProfilePage extends BasePage<ProfilePage> {
         return this;
     }
 
-    @Step("Upload photo")
+    @Step("Загрузить фото профиля")
     public ProfilePage uploadPhoto(String imagePath) {
         inputPhoto.uploadFile(FileResourcesUtils.getFileFromResource(imagePath));
         return this;
     }
 
-    @Step("Check user photo")
+    @Step("Проверить фото профиля")
     public ProfilePage checkPhoto(String lastname) {
         lastNameInput.shouldHave(Condition.value(lastname));
         return this;
     }
 
-    @Step("Close profile page")
+    @Step("Закрыть страницу")
     public void close() {
         closeIcon.click();
     }
