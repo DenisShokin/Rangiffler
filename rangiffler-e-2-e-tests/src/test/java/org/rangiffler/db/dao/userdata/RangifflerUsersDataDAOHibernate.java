@@ -6,6 +6,8 @@ import org.rangiffler.db.entity.userdata.UserDataEntity;
 import org.rangiffler.db.jpa.EmfProvider;
 import org.rangiffler.db.jpa.JpaTransactionManager;
 
+import java.util.List;
+
 public class RangifflerUsersDataDAOHibernate extends JpaTransactionManager implements RangifflerUsersDataDAO {
 
     public RangifflerUsersDataDAOHibernate() {
@@ -39,4 +41,18 @@ public class RangifflerUsersDataDAOHibernate extends JpaTransactionManager imple
                 .setParameter("username", userName)
                 .getSingleResult();
     }
+
+    @Override
+    public List<UserDataEntity> getAllUsers() {
+        return em.createQuery("select u from UserDataEntity u", UserDataEntity.class)
+                .getResultList();
+    }
+
+    @Override
+    public List<UserDataEntity> findByUsernameNot(String userName) {
+        return em.createQuery("select u from UserDataEntity u where username!=:username", UserDataEntity.class)
+                .setParameter("username", userName)
+                .getResultList();
+    }
+
 }

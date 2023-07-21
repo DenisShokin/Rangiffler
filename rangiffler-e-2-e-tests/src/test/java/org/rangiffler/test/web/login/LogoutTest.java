@@ -1,7 +1,6 @@
 package org.rangiffler.test.web.login;
 
 import com.codeborne.selenide.Selenide;
-import io.qameta.allure.Allure;
 import io.qameta.allure.AllureId;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -11,6 +10,8 @@ import org.rangiffler.jupiter.annotation.GenerateUser;
 import org.rangiffler.page.StartPage;
 import org.rangiffler.page.YourTravelsPage;
 import org.rangiffler.test.web.BaseWebTest;
+
+import static io.qameta.allure.Allure.step;
 
 @DisplayName("Выход из системы")
 public class LogoutTest extends BaseWebTest {
@@ -24,7 +25,7 @@ public class LogoutTest extends BaseWebTest {
     @Tag("WEB")
     @DisplayName("WEB: Пользователь должен получить иметь возможность выйти из системы")
     void logoutTest() {
-        Allure.step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
+        step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
         startPage = yourTravelsPage
                 .checkThatPageLoaded()
                 .getHeader()

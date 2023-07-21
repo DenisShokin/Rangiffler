@@ -1,7 +1,6 @@
 package org.rangiffler.test.web.profile;
 
 import com.codeborne.selenide.Selenide;
-import io.qameta.allure.Allure;
 import io.qameta.allure.AllureId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -13,6 +12,8 @@ import org.rangiffler.page.ProfilePage;
 import org.rangiffler.page.YourTravelsPage;
 import org.rangiffler.test.web.BaseWebTest;
 
+import static io.qameta.allure.Allure.step;
+
 @DisplayName("Обновление профиля. Негативные сценарии")
 public class ProfileErrorTest extends BaseWebTest {
 
@@ -22,7 +23,7 @@ public class ProfileErrorTest extends BaseWebTest {
 
     @BeforeEach
     void setUp() {
-        Allure.step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
+        step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
     }
 
     @Test

@@ -14,6 +14,8 @@ import org.rangiffler.page.FriendsPage;
 import org.rangiffler.page.component.HeaderComponent;
 import org.rangiffler.test.web.BaseWebTest;
 
+import static io.qameta.allure.Allure.step;
+
 @DisplayName("Header. Друзья")
 public class HeaderFriendsTest extends BaseWebTest {
 
@@ -29,7 +31,7 @@ public class HeaderFriendsTest extends BaseWebTest {
     void checkFriendsInHeader(UserJson user) {
         final UserJson friend = user.getFriends().get(0);
 
-        Allure.step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
+        step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
         FriendsPage friendsPage = headerComponent
                 .checkThatComponentDisplayed()
                 .checkFriendsCount(1)
@@ -45,7 +47,7 @@ public class HeaderFriendsTest extends BaseWebTest {
     @Tag("WEB")
     @DisplayName("WEB: Пользователь должен видеть сообщение в хедере при отсутствии друзей")
     void peopleWithoutFriends() {
-        Allure.step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
+        step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
 
         FriendsPage friendsPage = headerComponent
                 .checkThatComponentDisplayed()
@@ -65,7 +67,7 @@ public class HeaderFriendsTest extends BaseWebTest {
     void deleteFriend(UserJson user) {
         final UserJson friend = user.getFriends().get(0);
 
-        Allure.step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
+        step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
         FriendsPage friendsPage =
                 headerComponent
                 .checkThatComponentDisplayed()

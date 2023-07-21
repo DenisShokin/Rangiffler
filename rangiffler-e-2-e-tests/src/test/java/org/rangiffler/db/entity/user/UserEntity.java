@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,7 @@ import static jakarta.persistence.FetchType.EAGER;
 
 @Entity
 @Table(name = "users")
+@Data
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

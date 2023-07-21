@@ -6,7 +6,8 @@ import org.rangiffler.config.Config;
 public enum ServiceDB {
 
     RANGIFFLER_AUTH("jdbc:postgresql://%s:%d/rangiffler-auth"),
-    RANGIFFLER_USERDATA("jdbc:postgresql://%s:%d/rangiffler-userdata");
+    RANGIFFLER_USERDATA("jdbc:postgresql://%s:%d/rangiffler-userdata"),
+    RANGIFFLER_GEO("jdbc:postgresql://%s:%d/rangiffler-geo");
 
     private final String jdbcUrl;
 

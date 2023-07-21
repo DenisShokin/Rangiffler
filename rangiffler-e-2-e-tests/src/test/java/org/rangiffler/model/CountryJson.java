@@ -1,9 +1,15 @@
 package org.rangiffler.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class CountryJson {
 
   @JsonProperty("id")
@@ -15,29 +21,6 @@ public class CountryJson {
   @JsonProperty("name")
   private String name;
 
-  public UUID getId() {
-    return id;
-  }
-
-  public void setId(UUID id) {
-    this.id = id;
-  }
-
-  public String getCode() {
-    return code;
-  }
-
-  public void setCode(String code) {
-    this.code = code;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
 
   @Override
   public String toString() {

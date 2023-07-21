@@ -1,5 +1,6 @@
 package org.rangiffler.jupiter.extension;
 
+import io.qameta.allure.Step;
 import org.rangiffler.api.GeoRestClient;
 import org.rangiffler.jupiter.annotation.GeneratePhoto;
 import org.rangiffler.model.CountryJson;
@@ -29,19 +30,23 @@ public class GeneratePhotoService {
     }
 
     public PhotoJson generatePhoto(@Nonnull GeneratePhoto annotation, String username) {
-        PhotoJson photo = createRandomPhoto(username);
+        PhotoJson photo = createRandomPhoto();
+        photo.setUsername(username);
         return photo;
     }
 
+    public PhotoJson generatePhoto() {
+        return createRandomPhoto();
+    }
 
-    private PhotoJson createRandomPhoto(String username) {
+    @Step("Создать путешествие")
+    private PhotoJson createRandomPhoto() {
         PhotoJson photo = new PhotoJson();
         CountryJson country = new CountryJson();
         Random rand = new Random();
 
         UUID id = UUID.randomUUID();
         photo.setId(id);
-        photo.setUsername(username);
         String randomImage = images.get(rand.nextInt(images.size()));
         photo.setPhoto(ImageUtils.getDataURI(randomImage));
         photo.setDescription("Description for photo: " + new File(randomImage).getName());

@@ -8,6 +8,7 @@
         <class>org.rangiffler.db.entity.userdata.UserDataEntity</class>
         <class>org.rangiffler.db.entity.userdata.FriendsId</class>
         <class>org.rangiffler.db.entity.userdata.FriendsEntity</class>
+        <class>org.rangiffler.db.entity.geo.CountryEntity</class>
     </persistence-unit>
 
 </persistence>

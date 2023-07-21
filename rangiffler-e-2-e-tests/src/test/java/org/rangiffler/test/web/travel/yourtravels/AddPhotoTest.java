@@ -1,7 +1,6 @@
 package org.rangiffler.test.web.travel.yourtravels;
 
 import com.codeborne.selenide.Selenide;
-import io.qameta.allure.Allure;
 import io.qameta.allure.AllureId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -20,6 +19,8 @@ import org.rangiffler.page.YourTravelsPage;
 import org.rangiffler.page.component.HeaderComponent;
 import org.rangiffler.test.web.BaseWebTest;
 import org.rangiffler.utils.ImageUtils;
+
+import static io.qameta.allure.Allure.step;
 
 @DisplayName("Ваши путешествия (Your travels). Добавление")
 public class AddPhotoTest extends BaseWebTest {
@@ -52,7 +53,7 @@ public class AddPhotoTest extends BaseWebTest {
     void addPhotoWithDifferentExtension(String imagePath) {
         photo.setPhoto(ImageUtils.getDataURI(imagePath));
 
-        Allure.step("open page", () -> Selenide.open(CFG.getFrontUrl()));
+        step("open page", () -> Selenide.open(CFG.getFrontUrl()));
         photoPage = headerComponent
                 .checkThatComponentDisplayed()
                 .checkPhotosCount(0)
@@ -81,7 +82,7 @@ public class AddPhotoTest extends BaseWebTest {
     void addPhotoWithoutClickSave() {
         photo.setPhoto(ImageUtils.getDataURI(IMAGE_PATH));
 
-        Allure.step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
+        step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
         photoPage = headerComponent
                 .checkThatComponentDisplayed()
                 .checkPhotosCount(0)
@@ -116,7 +117,7 @@ public class AddPhotoTest extends BaseWebTest {
         secondPhoto.setPhoto(ImageUtils.getDataURI(IMAGE_PATH));
         secondPhoto.setCountryJson(photo.getCountryJson());
 
-        Allure.step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
+        step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
 
         photoPage = headerComponent
                 .checkThatComponentDisplayed()
@@ -144,7 +145,7 @@ public class AddPhotoTest extends BaseWebTest {
     @Tag("WEB")
     @DisplayName("WEB: Пользователь должен получить иметь возможнсть добавлять путешествие без фото")
     void addPhotoCardWithoutImage() {
-        Allure.step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
+        step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
         photoPage = headerComponent
                 .checkThatComponentDisplayed()
                 .clickAddPhoto();

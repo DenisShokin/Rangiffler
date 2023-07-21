@@ -15,6 +15,8 @@ import org.rangiffler.page.PeopleAroundPage;
 import org.rangiffler.page.component.HeaderComponent;
 import org.rangiffler.test.web.BaseWebTest;
 
+import static io.qameta.allure.Allure.step;
+
 @DisplayName("Люди вокруг (People Around)")
 public class PeopleAroundTest extends BaseWebTest {
 
@@ -30,7 +32,7 @@ public class PeopleAroundTest extends BaseWebTest {
     void deleteFriendFromPeopleAroundPage(UserJson user) {
         final UserJson friend = user.getFriends().get(0);
 
-        Allure.step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
+        step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
         PeopleAroundPage peopleAroundPage = headerComponent
                 .checkThatComponentDisplayed()
                 .checkFriendsCount(1)
@@ -51,7 +53,7 @@ public class PeopleAroundTest extends BaseWebTest {
     void acceptInvitationTest(UserJson user) {
         final UserJson incomeUser = user.getIncomeInvitations().get(0);
 
-        Allure.step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
+        step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
         PeopleAroundPage peopleAroundPage = headerComponent
                 .checkThatComponentDisplayed()
                 .checkFriendsCount(0)
@@ -76,7 +78,7 @@ public class PeopleAroundTest extends BaseWebTest {
     void declineInvitationTest(UserJson user) {
         final UserJson incomeUser = user.getIncomeInvitations().get(0);
 
-        Allure.step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
+        step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
         PeopleAroundPage peopleAroundPage = headerComponent
                 .checkThatComponentDisplayed()
                 .checkFriendsCount(0)

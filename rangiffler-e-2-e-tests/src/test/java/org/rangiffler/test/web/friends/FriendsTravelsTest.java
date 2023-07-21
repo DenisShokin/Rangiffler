@@ -1,7 +1,6 @@
 package org.rangiffler.test.web.friends;
 
 import com.codeborne.selenide.Selenide;
-import io.qameta.allure.Allure;
 import io.qameta.allure.AllureId;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -15,6 +14,8 @@ import org.rangiffler.model.UserJson;
 import org.rangiffler.page.FriendsTravelsPage;
 import org.rangiffler.page.component.HeaderComponent;
 import org.rangiffler.test.web.BaseWebTest;
+
+import static io.qameta.allure.Allure.step;
 
 @DisplayName("Путешествия друзей (Friends Travels)")
 public class FriendsTravelsTest extends BaseWebTest {
@@ -32,7 +33,7 @@ public class FriendsTravelsTest extends BaseWebTest {
         final UserJson friend = user.getFriends().get(0);
         final PhotoJson friendsPhoto = friend.getPhotos().get(0);
 
-        Allure.step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
+        step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
         FriendsTravelsPage friendsTravelsPage = headerComponent
                 .checkThatComponentDisplayed()
                 .checkPhotosCount(0)
@@ -50,7 +51,7 @@ public class FriendsTravelsTest extends BaseWebTest {
     @Tag("WEB")
     @DisplayName("WEB: Пользователь не видит список фото друзей если они не загружены")
     void checkFriendTravelWithoutPhotos() {
-        Allure.step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
+        step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
         FriendsTravelsPage friendsTravelsPage = headerComponent
                 .checkThatComponentDisplayed()
                 .checkFriendsCount(1)

@@ -1,45 +1,42 @@
 package org.rangiffler.jupiter.extension;
 
 import io.qameta.allure.AllureId;
-import io.qameta.allure.Step;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.api.extension.ParameterResolver;
-import org.rangiffler.jupiter.annotation.GenerateUser;
-import org.rangiffler.model.UserJson;
+import org.rangiffler.jupiter.annotation.GeneratePhoto;
+import org.rangiffler.model.PhotoJson;
 
 import java.util.Objects;
 
-
-public class GenerateUserExtension implements BeforeEachCallback, ParameterResolver {
+public class GeneratePhotoExtension implements BeforeEachCallback, ParameterResolver {
 
     public static ExtensionContext.Namespace NAMESPACE = ExtensionContext.Namespace
-            .create(GenerateUserExtension.class);
-    private static final GenerateUserService generateUserService = new GenerateUserService();
+            .create(GeneratePhotoExtension.class);
+    private static final GeneratePhotoService generatePhotoService = new GeneratePhotoService();
 
 
-    @Step("Создать тестового пользователя")
     @Override
-    public void beforeEach(ExtensionContext context) {
-        GenerateUser annotation = context.getRequiredTestMethod()
-                .getAnnotation(GenerateUser.class);
+    public void beforeEach(ExtensionContext context) throws Exception {
+        GeneratePhoto annotation = context.getRequiredTestMethod()
+                .getAnnotation(GeneratePhoto.class);
 
         if (annotation != null) {
-            UserJson userJson = generateUserService.generateUser(annotation);
-            context.getStore(NAMESPACE).put(getTestId(context), userJson);
+            PhotoJson photoJson = generatePhotoService.generatePhoto();
+            context.getStore(NAMESPACE).put(getTestId(context), photoJson);
         }
     }
 
     @Override
     public boolean supportsParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
-        return parameterContext.getParameter().getType().isAssignableFrom(UserJson.class);
+        return parameterContext.getParameter().getType().isAssignableFrom(PhotoJson.class);
     }
 
     @Override
     public Object resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
-        return extensionContext.getStore(NAMESPACE).get(getTestId(extensionContext), UserJson.class);
+        return extensionContext.getStore(NAMESPACE).get(getTestId(extensionContext), PhotoJson.class);
     }
 
     private String getTestId(ExtensionContext context) {
@@ -47,4 +44,5 @@ public class GenerateUserExtension implements BeforeEachCallback, ParameterResol
                 .requireNonNull(context.getRequiredTestMethod().getAnnotation(AllureId.class))
                 .value();
     }
+
 }

@@ -1,7 +1,6 @@
 package org.rangiffler.test.web.travel.yourtravels;
 
 import com.codeborne.selenide.Selenide;
-import io.qameta.allure.Allure;
 import io.qameta.allure.AllureId;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -17,6 +16,8 @@ import org.rangiffler.page.PhotoPage;
 import org.rangiffler.page.YourTravelsPage;
 import org.rangiffler.page.component.HeaderComponent;
 import org.rangiffler.test.web.BaseWebTest;
+
+import static io.qameta.allure.Allure.step;
 
 @DisplayName("Ваши путешествия (Your travels). Редактирование")
 public class EditPhotoTest extends BaseWebTest {
@@ -40,7 +41,7 @@ public class EditPhotoTest extends BaseWebTest {
         updatedCountry.setCode("zw");
         updatedPhoto.setCountryJson(updatedCountry);
 
-        Allure.step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
+        step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
 
         YourTravelsPage yourTravelsPage = headerComponent
                 .checkThatComponentDisplayed()
@@ -75,7 +76,7 @@ public class EditPhotoTest extends BaseWebTest {
     void deletePhoto(UserJson user) {
         final PhotoJson photo = user.getPhotos().get(0);
 
-        Allure.step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
+        step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
 
         YourTravelsPage yourTravelsPage = headerComponent
                 .checkThatComponentDisplayed()

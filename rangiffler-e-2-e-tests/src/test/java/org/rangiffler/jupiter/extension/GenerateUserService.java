@@ -1,6 +1,7 @@
 package org.rangiffler.jupiter.extension;
 
 import com.google.common.base.Stopwatch;
+import io.qameta.allure.Step;
 import org.rangiffler.api.AuthRestClient;
 import org.rangiffler.api.PhotoRestClient;
 import org.rangiffler.api.UserdataRestClient;
@@ -56,6 +57,7 @@ public class GenerateUserService {
         }
     }
 
+    @Step("Добавить друга пользователю")
     private void addFriendsIfPresent(UserJson targetUser, Friend[] friends) {
         if (isNotEmpty(friends)) {
             List<UserJson> friendsList = new ArrayList<>();
@@ -70,9 +72,10 @@ public class GenerateUserService {
         }
     }
 
+    @Step("Добавить входящее предложение о дружбе")
     private void addIncomeInvitationsIfPresent(UserJson targetUser, Friend[] incomeInvitations) {
         if (isNotEmpty(incomeInvitations)) {
-            for (Friend ii : incomeInvitations) {
+            for (int i=0; i < incomeInvitations.length; i++) {
                 UserJson friendJson = createRandomUser();
                 userdataClient.addFriend(friendJson.getUsername(), targetUser.getUsername());
                 targetUser.getIncomeInvitations().add(friendJson);

@@ -1,8 +1,12 @@
 package org.rangiffler.api;
 
+import org.junit.jupiter.api.Assertions;
 import org.rangiffler.model.UserJson;
 
+import javax.annotation.Nonnull;
 import java.io.IOException;
+import java.util.List;
+import java.util.Objects;
 
 public class UserdataRestClient extends BaseRestClient {
 
@@ -37,6 +41,15 @@ public class UserdataRestClient extends BaseRestClient {
             return userdataService.acceptInvitation(username, friendJson).execute().body();
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public @Nonnull List<UserJson> getAllUsers(String username) {
+        try {
+            return Objects.requireNonNull(userdataService.getAllUsers(username).execute().body());
+        } catch (IOException e) {
+            Assertions.fail("Can`t execute api call to rangiffler-users: " + CFG.getUserdataUrl() + " " + e.getMessage());
+            return null;
         }
     }
 

@@ -27,4 +27,9 @@ public interface UserdataService {
             @Query("username") String username,
             @Body UserJson friendJson);
 
+    @GET("/allUsers")
+    Call<List<UserJson>> getAllUsers(
+            @Query("username") String username
+    );
+
 }

@@ -3,11 +3,19 @@ package org.rangiffler.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.rangiffler.db.entity.userdata.UserDataEntity;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserJson {
 
   @JsonProperty("id")
@@ -22,7 +30,7 @@ public class UserJson {
   private String firstName;
 
   @JsonProperty("lastName")
-  private String lastLame;
+  private String lastName;
 
   @JsonProperty("avatar")
   private String avatar;
@@ -30,9 +38,6 @@ public class UserJson {
   @JsonProperty("friendStatus")
   @JsonInclude(JsonInclude.Include.NON_NULL)
   private FriendStatus friendStatus;
-
-  public UserJson() {
-  }
 
   private transient List<PhotoJson> photos = new ArrayList<>();
   private transient List<UserJson> friends = new ArrayList<>();
@@ -92,12 +97,12 @@ public class UserJson {
     this.firstName = firstName;
   }
 
-  public String getLastLame() {
-    return lastLame;
+  public String getLastName() {
+    return lastName;
   }
 
-  public void setLastLame(String lastLame) {
-    this.lastLame = lastLame;
+  public void setLastName(String lastLame) {
+    this.lastName = lastLame;
   }
 
   public String getAvatar() {
@@ -116,6 +121,23 @@ public class UserJson {
     this.friendStatus = friendStatus;
   }
 
+  public static UserJson fromEntity(UserDataEntity entity) {
+    UserJson usr = new UserJson();
+    byte[] avatar = entity.getAvatar();
+    usr.setId(entity.getId());
+    usr.setUsername(entity.getUsername());
+    usr.setFirstName(entity.getFirstname());
+    usr.setLastName(entity.getLastname());
+    usr.setAvatar(avatar != null && avatar.length > 0 ? new String(entity.getAvatar(), StandardCharsets.UTF_8) : null);
+    return usr;
+  }
+
+  public static UserJson fromEntity(UserDataEntity entity, FriendStatus friendStatus) {
+    UserJson userJson = fromEntity(entity);
+    userJson.setFriendStatus(friendStatus);
+    return userJson;
+  }
+
   @Override
   public String toString() {
     return "UserJson{" +
@@ -123,7 +145,7 @@ public class UserJson {
             ", username='" + username + '\'' +
             ", password='" + password + '\'' +
             ", firstName='" + firstName + '\'' +
-            ", lastLame='" + lastLame + '\'' +
+            ", lastLame='" + lastName + '\'' +
             ", avatar='" + avatar + '\'' +
             ", friendStatus=" + friendStatus +
             ", photos=" + photos +

@@ -3,6 +3,7 @@ package org.rangiffler.jupiter.extension;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 import io.qameta.allure.AllureId;
+import io.qameta.allure.Step;
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -36,6 +37,7 @@ public class ApiLoginExtension  implements BeforeEachCallback, AfterTestExecutio
         CookieContext.getInstance().release();
     }
 
+    @Step("Логин в rangiffler через api")
     @Override
     public void beforeEach(ExtensionContext context) {
         ApiLogin apiLogin = context.getRequiredTestMethod().getAnnotation(ApiLogin.class);

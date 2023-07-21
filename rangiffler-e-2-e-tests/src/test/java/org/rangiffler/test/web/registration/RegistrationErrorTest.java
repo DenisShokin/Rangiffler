@@ -1,7 +1,6 @@
 package org.rangiffler.test.web.registration;
 
 import com.codeborne.selenide.Selenide;
-import io.qameta.allure.Allure;
 import io.qameta.allure.AllureId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -20,6 +19,8 @@ import org.rangiffler.test.web.BaseWebTest;
 
 import java.util.stream.Stream;
 
+import static io.qameta.allure.Allure.step;
+
 @DisplayName("Регистрация. Негативные сценарии")
 @ExtendWith(GenerateUserAuthDataExtension.class)
 public class RegistrationErrorTest extends BaseWebTest {
@@ -29,7 +30,7 @@ public class RegistrationErrorTest extends BaseWebTest {
 
     @BeforeEach
     void setUp() {
-        Allure.step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
+        step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
         startPage
                 .checkThatPageLoaded()
                 .goToRegister();

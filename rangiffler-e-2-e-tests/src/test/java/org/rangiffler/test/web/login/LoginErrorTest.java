@@ -2,7 +2,6 @@ package org.rangiffler.test.web.login;
 
 import com.codeborne.selenide.Selenide;
 import com.github.javafaker.Faker;
-import io.qameta.allure.Allure;
 import io.qameta.allure.AllureId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -16,6 +15,8 @@ import org.rangiffler.page.LoginPage;
 import org.rangiffler.page.StartPage;
 import org.rangiffler.test.web.BaseWebTest;
 
+import static io.qameta.allure.Allure.step;
+
 @DisplayName("Логин в систему. Негативные сценарии")
 @ExtendWith(GenerateUserAuthDataExtension.class)
 public class LoginErrorTest extends BaseWebTest {
@@ -26,7 +27,7 @@ public class LoginErrorTest extends BaseWebTest {
 
     @BeforeEach
     void setUp() {
-        Allure.step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
+        step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
         startPage
                 .checkThatPageLoaded()
                 .goToLogin();
