@@ -4,7 +4,7 @@ import org.rangiffler.model.CountryJson;
 import org.rangiffler.service.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -25,7 +25,7 @@ public class CountryController {
   }
 
   @GetMapping("/countries/{code}")
-  public CountryJson getCountryByCode(@RequestParam String code) {
+  public CountryJson getCountryByCode(@PathVariable String code) {
     return countryService.getCountryByCode(code);
   }
 

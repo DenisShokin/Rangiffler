@@ -30,20 +30,23 @@ public class PhotoService {
     private final PhotoRepository photoRepository;
     private final WebClient webClient;
     private final String rangifflerUserDataBaseUri;
-
+    private final CountryService countryService;
 
     public PhotoService(PhotoRepository photoRepository,
-                        WebClient webClient, @Value("${rangiffler-users.base-uri}") String rangifflerUserDataBaseUri) {
+                        WebClient webClient,
+                        @Value("${rangiffler-users.base-uri}") String rangifflerUserDataBaseUri,
+                        CountryService countryService) {
         this.photoRepository = photoRepository;
         this.webClient = webClient;
         this.rangifflerUserDataBaseUri = rangifflerUserDataBaseUri;
+        this.countryService = countryService;
     }
 
     public List<PhotoJson> getAllUserPhotos(String username) {
         Map<UUID, PhotoJson> result = new HashMap<>();
         for (PhotoEntity photo : photoRepository.findAllByUsername(username)) {
             if (!result.containsKey(photo.getId())) {
-                result.put(photo.getId(), PhotoJson.fromEntity(photo));
+                result.put(photo.getId(), PhotoJson.fromEntity(photo, countryService.getCountryByCode(photo)));
             }
         }
         return new ArrayList<>(result.values());
@@ -68,7 +71,7 @@ public class PhotoService {
         countryEntity.setPhoto(photoEntity);
         photoEntity.setCountry(countryEntity);
 
-        return PhotoJson.fromEntity(photoRepository.save(photoEntity));
+        return PhotoJson.fromEntity(photoRepository.save(photoEntity), countryService.getCountryByCode(photoEntity));
     }
 
     public void deletePhoto(@Nonnull UUID photoId) {
@@ -95,7 +98,7 @@ public class PhotoService {
                 country.setCode(photoJson.getCountryJson().getCode());
                 photo.setCountry(country);
                 PhotoEntity saved = photoRepository.save(photo);
-                return PhotoJson.fromEntity(saved);
+                return PhotoJson.fromEntity(saved, countryService.getCountryByCode(saved));
             } else {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Photo with id = " + photoJson.getPhoto() + "already connect with other username");
             }
@@ -117,7 +120,7 @@ public class PhotoService {
         for (String user : friendsUsername) {
             for (PhotoEntity photo : photoRepository.findAllByUsername(user)) {
                 if (!result.containsKey(photo.getId())) {
-                    result.put(photo.getId(), PhotoJson.fromEntity(photo));
+                    result.put(photo.getId(), PhotoJson.fromEntity(photo, countryService.getCountryByCode(photo)));
                 }
             }
         }

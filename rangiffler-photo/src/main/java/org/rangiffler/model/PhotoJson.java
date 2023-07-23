@@ -27,10 +27,7 @@ public class PhotoJson {
 
     public static PhotoJson fromEntity(PhotoEntity entity) {
         PhotoJson photo = new PhotoJson();
-        CountryJson country = new CountryJson();
-
-        country.setName(entity.getCountry().getName());
-        country.setCode(entity.getCountry().getCode());
+        CountryJson country = CountryJson.fromEntity(entity.getCountry());
 
         photo.setId(entity.getId());
         photo.setCountryJson(country);
@@ -41,4 +38,12 @@ public class PhotoJson {
 
         return photo;
     }
+
+    public static PhotoJson fromEntity(PhotoEntity entity, UUID countryId) {
+        PhotoJson photoJson = fromEntity(entity);
+        CountryJson countryJson = photoJson.getCountryJson();
+        countryJson.setId(countryId);
+        return photoJson;
+    }
+
 }
