@@ -104,7 +104,7 @@ public class HeaderComponent extends BaseComponent<HeaderComponent> {
         return new PhotoPage();
     }
 
-    @Step("Нажать на копку Друзья")
+    @Step("Нажать на кнопку Друзья")
     public FriendsPage clickFriendsButton() {
         yourFriends.click();
         return new FriendsPage();
