@@ -88,6 +88,12 @@ dshokin rangiffler-auth % gradle bootRun --args='--spring.profiles.active=local'
 
 #### 4. Запустить другие сервисы: rangiffler-gateway, rangiffler-geo, rangiffler-photo, rangiffler-userdata
 
+#### 5. Swagger доступен для сервисов:
+
+- [rangiffler-geo](http://localhost:8081/swagger-ui/index.html#/) 
+- [rangiffler-photo](http://localhost:8082/swagger-ui/index.html#/)
+- [rangiffler-userdata](http://localhost:8089/swagger-ui/index.html#/)
+
 ---
 
 ## ![](readme/img/testing.png) Запуск e2e тестов локально
@@ -133,23 +139,11 @@ Docker version 20.10.14, build a224086
 docker volume create pgdata
 ```
 #### 3. Прописать в etc/hosts элиас для Docker-имени
-#### frontend:  127.0.0.1 client.rangiffler.dc
-#### auth:      127.0.0.1 auth.rangiffler.dc
-#### gateway:   127.0.0.1 gateway.rangiffler.dc
-
-```posh
-##
-# Host Database
-#
-# localhost is used to configure the loopback interface
-# when the system is booting.  Do not change this entry.
-##
-127.0.0.1       localhost
-127.0.0.1       client.rangiffler.dc
-127.0.0.1       auth.rangiffler.dc
-127.0.0.1       gateway.rangiffler.dc
 ```
-
+frontend:  127.0.0.1 client.rangiffler.dc
+auth:      127.0.0.1 auth.rangiffler.dc
+gateway:   127.0.0.1 gateway.rangiffler.dc
+```
 #### 4. Перейти в корневой каталог проекта
 
 ```posh
