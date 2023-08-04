@@ -30,7 +30,7 @@ public class RegistrationErrorTest extends BaseWebTest {
 
     @BeforeEach
     void setUp() {
-        step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
+        step(OPEN_MAIN_PAGE_STEP, () -> Selenide.open(CFG.getFrontUrl()));
         startPage
                 .checkThatPageLoaded()
                 .goToRegister();

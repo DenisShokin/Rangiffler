@@ -29,7 +29,7 @@ public class LoginNewUserTest extends BaseWebTest {
     @Tag("WEB")
     @DisplayName("WEB: Пользователь должен успешно авторизоваться")
     void loginTest(UserEntity user) {
-        step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
+        step(OPEN_MAIN_PAGE_STEP, () -> Selenide.open(CFG.getFrontUrl()));
         loginPage = startPage
                 .goToLogin()
                 .checkThatPageLoaded();

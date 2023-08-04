@@ -53,7 +53,7 @@ public class AddPhotoTest extends BaseWebTest {
     void addPhotoWithDifferentExtension(String imagePath) {
         photo.setPhoto(ImageUtils.getDataURI(imagePath));
 
-        step("open page", () -> Selenide.open(CFG.getFrontUrl()));
+        step(OPEN_MAIN_PAGE_STEP, () -> Selenide.open(CFG.getFrontUrl()));
         photoPage = headerComponent
                 .checkThatComponentDisplayed()
                 .checkPhotosCount(0)
@@ -82,7 +82,7 @@ public class AddPhotoTest extends BaseWebTest {
     void addPhotoWithoutClickSave() {
         photo.setPhoto(ImageUtils.getDataURI(IMAGE_PATH));
 
-        step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
+        step(OPEN_MAIN_PAGE_STEP, () -> Selenide.open(CFG.getFrontUrl()));
         photoPage = headerComponent
                 .checkThatComponentDisplayed()
                 .checkPhotosCount(0)
@@ -117,7 +117,7 @@ public class AddPhotoTest extends BaseWebTest {
         secondPhoto.setPhoto(ImageUtils.getDataURI(IMAGE_PATH));
         secondPhoto.setCountryJson(photo.getCountryJson());
 
-        step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
+        step(OPEN_MAIN_PAGE_STEP, () -> Selenide.open(CFG.getFrontUrl()));
 
         photoPage = headerComponent
                 .checkThatComponentDisplayed()
@@ -145,7 +145,7 @@ public class AddPhotoTest extends BaseWebTest {
     @Tag("WEB")
     @DisplayName("WEB: Пользователь должен получить иметь возможнсть добавлять путешествие без фото")
     void addPhotoCardWithoutImage() {
-        step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
+        step(OPEN_MAIN_PAGE_STEP, () -> Selenide.open(CFG.getFrontUrl()));
         photoPage = headerComponent
                 .checkThatComponentDisplayed()
                 .clickAddPhoto();

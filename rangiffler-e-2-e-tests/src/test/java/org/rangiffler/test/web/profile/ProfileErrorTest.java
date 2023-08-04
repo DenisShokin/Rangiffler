@@ -23,7 +23,7 @@ public class ProfileErrorTest extends BaseWebTest {
 
     @BeforeEach
     void setUp() {
-        step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
+        step(OPEN_MAIN_PAGE_STEP, () -> Selenide.open(CFG.getFrontUrl()));
     }
 
     @Test

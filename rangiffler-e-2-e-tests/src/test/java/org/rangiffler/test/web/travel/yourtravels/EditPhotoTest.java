@@ -41,7 +41,7 @@ public class EditPhotoTest extends BaseWebTest {
         updatedCountry.setCode("zw");
         updatedPhoto.setCountryJson(updatedCountry);
 
-        step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
+        step(OPEN_MAIN_PAGE_STEP, () -> Selenide.open(CFG.getFrontUrl()));
 
         YourTravelsPage yourTravelsPage = headerComponent
                 .checkThatComponentDisplayed()
@@ -76,7 +76,7 @@ public class EditPhotoTest extends BaseWebTest {
     void deletePhoto(UserJson user) {
         final PhotoJson photo = user.getPhotos().get(0);
 
-        step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
+        step(OPEN_MAIN_PAGE_STEP, () -> Selenide.open(CFG.getFrontUrl()));
 
         YourTravelsPage yourTravelsPage = headerComponent
                 .checkThatComponentDisplayed()

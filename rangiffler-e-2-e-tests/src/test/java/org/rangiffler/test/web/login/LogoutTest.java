@@ -25,7 +25,7 @@ public class LogoutTest extends BaseWebTest {
     @Tag("WEB")
     @DisplayName("WEB: Пользователь должен получить иметь возможность выйти из системы")
     void logoutTest() {
-        step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
+        step(OPEN_MAIN_PAGE_STEP, () -> Selenide.open(CFG.getFrontUrl()));
         startPage = yourTravelsPage
                 .checkThatPageLoaded()
                 .getHeader()

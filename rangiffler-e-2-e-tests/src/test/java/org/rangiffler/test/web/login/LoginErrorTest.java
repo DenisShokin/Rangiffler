@@ -27,7 +27,7 @@ public class LoginErrorTest extends BaseWebTest {
 
     @BeforeEach
     void setUp() {
-        step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
+        step(OPEN_MAIN_PAGE_STEP, () -> Selenide.open(CFG.getFrontUrl()));
         startPage
                 .checkThatPageLoaded()
                 .goToLogin();

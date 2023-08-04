@@ -33,7 +33,7 @@ public class FriendsTravelsTest extends BaseWebTest {
         final UserJson friend = user.getFriends().get(0);
         final PhotoJson friendsPhoto = friend.getPhotos().get(0);
 
-        step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
+        step(OPEN_MAIN_PAGE_STEP, () -> Selenide.open(CFG.getFrontUrl()));
         FriendsTravelsPage friendsTravelsPage = headerComponent
                 .checkThatComponentDisplayed()
                 .checkPhotosCount(0)
@@ -51,7 +51,7 @@ public class FriendsTravelsTest extends BaseWebTest {
     @Tag("WEB")
     @DisplayName("WEB: Пользователь не видит список фото друзей если они не загружены")
     void checkFriendTravelWithoutPhotos() {
-        step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
+        step(OPEN_MAIN_PAGE_STEP, () -> Selenide.open(CFG.getFrontUrl()));
         FriendsTravelsPage friendsTravelsPage = headerComponent
                 .checkThatComponentDisplayed()
                 .checkFriendsCount(1)

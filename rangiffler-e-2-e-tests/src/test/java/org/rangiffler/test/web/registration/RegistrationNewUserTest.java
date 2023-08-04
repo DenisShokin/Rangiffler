@@ -30,7 +30,7 @@ public class RegistrationNewUserTest extends BaseWebTest {
     void setUp() {
         username = faker.name().username();
 
-        step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
+        step(OPEN_MAIN_PAGE_STEP, () -> Selenide.open(CFG.getFrontUrl()));
         startPage
                 .checkThatPageLoaded()
                 .goToRegister();

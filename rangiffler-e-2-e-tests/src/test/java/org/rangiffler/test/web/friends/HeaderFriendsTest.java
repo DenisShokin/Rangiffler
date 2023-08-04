@@ -30,7 +30,7 @@ public class HeaderFriendsTest extends BaseWebTest {
     void checkFriendsInHeader(UserJson user) {
         final UserJson friend = user.getFriends().get(0);
 
-        step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
+        step(OPEN_MAIN_PAGE_STEP, () -> Selenide.open(CFG.getFrontUrl()));
         FriendsPage friendsPage = headerComponent
                 .checkThatComponentDisplayed()
                 .checkFriendsCount(1)
@@ -46,7 +46,7 @@ public class HeaderFriendsTest extends BaseWebTest {
     @Tag("WEB")
     @DisplayName("WEB: Пользователь должен видеть сообщение в хедере при отсутствии друзей")
     void peopleWithoutFriends() {
-        step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
+        step(OPEN_MAIN_PAGE_STEP, () -> Selenide.open(CFG.getFrontUrl()));
 
         FriendsPage friendsPage = headerComponent
                 .checkThatComponentDisplayed()
@@ -66,7 +66,7 @@ public class HeaderFriendsTest extends BaseWebTest {
     void deleteFriend(UserJson user) {
         final UserJson friend = user.getFriends().get(0);
 
-        step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
+        step(OPEN_MAIN_PAGE_STEP, () -> Selenide.open(CFG.getFrontUrl()));
         FriendsPage friendsPage =
                 headerComponent
                 .checkThatComponentDisplayed()

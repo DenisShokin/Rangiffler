@@ -31,7 +31,7 @@ public class PeopleAroundTest extends BaseWebTest {
     void deleteFriendFromPeopleAroundPage(UserJson user) {
         final UserJson friend = user.getFriends().get(0);
 
-        step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
+        step(OPEN_MAIN_PAGE_STEP, () -> Selenide.open(CFG.getFrontUrl()));
         PeopleAroundPage peopleAroundPage = headerComponent
                 .checkThatComponentDisplayed()
                 .checkFriendsCount(1)
@@ -52,7 +52,7 @@ public class PeopleAroundTest extends BaseWebTest {
     void acceptInvitationTest(UserJson user) {
         final UserJson incomeUser = user.getIncomeInvitations().get(0);
 
-        step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
+        step(OPEN_MAIN_PAGE_STEP, () -> Selenide.open(CFG.getFrontUrl()));
         PeopleAroundPage peopleAroundPage = headerComponent
                 .checkThatComponentDisplayed()
                 .checkFriendsCount(0)
@@ -77,7 +77,7 @@ public class PeopleAroundTest extends BaseWebTest {
     void declineInvitationTest(UserJson user) {
         final UserJson incomeUser = user.getIncomeInvitations().get(0);
 
-        step("Открыть страницу", () -> Selenide.open(CFG.getFrontUrl()));
+        step(OPEN_MAIN_PAGE_STEP, () -> Selenide.open(CFG.getFrontUrl()));
         PeopleAroundPage peopleAroundPage = headerComponent
                 .checkThatComponentDisplayed()
                 .checkFriendsCount(0)
