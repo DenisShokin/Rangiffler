@@ -1,11 +1,9 @@
 package org.rangiffler.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Builder;
 import lombok.Data;
 import org.rangiffler.data.CountryEntity;
 
-import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
 @Data

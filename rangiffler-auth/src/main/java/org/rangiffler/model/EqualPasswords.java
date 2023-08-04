@@ -1,8 +1,8 @@
 package org.rangiffler.model;
 
-import org.rangiffler.service.EqualPasswordsValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
+import org.rangiffler.service.EqualPasswordsValidator;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

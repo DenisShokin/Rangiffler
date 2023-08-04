@@ -1,10 +1,10 @@
 package org.rangiffler.controller;
 
-import org.rangiffler.model.RegistrationModel;
-import org.rangiffler.service.UserService;
 import jakarta.annotation.Nonnull;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import org.rangiffler.model.RegistrationModel;
+import org.rangiffler.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

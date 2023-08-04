@@ -1,7 +1,6 @@
 package org.rangiffler.service.api;
 
 import org.rangiffler.model.CountryJson;
-import org.rangiffler.model.UserJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -11,7 +10,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class CountryService {

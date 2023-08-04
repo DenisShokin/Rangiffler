@@ -1,10 +1,10 @@
 package org.rangiffler.service;
 
+import jakarta.annotation.Nonnull;
 import org.rangiffler.data.Authority;
 import org.rangiffler.data.AuthorityEntity;
 import org.rangiffler.data.UserEntity;
 import org.rangiffler.data.repository.UserRepository;
-import jakarta.annotation.Nonnull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;

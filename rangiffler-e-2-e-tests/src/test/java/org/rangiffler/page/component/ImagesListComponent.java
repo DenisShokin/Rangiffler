@@ -6,8 +6,8 @@ import io.qameta.allure.Step;
 import org.rangiffler.condition.PhotoCondition;
 import org.rangiffler.condition.PhotosCondition;
 import org.rangiffler.model.PhotoJson;
-import org.rangiffler.page.PhotoPage;
 import org.rangiffler.page.BaseComponent;
+import org.rangiffler.page.PhotoPage;
 
 import static com.codeborne.selenide.Condition.hidden;
 import static com.codeborne.selenide.Condition.visible;
