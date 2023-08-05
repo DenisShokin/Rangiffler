@@ -22,7 +22,7 @@ public class CountryService {
         this.rangifflerGeoBaseUri = rangifflerGeoBaseUri;
     }
 
-    public UUID getCountryByCode(PhotoEntity entity) {
+    public UUID getCountryIdByCode(PhotoEntity entity) {
         String countryCode = entity.getCountry().getCode();
         CountryJson country;
         URI uri = UriComponentsBuilder.fromHttpUrl(rangifflerGeoBaseUri + "/countries/" + countryCode).build().toUri();
