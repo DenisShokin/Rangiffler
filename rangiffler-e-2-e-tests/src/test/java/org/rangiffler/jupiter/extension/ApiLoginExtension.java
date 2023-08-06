@@ -22,9 +22,6 @@ import java.util.Objects;
 import static org.apache.commons.lang3.ArrayUtils.isEmpty;
 
 public class ApiLoginExtension  implements BeforeEachCallback, AfterTestExecutionCallback {
-
-    public static ExtensionContext.Namespace NAMESPACE = ExtensionContext.Namespace
-            .create(ApiLoginExtension.class);
     private static final GenerateUserService generateUserService = new GenerateUserService();
 
     protected static final Config CFG = Config.getConfig();
@@ -37,7 +34,6 @@ public class ApiLoginExtension  implements BeforeEachCallback, AfterTestExecutio
         CookieContext.getInstance().release();
     }
 
-    @Step("Логин в rangiffler через api")
     @Override
     public void beforeEach(ExtensionContext context) {
         ApiLogin apiLogin = context.getRequiredTestMethod().getAnnotation(ApiLogin.class);
@@ -63,6 +59,7 @@ public class ApiLoginExtension  implements BeforeEachCallback, AfterTestExecutio
         }
     }
 
+    @Step("Логин в rangiffler через api")
     private void doLogin(String username, String password) {
         final SessionContext sessionContext = SessionContext.getInstance();
         final String codeVerifier = OauthUtils.generateCodeVerifier();
@@ -93,5 +90,4 @@ public class ApiLoginExtension  implements BeforeEachCallback, AfterTestExecutio
                 .requireNonNull(context.getRequiredTestMethod().getAnnotation(AllureId.class))
                 .value();
     }
-
 }

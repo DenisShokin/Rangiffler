@@ -1,5 +1,7 @@
 package org.rangiffler.api;
 
+import io.qameta.allure.Attachment;
+import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
 import org.rangiffler.model.CountryJson;
 
@@ -15,6 +17,8 @@ public class GeoRestClient extends BaseRestClient {
 
     private final GeoService geoService = retrofit.create(GeoService.class);
 
+    @Step("rangiffler-countries. Получить список стран")
+    @Attachment
     public @Nonnull List<CountryJson> getCountries() {
         try {
             return Objects.requireNonNull(geoService.getCountries().execute().body());
@@ -23,5 +27,4 @@ public class GeoRestClient extends BaseRestClient {
             return null;
         }
     }
-
 }

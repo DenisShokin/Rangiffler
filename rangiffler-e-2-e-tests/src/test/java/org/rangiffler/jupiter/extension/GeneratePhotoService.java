@@ -1,5 +1,7 @@
 package org.rangiffler.jupiter.extension;
 
+import io.qameta.allure.Allure;
+import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
 import org.rangiffler.api.GeoRestClient;
 import org.rangiffler.jupiter.annotation.GeneratePhoto;
@@ -31,7 +33,7 @@ public class GeneratePhotoService {
 
     public PhotoJson generatePhoto(@Nonnull GeneratePhoto annotation, String username) {
         PhotoJson photo = createRandomPhoto();
-        photo.setUsername(username);
+        Allure.step("Установить пользователя", () -> photo.setUsername(username));
         return photo;
     }
 
@@ -39,7 +41,8 @@ public class GeneratePhotoService {
         return createRandomPhoto();
     }
 
-    @Step("Создать путешествие")
+    @Step
+    @Attachment
     private PhotoJson createRandomPhoto() {
         PhotoJson photo = new PhotoJson();
         CountryJson country = new CountryJson();
@@ -58,5 +61,4 @@ public class GeneratePhotoService {
         photo.setCountryJson(country);
         return photo;
     }
-
 }

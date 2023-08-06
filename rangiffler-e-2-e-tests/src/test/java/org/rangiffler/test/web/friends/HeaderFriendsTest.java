@@ -5,9 +5,12 @@ import io.qameta.allure.AllureId;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.rangiffler.jupiter.annotation.ApiLogin;
 import org.rangiffler.jupiter.annotation.Friend;
 import org.rangiffler.jupiter.annotation.GenerateUser;
+import org.rangiffler.jupiter.extension.ApiLoginExtension;
+import org.rangiffler.jupiter.extension.GenerateUserExtension;
 import org.rangiffler.model.UserJson;
 import org.rangiffler.page.FriendsPage;
 import org.rangiffler.page.component.HeaderComponent;
@@ -15,7 +18,8 @@ import org.rangiffler.test.web.BaseWebTest;
 
 import static io.qameta.allure.Allure.step;
 
-@DisplayName("Header. Друзья")
+@DisplayName("[WEB] Header. Друзья")
+@ExtendWith({GenerateUserExtension.class, ApiLoginExtension.class})
 public class HeaderFriendsTest extends BaseWebTest {
 
     private HeaderComponent headerComponent = new HeaderComponent();

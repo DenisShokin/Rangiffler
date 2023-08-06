@@ -16,7 +16,7 @@ import org.rangiffler.test.web.BaseWebTest;
 
 import static io.qameta.allure.Allure.step;
 
-@DisplayName("Логин в систему")
+@DisplayName("[WEB] Логин в систему")
 @ExtendWith(GenerateUserAuthDataExtension.class)
 public class LoginNewUserTest extends BaseWebTest {
     private StartPage startPage = new StartPage();

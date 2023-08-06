@@ -33,11 +33,10 @@ public class PhotoRestTest extends BaseRestTest {
         photo.setUsername(user.getUsername());
         final PhotoJson created = photoRestClient.addPhoto(photo);
 
-        step("Проверить, что ответ содержит ID (GUID)", () -> assertTrue(created.getCountryJson().getId().toString().matches(ID_REGEXP))
+        step("Проверить, что ответ POST /photos содержит ID (GUID)", () -> assertTrue(created.getCountryJson().getId().toString().matches(ID_REGEXP))
         );
-        step("Проверить, что ответ содержит country ID из запроса", () -> assertEquals(photo.getCountryJson().getId(), created.getCountryJson().getId())
+        step("Проверить, что ответ POST /photos содержит country ID из запроса", () -> assertEquals(photo.getCountryJson().getId(), created.getCountryJson().getId())
         );
-
     }
 
 }

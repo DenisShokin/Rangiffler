@@ -1,5 +1,6 @@
 package org.rangiffler.api;
 
+import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
 import org.rangiffler.model.PhotoJson;
 
@@ -14,6 +15,7 @@ public class PhotoRestClient extends BaseRestClient {
 
     private final PhotoService photoService = retrofit.create(PhotoService.class);
 
+    @Step("rangiffler-photo. Добавить путешествие")
     public @Nonnull PhotoJson addPhoto(PhotoJson photo) {
         try {
             return Objects.requireNonNull(photoService.addPhoto(photo).execute().body());
@@ -22,5 +24,4 @@ public class PhotoRestClient extends BaseRestClient {
             return null;
         }
     }
-
 }

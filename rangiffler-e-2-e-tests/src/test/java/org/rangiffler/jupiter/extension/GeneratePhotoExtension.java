@@ -19,7 +19,7 @@ public class GeneratePhotoExtension implements BeforeEachCallback, ParameterReso
 
 
     @Override
-    public void beforeEach(ExtensionContext context) throws Exception {
+    public void beforeEach(ExtensionContext context) {
         GeneratePhoto annotation = context.getRequiredTestMethod()
                 .getAnnotation(GeneratePhoto.class);
 
@@ -44,5 +44,4 @@ public class GeneratePhotoExtension implements BeforeEachCallback, ParameterReso
                 .requireNonNull(context.getRequiredTestMethod().getAnnotation(AllureId.class))
                 .value();
     }
-
 }

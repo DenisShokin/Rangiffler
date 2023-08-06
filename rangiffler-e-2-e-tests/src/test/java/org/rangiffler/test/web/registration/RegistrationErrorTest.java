@@ -21,7 +21,7 @@ import java.util.stream.Stream;
 
 import static io.qameta.allure.Allure.step;
 
-@DisplayName("Регистрация. Негативные сценарии")
+@DisplayName("[WEB] Регистрация. Негативные сценарии")
 @ExtendWith(GenerateUserAuthDataExtension.class)
 public class RegistrationErrorTest extends BaseWebTest {
 

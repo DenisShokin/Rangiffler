@@ -17,7 +17,7 @@ import org.rangiffler.test.web.BaseWebTest;
 
 import static io.qameta.allure.Allure.step;
 
-@DisplayName("Логин в систему. Негативные сценарии")
+@DisplayName("[WEB] Логин в систему. Негативные сценарии")
 @ExtendWith(GenerateUserAuthDataExtension.class)
 public class LoginErrorTest extends BaseWebTest {
     private StartPage startPage = new StartPage();

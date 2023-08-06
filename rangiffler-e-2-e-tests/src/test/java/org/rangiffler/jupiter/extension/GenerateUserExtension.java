@@ -1,7 +1,6 @@
 package org.rangiffler.jupiter.extension;
 
 import io.qameta.allure.AllureId;
-import io.qameta.allure.Step;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ParameterContext;
@@ -20,7 +19,6 @@ public class GenerateUserExtension implements BeforeEachCallback, ParameterResol
     private static final GenerateUserService generateUserService = new GenerateUserService();
 
 
-    @Step("Создать тестового пользователя")
     @Override
     public void beforeEach(ExtensionContext context) {
         GenerateUser annotation = context.getRequiredTestMethod()

@@ -96,7 +96,7 @@ public class PhotoServiceTest {
         photoEntities.add(firstPhotoEntity);
 
         Mockito.when(photoRepository.findAllByUsername(firstUsername)).thenReturn(photoEntities);
-        Mockito.when(countryService.getCountryByCode(firstPhotoEntity)).thenReturn(UUID.randomUUID());
+        Mockito.when(countryService.getCountryIdByCode(firstPhotoEntity)).thenReturn(UUID.randomUUID());
 
         List<PhotoJson> result = photoService.getAllUserPhotos(firstUsername);
 
@@ -108,7 +108,7 @@ public class PhotoServiceTest {
     @Test
     public void addPhotoTest() {
         Mockito.when(photoRepository.save(Mockito.any(PhotoEntity.class))).thenReturn(firstPhotoEntity);
-        Mockito.when(countryService.getCountryByCode(firstPhotoEntity)).thenReturn(UUID.randomUUID());
+        Mockito.when(countryService.getCountryIdByCode(firstPhotoEntity)).thenReturn(UUID.randomUUID());
 
         PhotoJson result = photoService.addPhoto(firstPhotoJson);
 
@@ -152,7 +152,7 @@ public class PhotoServiceTest {
 
         Mockito.when(photoRepository.findById(firstPhotoEntity.getId())).thenReturn(Optional.of(firstPhotoEntity));
         Mockito.when(photoRepository.save(Mockito.any(PhotoEntity.class))).thenReturn(savedPhotoEntity);
-        Mockito.when(countryService.getCountryByCode(firstPhotoEntity)).thenReturn(UUID.randomUUID());
+        Mockito.when(countryService.getCountryIdByCode(firstPhotoEntity)).thenReturn(UUID.randomUUID());
 
         PhotoJson photoJson = firstPhotoJson;
         firstPhotoJson.setDescription(updateDescription);

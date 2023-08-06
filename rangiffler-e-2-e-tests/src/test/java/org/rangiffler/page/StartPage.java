@@ -17,6 +17,7 @@ public class StartPage extends BasePage<StartPage> {
     private final SelenideElement registerButton = $x("//a[text()='Register']");
 
     @Override
+    @Step("Проверить, что стартовая страница загрузилась")
     public StartPage checkThatPageLoaded() {
         header.shouldHave(text("Be like Rangiffler"));
         return this;

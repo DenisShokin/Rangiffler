@@ -6,11 +6,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.rangiffler.jupiter.annotation.ApiLogin;
 import org.rangiffler.jupiter.annotation.GeneratePhoto;
 import org.rangiffler.jupiter.annotation.GenerateUser;
+import org.rangiffler.jupiter.extension.ApiLoginExtension;
+import org.rangiffler.jupiter.extension.GenerateUserExtension;
 import org.rangiffler.model.CountryJson;
 import org.rangiffler.model.PhotoJson;
 import org.rangiffler.model.UserJson;
@@ -22,7 +25,8 @@ import org.rangiffler.utils.ImageUtils;
 
 import static io.qameta.allure.Allure.step;
 
-@DisplayName("Ваши путешествия (Your travels). Добавление")
+@DisplayName("[WEB] Ваши путешествия (Your travels). Добавление")
+@ExtendWith({GenerateUserExtension.class, ApiLoginExtension.class})
 public class AddPhotoTest extends BaseWebTest {
 
     private HeaderComponent headerComponent = new HeaderComponent();
@@ -78,7 +82,7 @@ public class AddPhotoTest extends BaseWebTest {
     @AllureId("802")
     @Test
     @Tag("WEB")
-    @DisplayName("WEB: Путешествие не сохраняется без подверждения")
+    @DisplayName("WEB: Путешествие не сохраняется без подтверждения")
     void addPhotoWithoutClickSave() {
         photo.setPhoto(ImageUtils.getDataURI(IMAGE_PATH));
 
@@ -155,6 +159,5 @@ public class AddPhotoTest extends BaseWebTest {
                 .selectCountry(photo.getCountryJson())
                 .saveButtonIsDisable();
     }
-
 
 }

@@ -17,7 +17,7 @@ import org.rangiffler.test.web.BaseWebTest;
 
 import static io.qameta.allure.Allure.step;
 
-@DisplayName("Регистрация")
+@DisplayName("[WEB] Регистрация")
 public class RegistrationNewUserTest extends BaseWebTest {
     private StartPage startPage = new StartPage();
     private RegistrationPage registrationPage = new RegistrationPage();

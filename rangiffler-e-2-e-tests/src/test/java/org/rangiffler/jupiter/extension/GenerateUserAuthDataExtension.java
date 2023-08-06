@@ -2,6 +2,8 @@ package org.rangiffler.jupiter.extension;
 
 import com.github.javafaker.Faker;
 import io.qameta.allure.AllureId;
+import io.qameta.allure.Attachment;
+import io.qameta.allure.Step;
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -42,27 +44,8 @@ public class GenerateUserAuthDataExtension implements BeforeEachCallback, AfterT
                 .getAnnotation(GenerateUserAuthData.class);
 
         if (annotation != null) {
-            RangifflerUsersDAO usersDAO = new RangifflerUsersDAOHibernate();
-
-            String username = annotation.username().isEmpty() ? faker.name().username() : annotation.username();
-
-            UserEntity user = new UserEntity();
-            user.setUsername(username);
-            user.setPassword(annotation.password());
-            user.setEnabled(annotation.enabled());
-            user.setAccountNonExpired(annotation.accountNonExpired());
-            user.setAccountNonLocked(annotation.accountNonLocked());
-            user.setCredentialsNonExpired(annotation.credentialsNonExpired());
-            user.setAuthorities(Arrays.stream(Authority.values()).map(
-                    a -> {
-                        AuthorityEntity ae = new AuthorityEntity();
-                        ae.setAuthority(a);
-                        ae.setUser(user);
-                        return ae;
-                    }
-            ).toList());
-            usersDAO.createUser(user);
-            context.getStore(NAMESPACE).put(testId, user);
+            UserEntity userEntity = createAuthUser(annotation);
+            context.getStore(NAMESPACE).put(testId, userEntity);
         }
     }
 
@@ -80,5 +63,31 @@ public class GenerateUserAuthDataExtension implements BeforeEachCallback, AfterT
         return Objects
                 .requireNonNull(context.getRequiredTestMethod().getAnnotation(AllureId.class))
                 .value();
+    }
+
+    @Step
+    @Attachment
+    private UserEntity createAuthUser(GenerateUserAuthData annotation) {
+        RangifflerUsersDAO usersDAO = new RangifflerUsersDAOHibernate();
+
+        String username = annotation.username().isEmpty() ? faker.name().username() : annotation.username();
+
+        UserEntity user = new UserEntity();
+        user.setUsername(username);
+        user.setPassword(annotation.password());
+        user.setEnabled(annotation.enabled());
+        user.setAccountNonExpired(annotation.accountNonExpired());
+        user.setAccountNonLocked(annotation.accountNonLocked());
+        user.setCredentialsNonExpired(annotation.credentialsNonExpired());
+        user.setAuthorities(Arrays.stream(Authority.values()).map(
+                a -> {
+                    AuthorityEntity ae = new AuthorityEntity();
+                    ae.setAuthority(a);
+                    ae.setUser(user);
+                    return ae;
+                }
+        ).toList());
+        usersDAO.createUser(user);
+        return user;
     }
 }

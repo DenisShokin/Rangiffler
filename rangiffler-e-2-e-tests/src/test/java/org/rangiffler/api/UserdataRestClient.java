@@ -1,5 +1,6 @@
 package org.rangiffler.api;
 
+import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
 import org.rangiffler.model.UserJson;
 
@@ -44,6 +45,7 @@ public class UserdataRestClient extends BaseRestClient {
         }
     }
 
+    @Step("rangiffler-users. Получить всех пользователей")
     public @Nonnull List<UserJson> getAllUsers(String username) {
         try {
             return Objects.requireNonNull(userdataService.getAllUsers(username).execute().body());

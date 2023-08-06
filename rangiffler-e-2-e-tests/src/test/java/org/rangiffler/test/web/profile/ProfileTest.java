@@ -6,8 +6,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.rangiffler.jupiter.annotation.ApiLogin;
 import org.rangiffler.jupiter.annotation.GenerateUser;
+import org.rangiffler.jupiter.extension.ApiLoginExtension;
+import org.rangiffler.jupiter.extension.GenerateUserExtension;
 import org.rangiffler.model.UserJson;
 import org.rangiffler.page.ProfilePage;
 import org.rangiffler.page.YourTravelsPage;
@@ -15,7 +18,8 @@ import org.rangiffler.test.web.BaseWebTest;
 
 import static io.qameta.allure.Allure.step;
 
-@DisplayName("Обновление профиля")
+@DisplayName("[WEB] Обновление профиля")
+@ExtendWith({GenerateUserExtension.class, ApiLoginExtension.class})
 public class ProfileTest extends BaseWebTest {
 
     private YourTravelsPage yourTravelsPage = new YourTravelsPage();
