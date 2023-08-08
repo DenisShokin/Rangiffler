@@ -5,6 +5,7 @@ services:
     container_name: rangiffler-all-db
     image: postgres:15.1
     environment:
+      - POSTGRES_MULTIPLE_DATABASES="rangiffler-auth","rangiffler-geo","rangiffler-photo","rangiffler-userdata"
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=secret
     healthcheck:
@@ -17,7 +18,7 @@ services:
     expose:
       - "5432"
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - ./postgres:/docker-entrypoint-initdb.d
     restart: always
     networks:
       - rangiffler-network

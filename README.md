@@ -143,40 +143,24 @@ docker -v
 Docker version 20.10.14, build a224086
 ```
 
-#### 2. Создать volume для сохранения данных из БД в docker на вашем компьютере
-
-```posh
-docker volume create pgdata
-```
-#### 3. Прописать в etc/hosts элиас для Docker-имени
+#### 2. Прописать в etc/hosts элиас для Docker-имени
 ```
 frontend:  127.0.0.1 client.rangiffler.dc
 auth:      127.0.0.1 auth.rangiffler.dc
 gateway:   127.0.0.1 gateway.rangiffler.dc
 ```
-#### 4. Перейти в корневой каталог проекта
+#### 3. Перейти в корневой каталог проекта
 
 ```posh
 cd rangiffler
 ```
 
-#### 5. Запустить все сервисы:
+#### 4. Запустить все сервисы:
 
 ```posh
 bash docker-compose-dev.sh
 ```
 
-#### 6. Подключиться к контейнеру rangiffler-all-db
-Для создания баз данных для микросервисов выполнить скрипты в терминале:
-```
-psql -U postgres -c "CREATE DATABASE \"rangiffler-auth"\"
-    
-psql -U postgres -c "CREATE DATABASE \"rangiffler-geo"\"
-    
-psql -U postgres -c "CREATE DATABASE \"rangiffler-photo"\"
-    
-psql -U postgres -c "CREATE DATABASE \"rangiffler-userdata"\"
-```
 Дождаться старта всех контейнеров rangiffler-*
 
 Rangiffler при запуске в докере доступен по адресу http://client.rangiffler.dc/
