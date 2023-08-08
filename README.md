@@ -31,7 +31,10 @@
 <hr>
 
 ###  Минимальные предусловия для работы с проектом Rangiffler:
-#### 1. Установить PostgresSQL Server
+#### 1. Установить PostgresSQL Server:
+[Установка на Windows](https://commandprompt.com/education/how-to-download-and-install-postgresql/)
+
+[Установка на Mac](https://www.geeksforgeeks.org/install-postgresql-on-mac/)
 #### 2. Установить одну из программ для визуальной работы с Postgres. 
 Например, PgAdmin 4.
 #### 3.Подключиться к БД postgres (host: localhost, port: 5432, user: postgres, pass: secret, database name: postgres) из PgAdmin и создать пустые БД микросервисов
