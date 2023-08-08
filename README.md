@@ -101,6 +101,13 @@ dshokin rangiffler-auth % gradle bootRun --args='--spring.profiles.active=local'
 
 ## ![](readme/img/testing.png) Запуск e2e тестов локально
 Для Rangiffler реализованы e-2-e тесты, покрывающие основные сценарии работы с приложением.
+
+> **Внимание!** <br>
+> Для корректного выполнения тестов необходимо установить RU-локаль в системе: <br>
+> [Инструкция Windows](https://answers.microsoft.com/en-us/surface/forum/all/how-to-change-system-locale-in-windows-10-the/d7826ef0-13cd-43ea-8e01-2846d813dfed)<br>
+> [Инструкция Mac](https://support.apple.com/ru-ru/guide/mac-help/mh26684/mac)
+
+
 #### 1. Для запуска тестов Rangiffler, необходимо перейти в соответствующий каталог
 
 ```posh
